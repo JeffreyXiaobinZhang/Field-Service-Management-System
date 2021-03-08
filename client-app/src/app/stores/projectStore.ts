@@ -10,6 +10,8 @@ import { IWarehouseLog as IWarehouseLog } from '../models/warehouselog';
 import { toast } from 'react-toastify';
 import { ISORList } from '../models/sorlist';
 import { IProjectStock as IProjectStock } from '../models/projectstock';
+import {IProjectVendor} from '../models/projectvendor';
+import { IThirdparty } from '../models/thirdparty';
 
 import agent from '../api/agent';
 
@@ -37,6 +39,11 @@ class ProjectStore {
   @observable projectstockRegistry = new Map();
   @observable projectstock: IProjectStock | null = null;
   @observable warehouseRegistry = new Map();
+  @observable projectvendorRegistry = new Map();
+  @observable projectvendor: IProjectVendor | null = null;
+  @observable selectedProjectVendor: IProjectVendor | undefined;
+  @observable thirdRegistry = new Map();
+  @observable thirdparty: IThirdparty | null = null;
   @observable loadingInitial = false;
   @observable submitting = false;
   @observable target = '';
@@ -96,6 +103,18 @@ class ProjectStore {
     return Array.from(this.warehouseRegistry.values()).sort(
       (a, b) => a.partNo.localeCompare(b.partNo))
     ;
+  }
+
+  @computed get projectvendorsByName() {
+    return Array.from(this.projectvendorRegistry.values()).sort(
+      (a, b) => a.companyName - b.companyName
+    );
+  }
+
+  @computed get ThirdPartiesByName() {
+    return Array.from(this.thirdRegistry.values()).sort(
+      (a, b) => Date.parse(a.companyName) - Date.parse(b.companyName)
+    );
   }
 
   @action loadProjects = async () => {
@@ -652,6 +671,112 @@ class ProjectStore {
       this.loadingInitial = false;
     })
     toast.error('load Warehouse List error');
+  }
+};
+
+@action loadProjectVendors = async (projectId: string) => {
+  // this.loadingInitial = true;
+  // this.reload = false;
+  try {
+    const projectvendors = await agent.ProjectVendors.list(projectId);
+    this.projectvendorRegistry.clear();
+    runInAction('loading vendors', () => {
+      projectvendors.forEach(projectvendor => {
+        this.projectvendorRegistry.set(projectvendor.id, projectvendor);
+      });
+      // this.loadingInitial = false;
+      // this.reload = true;
+    })
+
+  } catch (error) {
+    runInAction('load vendors error', () => {
+      // this.loadingInitial = false;
+    })
+  }
+}
+
+@action createProjectVendor = async (projectvendor: IProjectVendor) => {
+  this.submitting = true;
+  try {
+   // project.createdAt = new Date().toISOString();
+   // project.updatedAt = new Date().toISOString();
+   projectvendor.createdAt = new Date().toJSON();
+   projectvendor.updatedAt = new Date().toJSON();
+
+    await agent.ProjectVendors.create(projectvendor);
+    runInAction('create project vendor', () => {
+      this.submitting = false;
+    })
+  } catch (error) {
+    runInAction('create project vendor error', () => {
+      this.submitting = false;
+    })
+    console.log(error);
+  }
+};
+
+@action deleteProjectVendor = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  this.submitting = true;
+  this.reload = false;
+  this.target = event.currentTarget.name;
+  try {
+    await agent.ProjectVendors.delete(id);
+    runInAction('deleting project vendor', () => {
+      this.projectvendorRegistry.delete(id);
+      this.tasktechnicianRegistry.clear();
+      this.submitting = false;
+      this.reload = true;
+      this.target = '';
+    })
+  } catch (error) {
+    runInAction('delete project vendor error', () => {
+      this.submitting = false;
+      this.target = '';
+    })
+    console.log(error);
+  }
+}
+
+@action editProjectVendor = async (projectvendor: IProjectVendor) => {
+  this.submitting = true;
+  try {
+    await agent.ProjectVendors.update(projectvendor);
+    runInAction('editing project vendor', () => {
+      this.projectvendorRegistry.set(projectvendor.id, projectvendor);
+      this.projectvendor = projectvendor;
+      this.editMode = false;
+      this.submitting = false;
+    })
+
+  } catch (error) {
+    runInAction('edit project error', () => {
+      this.submitting = false;
+    })
+    console.log(error);
+  }
+};
+
+@action selectProjectVendor = (id: string) => {
+  this.selectedProjectVendor = this.projectvendorRegistry.get(id);
+  this.editMode = true;
+};
+
+@action loadThirdParties = async () => {
+  this.loadingInitial = true;
+  try {
+    const thirdparties = await agent.ThirdParties.list();
+    this.thirdRegistry.clear();
+    runInAction('loading ThirdParties', () => {
+      thirdparties.forEach(thirdparty => {
+        this.thirdRegistry.set(thirdparty.companyName, thirdparty);
+      });
+      this.loadingInitial = false;
+    })
+
+  } catch (error) {
+    runInAction('load ThirdParties List error', () => {
+      this.loadingInitial = false;
+    })
   }
 };
 

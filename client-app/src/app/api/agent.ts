@@ -13,6 +13,8 @@ import { IWarehouseLog } from '../models/warehouselog';
 import { IProjectStock } from '../models/projectstock';
 import { ICertificate } from '../models/certificate';
 import { ITechnicianCertificate } from '../models/techniciancertificate';
+import {IThirdparty} from '../models/thirdparty';
+import {IProjectVendor} from '../models/projectvendor';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -153,6 +155,22 @@ const TechnicianCertificates = {
     delete: (id: string) => requests.del(`/techniciancertificates/${id}`)
 }
 
+const ThirdParties = {
+    list: (): Promise<IThirdparty[]> => requests.get('/ThirdParties'),
+    details: (name: string) => requests.get(`/ThirdParties/${name}}`),
+    create: (thirdparty: IThirdparty) => requests.post('/ThirdParties', thirdparty),
+    update: (thirdparty: IThirdparty) => requests.put(`/ThirdParties/${thirdparty.companyName}`, thirdparty),
+    delete: (name: string) => requests.del(`/ThirdParties/${name}`)
+}
+
+const ProjectVendors = {
+    list: (projectId: string): Promise<IProjectVendor[]> => requests.get(`/projectvendors/${projectId}`),
+    details: (id: string) => requests.get(`/projectvendors/${id}`),
+    create: (projectvendor: IProjectVendor) => requests.post('/projectvendors', projectvendor),
+    update: (projectvendor: IProjectVendor) => requests.put(`/projectvendors/${projectvendor.id}`, projectvendor),
+    delete: (id: string) => requests.del(`/projectvendors/${id}`)
+}
+
 export default {
     Projects,
     SORLists,
@@ -166,4 +184,6 @@ export default {
     ProjectStocks,
     Certificates,
     TechnicianCertificates,
+    ThirdParties,
+    ProjectVendors,
 }

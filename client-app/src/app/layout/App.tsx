@@ -37,6 +37,11 @@ import TechnicianCertificateDashboard from '../../frontpages/hrmanagement/techni
 import TechnicianCertificateEditForm from '../../frontpages/hrmanagement/techniciancertificates/TechnicianCertificateEditForm';
 import TechnicianCertificateDetails from '../../frontpages/hrmanagement/techniciancertificates/TechnicianCertificateDetails';
 import TechnicianCertificateCreateForm from '../../frontpages/hrmanagement/techniciancertificates/TechnicianCertificateCreateForm';
+import Thirdlist from '../../frontpages/dailymanagement/third/Thirdlist';
+import Thirddetail from '../../frontpages/dailymanagement/third/Thirddetail';
+import Thirdedit from '../../frontpages/dailymanagement/third/Thirdedit';
+import Thirdadd from '../../frontpages/dailymanagement/third/Thirdadd';
+
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
 
@@ -66,6 +71,11 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route path='/dailymanagement/invoice/:id' component={InvoiceDetails} />
               <Route path='/dailymanagement/invoice-create' component={InvoiceCreateForm} />
               <Route path='/dailymanagement/invoice-edit/:id' component={InvoiceEditForm} />
+
+              <Route exact path='/dailymanagement/third' component={Thirdlist} />
+              <Route path='/dailymanagement/third/:name' component={Thirddetail} />
+              <Route path='/dailymanagement/third-edit/:name' component={Thirdedit} />
+              <Route path='/dailymanagement/thirdAdd/' component={Thirdadd} />
             </Container>
           </Fragment>
         )}        

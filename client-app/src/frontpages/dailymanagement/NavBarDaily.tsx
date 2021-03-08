@@ -27,11 +27,7 @@ const NavBarDaily: React.FC = () => {
          <Dropdown.Item  text='Check Warehouse Items' icon='write'/>
         </Dropdown.Menu>
         </Dropdown>
-        <Dropdown simple item text='Third Party'>
-        <Dropdown.Menu>
-         <Dropdown.Item  text='Check Warehouse Items' icon='write'/>
-        </Dropdown.Menu>
-        </Dropdown>
+        <Menu.Item as={NavLink} to='/dailymanagement/third'>Third Party</Menu.Item>
         <Dropdown item text='SOR'>
         <Dropdown.Menu>
          <Dropdown.Item as={NavLink} to='/dailymanagement/sorlist' text='Query SOR' icon='edit'/>

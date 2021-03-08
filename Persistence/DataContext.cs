@@ -22,6 +22,8 @@ namespace Persistence
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<TechnicianCertificate> TechnicianCertificates { get; set; }
+        public DbSet<ThirdParty> ThirdParties { get; set; }
+        public DbSet<ProjectVendor> ProjectVendors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,6 +32,9 @@ namespace Persistence
 
             builder.Entity<ProjectStock>()
                 .HasKey(c => new { c.ProjectId, c.PartNo });
+
+            builder.Entity<ThirdParty>()
+                .HasKey(c => new { c.CompanyName });
         }
     }
 }

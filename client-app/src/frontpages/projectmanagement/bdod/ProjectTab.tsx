@@ -5,6 +5,7 @@ import AssignmentTab from './AssignmentTab';
 import ProjectLogTab from './ProjectLogTab';
 import WarehouseTab from './WarehouseTab';
 import ProjectStore from '../../../app/stores/projectStore';
+import VendorTab from './VendorTab';
 
 
 
@@ -17,7 +18,7 @@ const panes = [
    { menuItem: 'SOR', render: () => <SORTab /> },
    { menuItem: 'Assignment', render: () => <AssignmentTab/> },
    { menuItem: 'Material', render: () => <WarehouseTab/> },
-   { menuItem: 'Third Party', render: () => <Tab.Pane>Third Party Content</Tab.Pane> },
+   { menuItem: 'Third Party', render: () => <VendorTab /> },
    { menuItem: 'Log', render: () => <ProjectLogTab/> }
 ];
 
