@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain;
@@ -9,21 +10,38 @@ namespace Application.TechnicianCertificates
 {
     public class Create
     {
-        public class Command : IRequest<TechnicianCertificateName>
+        public class Insert : IRequest
         {
-            //      public int Id { get; set; }
-            public DateTime CreatedAt { get; set; }
-            public DateTime UpdatedAt { get; set; }
-            public int TechnicianId { get; set; }
-            public int CertificateId { get; set; }
-            public DateTime? ExpiryDate { get; set; }
-            public string Remark { get; set; }
-            public string Name { get; set; }
-            public string Certificate { get; set; }
+            public Insert(TechnicianCertificate[] techcert)
+            {
+                TechCert = new TechnicianCertificate[techcert.Length];
+                for (int i = 0; i < techcert.Length; i++)
+                {
+                    TechCert[i] = new TechnicianCertificate 
+                    {
+                        TechnicianId = techcert[i].TechnicianId,
+                    CertificateId = techcert[i].CertificateId,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
 
+                    ExpiryDate = techcert[i].ExpiryDate,
+                    Remark = techcert[i].Remark,
+                };
+            /*        TechCert[i].TechnicianId = techcert[i].TechnicianId;
+                    TechCert[i].CertificateId = techcert[i].CertificateId;
+                    TechCert[i].CreatedAt = DateTime.Now;
+                    TechCert[i].UpdatedAt = DateTime.Now;
+                    
+                    TechCert[i].ExpiryDate = techcert[i].ExpiryDate;
+                    TechCert[i].Remark = techcert[i].Remark; */
+                }
+
+            }
+
+            public TechnicianCertificate[] TechCert { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command, TechnicianCertificateName>
+        public class Handler : IRequestHandler<Insert>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -31,41 +49,31 @@ namespace Application.TechnicianCertificates
                 _context = context;
             }
 
-            public async Task<TechnicianCertificateName> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(Insert request, CancellationToken cancellationToken)
             {
-                var techniciancertificate = new TechnicianCertificate
+                int length = request.TechCert.Length;
+                List<TechnicianCertificate> techniciancertificate = new List<TechnicianCertificate>();
+                for (int i = 0; i < length; i++)
                 {
-                    //        Id = request.Id,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    TechnicianId = request.TechnicianId,
-                    CertificateId = request.CertificateId,
-                    ExpiryDate = request.ExpiryDate,
-                    Remark = request.Remark,
-                };
+                    techniciancertificate.Add(new TechnicianCertificate
+                    {
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        TechnicianId = request.TechCert[i].TechnicianId,
+                        CertificateId = request.TechCert[i].CertificateId,
+                        ExpiryDate = request.TechCert[i].ExpiryDate,
+                        Remark = request.TechCert[i].Remark,
+                    });
+                }
 
-                var technician = await _context.Technicians.FindAsync(request.TechnicianId);
-                var certificate = await _context.Certificates.FindAsync(request.CertificateId);
+                _context.TechnicianCertificates.AddRange(techniciancertificate);
 
-                _context.TechnicianCertificates.Add(techniciancertificate);
                 var success = await _context.SaveChangesAsync() > 0;
 
-                var techniciancertificatename = new TechnicianCertificateName
-                {
-                    //        Id = request.Id,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    TechnicianId = request.TechnicianId,
-                    CertificateId = request.CertificateId,
-                    ExpiryDate = request.ExpiryDate,
-                    Remark = request.Remark,
-                    Name = technician.Name,
-                    Certificate = certificate.Name,
-                };
-
-                if (success) return techniciancertificatename;
+                if (success) return Unit.Value;
 
                 throw new Exception("Problem saving changes");
+
             }
         }
     }

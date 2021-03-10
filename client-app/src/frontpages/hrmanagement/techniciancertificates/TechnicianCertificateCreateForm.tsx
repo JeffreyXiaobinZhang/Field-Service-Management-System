@@ -1,7 +1,8 @@
 import React, { useState, FormEvent, useContext, useEffect } from 'react';
-import { Segment, Form, Button } from 'semantic-ui-react';
+import { Segment, Form, Button, Grid, Modal } from 'semantic-ui-react';
 import { ITechnicianCertificate } from '../../../app/models/techniciancertificate';
 import TechnicianCertificateStore from '../../../app/stores/techniciancertificateStore';
+import ModalStore from '../../../app/stores/modalStore';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps } from 'react-router';
 
@@ -11,6 +12,7 @@ const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
   history
 }) => {
   const techniciancertificateStore = useContext(TechnicianCertificateStore);
+  const modalStore = useContext(ModalStore);
   const {
     createTechnicianCertificate,
     editTechnicianCertificate,
@@ -24,20 +26,23 @@ const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
     clearTechnicianCertificate
   } = techniciancertificateStore;
 
+  const {
+    openModal
+  } = modalStore;
+
   useEffect(() => {
     loadTechnicians();
     loadCertificates();
   }, []);
 
-  const [techniciancertificate, setTechnicianCertificate] = useState<ITechnicianCertificate>({
-    id: '',
-    createdAt: '',
-    updatedAt: '',
+  const [technician, setTechnician] = useState({
     technicianId: '',
-    certificateId: '',
-    expiryDate: '',
     remark: ''
   });
+  const [open, setOpen] = React.useState(true)
+  const [certchecked, setCertificateChecked] = useState(new Map());
+
+  const [expirydate, setExpiryDate] = useState(new Map());
 
   const technicianOptions = techniciansByName.map(function (tech) {
     var option = { "key": tech.id, "text": tech.name, "value": tech.id }
@@ -45,14 +50,30 @@ const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
   }
   );
 
-  const certificateOptions = certificatesByName.map(function (cert) {
-    var option = { "key": cert.id, "text": cert.name, "value": cert.id }
-    return option;
-  }
-  );
-
   const handleSubmit = () => {
-    createTechnicianCertificate(techniciancertificate).then(() => history.push(`/hrmanagement/techniciancertificate`));
+    let techniciancert: ITechnicianCertificate[] = new Array();
+    certificatesByName.map(cert => {
+      let techniciancertificate: ITechnicianCertificate =
+    {
+      id : '0',
+      createdAt: '',
+      updatedAt: '',
+      technicianId: technician.technicianId,
+      certificateId: '',
+      expiryDate: '',
+      remark: technician.remark
+    };
+      const selectcertificate = certchecked.get(cert.id);
+      if (selectcertificate === true)
+      {
+        techniciancertificate.certificateId = cert.id;
+        techniciancertificate.expiryDate = expirydate.get(cert.id);
+        techniciancert.push(techniciancertificate);
+      };
+      
+    })
+    if(techniciancert.length !== 0) 
+    createTechnicianCertificate(techniciancert).then(() => history.push(`/hrmanagement/techniciancertificate`));
   };
 
 
@@ -60,7 +81,7 @@ const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
     event: FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.currentTarget;
-    setTechnicianCertificate({ ...techniciancertificate, [name]: value });
+    setTechnician({ ...technician, [name]: value });
   };
 
   return (
@@ -69,38 +90,160 @@ const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
         <Form.Select
           label='Name'
           required
-          onChange={(e, { name, value }) => setTechnicianCertificate({ ...techniciancertificate, [name]: value })}
+          onChange={(e, { name, value }) => setTechnician({ ...technician, [name]: value })}
           options={technicianOptions}
           search
           name='technicianId'
           placeholder='Name'
-          value={techniciancertificate.technicianId}
+          value={technician.technicianId}
         />
-        <Form.Select
-          label='Certificate'
-          required
-          onChange={(e, { name, value }) => setTechnicianCertificate({ ...techniciancertificate, [name]: value })}
-          options={certificateOptions}
-          search
-          name='certificateId'
-          placeholder='Certificate'
-          value={techniciancertificate.certificateId}
-        />
-
-        <Form.Input
-          label='Expiry Date'
-          onChange={handleInputChange}
-          name='expiryDate'
-          type='date'
-          placeholder='Expiry Date'
-          value={techniciancertificate.expiryDate}
-        />
+        <Grid>
+        <Grid.Column width={5} as={Segment}>
+         <h5> Enable Skill: </h5>
+        {certificatesByName.map(certificate => (
+          (certificate.category === 'Enable Skill') && <Form.Checkbox
+            label={certificate.name}
+            checked={certchecked.get(certificate.id)}
+            onChange={(e, { checked }) => {
+              setCertificateChecked(certchecked => certchecked.set(certificate.id, checked)); 
+              if (certchecked.get(certificate.id) === undefined || certchecked.get(certificate.id)===true)
+              openModal(
+                <Form.Input
+                  label='Expiry Date'
+                  onChange={(e, { value }) => setExpiryDate(expirydate => expirydate.set(certificate.id, value))}
+                  name='expiryDate'
+                  type='date'
+                  placeholder='Expiry Date'
+                />
+              )
+            }}
+            name={certificate.id}
+          />
+        ))}
+        </Grid.Column>
+        
+        <Grid.Column width={2} as={Segment}>
+        <h5> Soft Skill: </h5>
+        {certificatesByName.map(certificate => (
+          (certificate.category === 'Soft Skill') && <Form.Checkbox
+            label={certificate.name}
+            checked={certchecked.get(certificate.id)}
+            onChange={(e, { checked }) => {
+              setCertificateChecked(certchecked => certchecked.set(certificate.id, checked)); 
+              if (certchecked.get(certificate.id) === undefined || certchecked.get(certificate.id)===true)
+              openModal(
+                <Form.Input
+                  label='Expiry Date'
+                  onChange={(e, { value }) => setExpiryDate(expirydate => expirydate.set(certificate.id, value))}
+                  name='expiryDate'
+                  type='date'
+                  placeholder='Expiry Date'
+                />
+              )
+            }}
+            name={certificate.id}
+          />
+        ))}
+        </Grid.Column>
+        <Grid.Column width={2} as={Segment}>
+        <h5> Induction:</h5>
+        {certificatesByName.map(certificate => (
+          (certificate.category === 'Induction') && <Form.Checkbox
+            label={certificate.name}
+            checked={certchecked.get(certificate.id)}
+            onChange={(e, { checked }) => {
+              setCertificateChecked(certchecked => certchecked.set(certificate.id, checked)); 
+              if (certchecked.get(certificate.id) === undefined || certchecked.get(certificate.id)===true)
+              openModal(
+                <Form.Input
+                  label='Expiry Date'
+                  onChange={(e, { value }) => setExpiryDate(expirydate => expirydate.set(certificate.id, value))}
+                  name='expiryDate'
+                  type='date'
+                  placeholder='Expiry Date'
+                />
+              )
+            }}
+            name={certificate.id}
+          />
+        ))}
+        </Grid.Column>
+        <Grid.Column width={2} as={Segment}>
+        <h5>  License: </h5>
+        {certificatesByName.map(certificate => (
+          (certificate.category === 'License') && <Form.Checkbox
+            label={certificate.name}
+            checked={certchecked.get(certificate.id)}
+            onChange={(e, { checked }) => {
+              setCertificateChecked(certchecked => certchecked.set(certificate.id, checked)); 
+              if (certchecked.get(certificate.id) === undefined || certchecked.get(certificate.id)===true)
+              openModal(
+                <Form.Input
+                  label='Expiry Date'
+                  onChange={(e, { value }) => setExpiryDate(expirydate => expirydate.set(certificate.id, value))}
+                  name='expiryDate'
+                  type='date'
+                  placeholder='Expiry Date'
+                />
+              )
+            }}
+            name={certificate.id}
+          />
+        ))}
+        </Grid.Column>
+        <Grid.Column width={3} as={Segment}>
+        <h5> Certificate: </h5>
+        {certificatesByName.map(certificate => (
+          (certificate.category === 'Certificate') && <Form.Checkbox
+            label={certificate.name}
+            checked={certchecked.get(certificate.id)}
+            onChange={(e, { checked }) => {
+              setCertificateChecked(certchecked => certchecked.set(certificate.id, checked)); 
+              if (certchecked.get(certificate.id) === undefined || certchecked.get(certificate.id)===true)
+              openModal(
+                <Form.Input
+                  label='Expiry Date'
+                  onChange={(e, { value }) => setExpiryDate(expirydate => expirydate.set(certificate.id, value))}
+                  name='expiryDate'
+                  type='date'
+                  placeholder='Expiry Date'
+                />
+              )
+            }}
+            name={certificate.id}
+          />
+        ))}
+        </Grid.Column>
+        <Grid.Column width={2} as={Segment}>
+        <h5>  Police Check: </h5>
+        {certificatesByName.map(certificate => (
+          (certificate.category === 'Police Check') && <Form.Checkbox
+            label={certificate.name}
+            checked={certchecked.get(certificate.id)}
+            onChange={(e, { checked }) => {
+              setCertificateChecked(certchecked => certchecked.set(certificate.id, checked)); 
+              if (certchecked.get(certificate.id) === undefined || certchecked.get(certificate.id)===true)
+              openModal(
+                <Form.Input
+                  label='Expiry Date'
+                  onChange={(e, { value }) => setExpiryDate(expirydate => expirydate.set(certificate.id, value))}
+                  name='expiryDate'
+                  type='date'
+                  placeholder='Expiry Date'
+                />
+              )
+            }}
+            name={certificate.id}
+          />
+        ))}
+        </Grid.Column>
+        </Grid>
         <Form.Input
           label='Remark'
           onChange={handleInputChange}
           name='remark'
           placeholder='Remark'
-          value={techniciancertificate.remark}
+          value={technician.remark}
         />
         <Button
           loading={submitting}

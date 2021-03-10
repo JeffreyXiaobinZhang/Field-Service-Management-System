@@ -150,7 +150,8 @@ const TechnicianCertificates = {
     search: (params: URLSearchParams): Promise<ITechnicianCertificate[]> =>
     axios.get('/techniciancertificates', {params: params}).then(responseBody),
     details: (id: string) => requests.get(`/techniciancertificates/${id}`),
-    create: (techniciancertificate: ITechnicianCertificate) => requests.post('/techniciancertificates', techniciancertificate),
+    // create: (techniciancertificate: ITechnicianCertificate) => requests.post('/techniciancertificates', techniciancertificate),
+    create: (techniciancertificate: ITechnicianCertificate[]) => requests.post('/techniciancertificates', techniciancertificate),
     update: (techniciancertificate: ITechnicianCertificate) => requests.put(`/techniciancertificates/${techniciancertificate.id}`, techniciancertificate),
     delete: (id: string) => requests.del(`/techniciancertificates/${id}`)
 }

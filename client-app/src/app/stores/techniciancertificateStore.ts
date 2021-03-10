@@ -116,17 +116,34 @@ class TechnicianCertificateStore {
     return this.techniciancertificateRegistry.get(id);
   }
 
-  @action createTechnicianCertificate = async (techniciancertificate: ITechnicianCertificate) => {
+  // @action createTechnicianCertificate = async (techniciancertificate: ITechnicianCertificate) => {
+  //   this.submitting = true;
+  //   try {
+  //     techniciancertificate.createdAt = new Date().toJSON();
+  //     techniciancertificate.updatedAt = new Date().toJSON();
+  //     const techniciancertificatename = await agent.TechnicianCertificates.create(techniciancertificate);
+  //     runInAction('create Techncian', () => {
+  //       this.techniciancertificatenameRegistry.clear();
+  //         this.techniciancertificatename = techniciancertificatename;
+  //         if (techniciancertificatename.expiryDate !== null)  techniciancertificatename.expiryDate = techniciancertificatename.expiryDate.substr(0,10);
+  //         this.techniciancertificatenameRegistry.set(techniciancertificatename.id, techniciancertificatename);
+  //       this.submitting = false;
+  //     })
+  //   } catch (error) {
+  //     runInAction('create TechnicianCertificate error', () => {
+  //       this.submitting = false;
+  //     })
+  //     toast.error('create TechnicianCertificate error');
+  //     console.log(error);
+  //   }
+  // };
+
+  @action createTechnicianCertificate = async (techniciancertificate: ITechnicianCertificate[]) => {
     this.submitting = true;
     try {
-      techniciancertificate.createdAt = new Date().toJSON();
-      techniciancertificate.updatedAt = new Date().toJSON();
-      const techniciancertificatename = await agent.TechnicianCertificates.create(techniciancertificate);
+      await agent.TechnicianCertificates.create(techniciancertificate);
       runInAction('create Techncian', () => {
-        this.techniciancertificatenameRegistry.clear();
-          this.techniciancertificatename = techniciancertificatename;
-          if (techniciancertificatename.expiryDate !== null)  techniciancertificatename.expiryDate = techniciancertificatename.expiryDate.substr(0,10);
-          this.techniciancertificatenameRegistry.set(techniciancertificatename.id, techniciancertificatename);
+        
         this.submitting = false;
       })
     } catch (error) {

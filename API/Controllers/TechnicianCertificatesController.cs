@@ -38,10 +38,16 @@ namespace API.Controllers
                 return await _mediator.Send(new Details.Query{Id = id});
             }  
 
-        [HttpPost]
+   /*    [HttpPost]
         public async Task<ActionResult<TechnicianCertificateName>> Create(Create.Command command)
         {
             return await _mediator.Send(command);
+        }
+   */
+        [HttpPost]
+        public async Task<ActionResult<Unit>> Create(TechnicianCertificate[] command)
+        {
+            return await _mediator.Send(new Create.Insert(command));
         }
 
         [HttpPut("{id}")]
