@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
+import { IUser, IUserFormValues } from '../models/user';
 import { history } from '../..';
 import { IProject } from '../models/project';
 import { IProjectTask } from '../models/projecttask';
@@ -17,6 +18,17 @@ import {IThirdparty} from '../models/thirdparty';
 import {IProjectVendor} from '../models/projectvendor';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
+
+axios.interceptors.request.use(
+    config => {
+      const token = window.localStorage.getItem('jwt');
+      if (token) config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
 
 axios.interceptors.response.use(undefined, error => {
     if (error.message === 'Network Error' && !error.response) {
@@ -55,6 +67,12 @@ const requests = {
     put: (url: string, body: {}) => axios.put(url, body).then(sleep(100)).then(responseBody),
     del: (url: string) => axios.delete(url).then(sleep(100)).then(responseBody) 
 };
+
+const User = {
+    current: (): Promise<IUser> => requests.get('/user'),
+    login: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/login`, user),
+    register: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/register`, user),
+}
 
 const Projects = {
     list: (): Promise<IProject[]> => requests.get('/projects'),
@@ -173,6 +191,7 @@ const ProjectVendors = {
 }
 
 export default {
+    User,
     Projects,
     SORLists,
     ProjectTasks,
@@ -186,5 +205,5 @@ export default {
     Certificates,
     TechnicianCertificates,
     ThirdParties,
-    ProjectVendors,
+    ProjectVendors
 }

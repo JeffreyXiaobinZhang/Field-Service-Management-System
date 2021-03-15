@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { Container } from 'semantic-ui-react';
 import NavBarDaily from '../../frontpages/dailymanagement/NavBarDaily';
 import NavBarProject from '../../frontpages/projectmanagement/NavBarProject';
@@ -41,15 +41,34 @@ import Thirdlist from '../../frontpages/dailymanagement/third/Thirdlist';
 import Thirddetail from '../../frontpages/dailymanagement/third/Thirddetail';
 import Thirdedit from '../../frontpages/dailymanagement/third/Thirdedit';
 import Thirdadd from '../../frontpages/dailymanagement/third/Thirdadd';
+import LoginForm from '../../frontpages/user/LoginForm';
+import LoginPage from '../../frontpages/home/LoginPage';
+import { RootStoreContext } from '../stores/rootStore';
+import LoadingComponent from './LoadingComponent';
 
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
+  const rootStore = useContext(RootStoreContext);
+  const {setAppLoaded, token, appLoaded} = rootStore.commonStore;
+  const {getUser} = rootStore.userStore;
+
+  useEffect(() => {
+    if (token) {
+      getUser().finally(() => setAppLoaded())
+    } else {
+      setAppLoaded();
+    }
+  }, [getUser, setAppLoaded, token])
+
+  if (!appLoaded)  return <LoadingComponent content='Loading app...' />
 
   return (
     <Fragment>
       <ModalContainer />
       <ToastContainer position='bottom-right' />
-      <Route exact path='/' component={HomePage} />
+      <Route exact path='/' component={LoginPage} />
+      <Route path='/login' component={LoginForm} />
+      <Route exact path='/home' component={HomePage} />
       <Route
         // path={'/(.+)'}
         path={'/dailymanagement'}

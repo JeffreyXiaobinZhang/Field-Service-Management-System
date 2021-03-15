@@ -1,10 +1,12 @@
-import { observable, action, configure } from "mobx";
-import { createContext } from 'react';
-import { toast } from 'react-toastify';
+import { RootStore } from "./rootStore";
+import { observable, action } from "mobx";
 
-configure({enforceActions: 'always'});
+export default class ModalStore {
+    rootStore: RootStore;
+    constructor(rootStore: RootStore) {
+        this.rootStore = rootStore;
+    }
 
-class ModalStore {
     @observable.shallow modal = {
         open: false,
         body: null
@@ -20,5 +22,3 @@ class ModalStore {
         this.modal.body = null;
     }
 }
-
-export default createContext(new ModalStore());

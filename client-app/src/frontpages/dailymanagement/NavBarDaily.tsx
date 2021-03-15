@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
-import { Menu, Container, Button, Dropdown } from 'semantic-ui-react';
+import { Menu, Container, Button, Dropdown, Image } from 'semantic-ui-react';
 import ProjectStore from '../../app/stores/projectStore';
 import SORStore from '../../app/stores/sorlistStore';
 import { observer } from 'mobx-react-lite';
 import SORListDashboard from '../../frontpages/dailymanagement/sorlists/SORListDashboard';
 import { Link, NavLink } from 'react-router-dom';
+import { RootStoreContext } from '../../app/stores/rootStore';
 
 const NavBarDaily: React.FC = () => {
-  const projectStore = useContext(ProjectStore);
-  const sorStore = useContext(SORStore);
+  const rootStore = useContext(RootStoreContext);
+  const { user, logout } = rootStore.userStore;
   return (
     <Menu fixed='top' inverted>
       <Container>
@@ -40,6 +41,22 @@ const NavBarDaily: React.FC = () => {
          <Dropdown.Item as={NavLink} to='/dailymanagement/invoice-create' text='Add Invoice' icon='write'/>
         </Dropdown.Menu>
         </Dropdown>
+        {user && (
+          <Menu.Item position='right'>
+            <Image avatar spaced='right' src={user.image || '/assets/user.png'} />
+            <Dropdown pointing='top left' text={user.displayName}>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  as={Link}
+                  to={`/profile/username`}
+                  text='My profile'
+                  icon='user'
+                />
+                <Dropdown.Item onClick={logout} text='Logout' icon='power' />
+              </Dropdown.Menu>
+            </Dropdown>
+          </Menu.Item>
+        )}
       </Container>
     </Menu>
   );
