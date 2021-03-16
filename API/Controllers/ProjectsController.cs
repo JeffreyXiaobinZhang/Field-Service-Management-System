@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 using Application.Projects;
 using Domain;
 using MediatR;
+<<<<<<< HEAD
+=======
+using Microsoft.AspNetCore.Authorization;
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -32,6 +36,10 @@ namespace API.Controllers
   */
 
         [HttpGet("{id}")]
+<<<<<<< HEAD
+=======
+        [Authorize]
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         public async Task<ActionResult<Project>> Details(int id)
         {
             return await _mediator.Send(new Details.Query{Id = id});

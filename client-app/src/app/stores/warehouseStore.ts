@@ -1,5 +1,9 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
+<<<<<<< HEAD
+=======
+import { toast } from 'react-toastify';
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import { IWarehouse } from '../models/warehouse';
 import agent from '../api/agent';
 
@@ -14,8 +18,13 @@ class WarehouseStore {
 
   @computed get warehousesByPartNo() {
     return Array.from(this.warehouseRegistry.values()).sort(
+<<<<<<< HEAD
       (a, b) => Date.parse(a.partNo) - Date.parse(b.partNo)
     );
+=======
+      (a, b) => a.partNo.localeCompare(b.partNo))
+    ;
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @action loadWarehouses = async () => {
@@ -33,6 +42,10 @@ class WarehouseStore {
       runInAction('load Warehouse List error', () => {
         this.loadingInitial = false;
       })
+<<<<<<< HEAD
+=======
+      toast.error('load Warehouse List error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     }
   };
 
@@ -52,6 +65,10 @@ class WarehouseStore {
         runInAction('get warehouse error', () => {
           this.loadingInitial = false;
         })
+<<<<<<< HEAD
+=======
+        toast.error('get warehouse error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         console.log(error);
       }
     }
@@ -79,6 +96,10 @@ class WarehouseStore {
       runInAction('create Warehouse error', () => {
         this.submitting = false;
       })
+<<<<<<< HEAD
+=======
+      toast.error('create Warehouse error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   };
@@ -96,6 +117,10 @@ class WarehouseStore {
       runInAction('edit warehouse error', () => {
         this.submitting = false;
       })
+<<<<<<< HEAD
+=======
+      toast.error('edit warehouse error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   };
@@ -115,6 +140,10 @@ class WarehouseStore {
         this.submitting = false;
         this.target = '';
       })
+<<<<<<< HEAD
+=======
+      toast.error('delete Warehouse error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   }

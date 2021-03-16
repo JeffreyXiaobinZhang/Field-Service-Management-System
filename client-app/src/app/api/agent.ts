@@ -1,4 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
+<<<<<<< HEAD
+=======
+import { toast } from 'react-toastify';
+import { IUser, IUserFormValues } from '../models/user';
+import { history } from '../..';
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import { IProject } from '../models/project';
 import { IProjectTask } from '../models/projecttask';
 import { ISORList } from '../models/sorlist';
@@ -7,11 +13,60 @@ import { ITaskTechnician } from '../models/tasktechnician';
 import { IProjectLog } from '../models/projectlog';
 import { IWarehouse } from '../models/warehouse';
 import { IInvoice } from '../models/invoice';
+<<<<<<< HEAD
 import {ITechnicianRate} from '../models/technicianrate';
 import { request } from 'http';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
+=======
+import { IWarehouseLog } from '../models/warehouselog';
+import { IProjectStock } from '../models/projectstock';
+import { ICertificate } from '../models/certificate';
+import { ITechnicianCertificate } from '../models/techniciancertificate';
+import {IThirdparty} from '../models/thirdparty';
+import {IProjectVendor} from '../models/projectvendor';
+
+axios.defaults.baseURL = 'http://localhost:5000/api';
+
+axios.interceptors.request.use(
+    config => {
+      const token = window.localStorage.getItem('jwt');
+      if (token) config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+
+axios.interceptors.response.use(undefined, error => {
+    if (error.message === 'Network Error' && !error.response) {
+      toast.error('Network error - make sure API is running!');
+    }
+    const { status, data, config, headers } = error.response;
+    if (status === 404) {
+      history.push('/notfound');
+    }
+    if (status === 401 && headers['www-authenticate'] === 'Bearer error="invalid_token", error_description="The token is expired"') {
+      window.localStorage.removeItem('jwt');
+      history.push('/')
+      toast.info('Your session has expired, please login again')
+    }
+    if (
+      status === 400 &&
+      config.method === 'get' &&
+      data.errors.hasOwnProperty('id')
+    ) {
+      history.push('/notfound');
+    }
+    if (status === 500) {
+      toast.error('Server error - check the terminal for more info!');
+    }
+    throw error.response;
+  });
+
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 const responseBody = (response: AxiosResponse) => response.data;
 
 const sleep = (ms: number) => (response: AxiosResponse) => 
@@ -24,6 +79,15 @@ const requests = {
     del: (url: string) => axios.delete(url).then(sleep(100)).then(responseBody) 
 };
 
+<<<<<<< HEAD
+=======
+const User = {
+    current: (): Promise<IUser> => requests.get('/user'),
+    login: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/login`, user),
+    register: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/register`, user),
+}
+
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 const Projects = {
     list: (): Promise<IProject[]> => requests.get('/projects'),
     listStatus: (status: string): Promise<IProject[]> => requests.get(`/projects/${status}`),
@@ -61,7 +125,11 @@ const TaskAssignments = {
     list: (projectId: string): Promise<ITaskTechnician[]> => requests.get(`/taskassignments/${projectId}`),
     // details: (id: string) => requests.get(`/technicians/${id}`),
     // create: (technician: ITechnician) => requests.post('/technicians', technician),
+<<<<<<< HEAD
     update: (projectId: string, category: string, techEmail: string) => requests.put(`/taskassignments/${projectId}/${category}/${techEmail}`,{}),
+=======
+    update: (tasktechnician: ITaskTechnician) => requests.put(`/taskassignments/${tasktechnician.projectId}`,tasktechnician),
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     // delete: (id: string) => requests.del(`/technicians/${id}`)
 }
 
@@ -70,7 +138,11 @@ const ProjectLogs = {
     // details: (id: string) => requests.get(`/projecttasks/${id}`),
     create: (projectlog: IProjectLog) => requests.post('/projectlogs', projectlog),
     // update: (projecttask: IProjectTask) => requests.put(`/projecttasks/${projecttask.id}`, projecttask),
+<<<<<<< HEAD
     // delete: (id: string) => requests.del(`/projecttasks/${id}`)
+=======
+    delete: (id: string) => requests.del(`/projectlogs/${id}`)
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 }
 
 const Warehouses = {
@@ -89,6 +161,7 @@ const Invoices = {
     delete: (id: string) => requests.del(`/invoices/${id}`)
 }
 
+<<<<<<< HEAD
 const TechnicianRates = {
     list: (): Promise<ITechnicianRate[]> => requests.get('/technicianrates'),
     search: (email: string | undefined) : Promise<ITechnicianRate[]> => requests.get(`/technicianrates/${email}`),
@@ -100,6 +173,61 @@ const TechnicianRates = {
 }
 
 export default {
+=======
+const WarehouseLogs = {
+    list: (projectId: string): Promise<IWarehouseLog[]> => requests.get(`/warehouselogs/${projectId}`),
+    // details: (id: string) => requests.get(`/projecttasks/${id}`),
+    create: (warehouselog: IWarehouseLog) => requests.post('/warehouselogs', warehouselog),
+    // update: (projecttask: IProjectTask) => requests.put(`/projecttasks/${projecttask.id}`, projecttask),
+    delete: (id: string) => requests.del(`/warehouselogs/${id}`)
+}
+
+const ProjectStocks = {
+    list: (projectId: string): Promise<IProjectStock[]> => requests.get(`/projectstocks/${projectId}`),
+    // details: (id: string) => requests.get(`/projecttasks/${id}`),
+    // create: (projectlog: IProjectLog) => requests.post('/projectlogs', projectlog),
+    // update: (projecttask: IProjectTask) => requests.put(`/projecttasks/${projecttask.id}`, projecttask),
+    // delete: (id: string) => requests.del(`/projecttasks/${id}`)
+}
+
+const Certificates = {
+    list: (): Promise<ICertificate[]> => requests.get('/certificates'),
+    details: (id: string) => requests.get(`/certificates/${id}`),
+    create: (certificate: ICertificate) => requests.post('/certificates', certificate),
+    update: (certificate: ICertificate) => requests.put(`/certificates/${certificate.id}`, certificate),
+    delete: (id: string) => requests.del(`/certificates/${id}`)
+}
+
+const TechnicianCertificates = {
+    list: (): Promise<ITechnicianCertificate[]> => requests.get('/techniciancertificates'),
+    search: (params: URLSearchParams): Promise<ITechnicianCertificate[]> =>
+    axios.get('/techniciancertificates', {params: params}).then(responseBody),
+    details: (id: string) => requests.get(`/techniciancertificates/${id}`),
+    // create: (techniciancertificate: ITechnicianCertificate) => requests.post('/techniciancertificates', techniciancertificate),
+    create: (techniciancertificate: ITechnicianCertificate[]) => requests.post('/techniciancertificates', techniciancertificate),
+    update: (techniciancertificate: ITechnicianCertificate) => requests.put(`/techniciancertificates/${techniciancertificate.id}`, techniciancertificate),
+    delete: (id: string) => requests.del(`/techniciancertificates/${id}`)
+}
+
+const ThirdParties = {
+    list: (): Promise<IThirdparty[]> => requests.get('/ThirdParties'),
+    details: (name: string) => requests.get(`/ThirdParties/${name}}`),
+    create: (thirdparty: IThirdparty) => requests.post('/ThirdParties', thirdparty),
+    update: (thirdparty: IThirdparty) => requests.put(`/ThirdParties/${thirdparty.companyName}`, thirdparty),
+    delete: (name: string) => requests.del(`/ThirdParties/${name}`)
+}
+
+const ProjectVendors = {
+    list: (projectId: string): Promise<IProjectVendor[]> => requests.get(`/projectvendors/${projectId}`),
+    details: (id: string) => requests.get(`/projectvendors/${id}`),
+    create: (projectvendor: IProjectVendor) => requests.post('/projectvendors', projectvendor),
+    update: (projectvendor: IProjectVendor) => requests.put(`/projectvendors/${projectvendor.id}`, projectvendor),
+    delete: (id: string) => requests.del(`/projectvendors/${id}`)
+}
+
+export default {
+    User,
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     Projects,
     SORLists,
     ProjectTasks,
@@ -108,5 +236,14 @@ export default {
     ProjectLogs,
     Warehouses,
     Invoices,
+<<<<<<< HEAD
     TechnicianRates
+=======
+    WarehouseLogs,
+    ProjectStocks,
+    Certificates,
+    TechnicianCertificates,
+    ThirdParties,
+    ProjectVendors
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 }

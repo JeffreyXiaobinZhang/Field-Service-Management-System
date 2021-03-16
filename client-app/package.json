@@ -15,10 +15,21 @@
     "mobx-react-lite": "^1.4.1",
     "react": "^16.8.6",
     "react-bootstrap": "^1.4.3",
+<<<<<<< HEAD
     "react-dom": "^16.8.6",
     "react-icons": "^4.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.0.1",
+=======
+    "react-csv": "^2.0.3",
+    "react-dom": "^16.8.6",
+    "react-final-form": "^6.5.2",
+    "react-icons": "^4.1.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.0.1",
+    "react-toastify": "^7.0.3",
+    "revalidate": "^1.2.0",
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     "semantic-ui-react": "^0.87.3",
     "typescript": "3.5.3",
     "uuid": "^3.3.2"
@@ -43,5 +54,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+<<<<<<< HEAD
+=======
+  },
+  "devDependencies": {
+    "@types/react-csv": "^1.1.1",
+    "@types/revalidate": "^1.1.2"
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 }

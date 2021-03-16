@@ -1,6 +1,10 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
 import { IInvoice } from '../models/invoice';
+<<<<<<< HEAD
+=======
+import { toast } from 'react-toastify';
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import agent from '../api/agent';
 
 
@@ -39,6 +43,10 @@ class InvoiceStore {
             runInAction("load Invoices error", () => {
                 this.loadingInitial = false;
             })
+<<<<<<< HEAD
+=======
+            toast.error("load Invoices error");
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         }
     };
 
@@ -58,6 +66,10 @@ class InvoiceStore {
                 runInAction("get invoice error", () => {
                     this.loadingInitial = false;
                 })
+<<<<<<< HEAD
+=======
+                toast.error("get invoice error");
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                 console.log(error);
             }
         }
@@ -84,6 +96,10 @@ class InvoiceStore {
             runInAction('create invoice error', () => {
                 this.submitting = false;
             })
+<<<<<<< HEAD
+=======
+            toast.error('create invoice error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
             console.log(error);
         }
     };
@@ -101,6 +117,10 @@ class InvoiceStore {
             runInAction("edit invoice error", () => {
                 this.submitting = false;
             })
+<<<<<<< HEAD
+=======
+            toast.error("edit invoice error");
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
             console.log(error);
         }
     };
@@ -120,6 +140,10 @@ class InvoiceStore {
                 this.submitting = false;
                 this.target = "";
             })
+<<<<<<< HEAD
+=======
+            toast.error("delete invoice error");
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
             console.log(error);
         }
     }

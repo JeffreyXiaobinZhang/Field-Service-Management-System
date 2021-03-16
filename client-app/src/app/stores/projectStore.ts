@@ -6,7 +6,16 @@ import { ITaskAssignment as ITaskAssignment } from '../models/taskassignment';
 import { ITaskTechnician as ITaskTechnician } from '../models/tasktechnician';
 import { ITechnician as ITechnician } from '../models/technician';
 import { IProjectLog as IProjectLog } from '../models/projectlog';
+<<<<<<< HEAD
 import { ISORList } from '../models/sorlist';
+=======
+import { IWarehouseLog as IWarehouseLog } from '../models/warehouselog';
+import { toast } from 'react-toastify';
+import { ISORList } from '../models/sorlist';
+import { IProjectStock as IProjectStock } from '../models/projectstock';
+import {IProjectVendor} from '../models/projectvendor';
+import { IThirdparty } from '../models/thirdparty';
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 
 import agent from '../api/agent';
 
@@ -27,8 +36,23 @@ class ProjectStore {
   @observable tasktechnician: ITaskTechnician | null = null;
   @observable projectlogRegistry = new Map();
   @observable projectlog: IProjectLog | null = null;
+<<<<<<< HEAD
   @observable sorlistRegistry = new Map();
   @observable sorlist: ISORList | null = null;
+=======
+  @observable warehouselogRegistry = new Map();
+  @observable warehouselog: IWarehouseLog | null = null;
+  @observable sorlistRegistry = new Map();
+  @observable sorlist: ISORList | null = null;
+  @observable projectstockRegistry = new Map();
+  @observable projectstock: IProjectStock | null = null;
+  @observable warehouseRegistry = new Map();
+  @observable projectvendorRegistry = new Map();
+  @observable projectvendor: IProjectVendor | null = null;
+  @observable selectedProjectVendor: IProjectVendor | undefined;
+  @observable thirdRegistry = new Map();
+  @observable thirdparty: IThirdparty | null = null;
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   @observable loadingInitial = false;
   @observable submitting = false;
   @observable target = '';
@@ -44,20 +68,35 @@ class ProjectStore {
 
   @computed get projecttasksByName() {
     return Array.from(this.projecttaskRegistry.values()).sort(
+<<<<<<< HEAD
       (a, b) => a.itemName - b.itemName
     );
+=======
+      (a, b) => a.itemName.localeCompare(b.itemName))
+    ;
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @computed get tasktechniciansByCategory() {
     return Array.from(this.tasktechnicianRegistry.values()).sort(
+<<<<<<< HEAD
       (a, b) => a.category - b.category
     );
+=======
+      (a, b) => a.category.localeCompare(b.category))
+    ;
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @computed get techniciansByName() {
     return Array.from(this.technicianRegistry.values()).sort(
+<<<<<<< HEAD
       (a, b) => Date.parse(a.name) - Date.parse(b.name)
     );
+=======
+      (a, b) => a.name.localeCompare(b.name))
+    ;
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @computed get projectlogsByDate() {
@@ -66,9 +105,45 @@ class ProjectStore {
     );
   }
 
+<<<<<<< HEAD
   @computed get sorlistsByName() {
     return Array.from(this.sorlistRegistry.values()).sort(
       (a, b) => Date.parse(a.name) - Date.parse(b.name)
+=======
+  @computed get warehouselogsByDate() {
+    return Array.from(this.warehouselogRegistry.values()).sort(
+      (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+    );
+  }
+
+  @computed get sorlistsByName() {
+    return Array.from(this.sorlistRegistry.values()).sort(
+      (a, b) => a.name.localeCompare(b.name))
+    ;
+  }
+
+  @computed get projectstocksByName() {
+    return Array.from(this.projectstockRegistry.values()).sort(
+      (a, b) => a.partNo.localeCompare(b.partNo))
+    ;
+  }
+
+  @computed get warehousesByPartNo() {
+    return Array.from(this.warehouseRegistry.values()).sort(
+      (a, b) => a.partNo.localeCompare(b.partNo))
+    ;
+  }
+
+  @computed get projectvendorsByName() {
+    return Array.from(this.projectvendorRegistry.values()).sort(
+      (a, b) => a.companyName - b.companyName
+    );
+  }
+
+  @computed get ThirdPartiesByName() {
+    return Array.from(this.thirdRegistry.values()).sort(
+      (a, b) => Date.parse(a.companyName) - Date.parse(b.companyName)
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     );
   }
 
@@ -83,7 +158,10 @@ class ProjectStore {
          project.estimatedCompletionDate = project.estimatedCompletionDate.substr(0,10);
           this.projectRegistry.set(project.id, project);
         });
+<<<<<<< HEAD
         console.log(this.projectRegistry);
+=======
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         this.loadingInitial = false;
       })
 
@@ -91,6 +169,10 @@ class ProjectStore {
       runInAction('load projects error', () => {
         this.loadingInitial = false;
       })
+<<<<<<< HEAD
+=======
+      toast.error('load projects error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     }
   };
 
@@ -98,7 +180,10 @@ class ProjectStore {
     let project = this.getProject(id);
     if (project) {
       this.project = project;
+<<<<<<< HEAD
       console.log(project);
+=======
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     } else {
       this.loadingInitial = true;
       try {
@@ -111,6 +196,10 @@ class ProjectStore {
         runInAction('get project error', () => {
           this.loadingInitial = false;
         })
+<<<<<<< HEAD
+=======
+        toast.error('get project error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         console.log(error);
       }
     }
@@ -121,7 +210,11 @@ class ProjectStore {
   }
 
   getProject = (id: string) => {
+<<<<<<< HEAD
     return this.projectRegistry.get(id);
+=======
+    return this.projectRegistry.get(Number(id));
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @action loadProjectsStatus = async (event: SyntheticEvent<HTMLButtonElement>, status: string) => {
@@ -143,6 +236,10 @@ class ProjectStore {
       runInAction('load projects error', () => {
         this.loadingInitial = false;
       })
+<<<<<<< HEAD
+=======
+      toast.error('load projects error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     }
   };
 
@@ -163,6 +260,10 @@ class ProjectStore {
       runInAction('create project error', () => {
         this.submitting = false;
       })
+<<<<<<< HEAD
+=======
+      toast.error('create project error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   };
@@ -182,6 +283,10 @@ class ProjectStore {
       runInAction('edit project error', () => {
         this.submitting = false;
       })
+<<<<<<< HEAD
+=======
+      toast.error('edit project error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   };
@@ -201,6 +306,10 @@ class ProjectStore {
         this.submitting = false;
         this.target = '';
       })
+<<<<<<< HEAD
+=======
+      toast.error('delete project error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   }
@@ -210,6 +319,10 @@ class ProjectStore {
   this.reload = false;
   try {
     const projecttasks = await agent.ProjectTasks.list(projectId);
+<<<<<<< HEAD
+=======
+    this.projecttaskRegistry.clear();
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     runInAction('loading tasks', () => {
       projecttasks.forEach(projecttask => {
         this.projecttaskRegistry.set(projecttask.id, projecttask);
@@ -217,10 +330,18 @@ class ProjectStore {
       this.loadingInitial = false;
       this.reload = true;
     })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   } catch (error) {
     runInAction('load tasks error', () => {
       this.loadingInitial = false;
     })
+<<<<<<< HEAD
+=======
+    toast.error('load tasks error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 }
 
@@ -241,6 +362,10 @@ class ProjectStore {
     runInAction('create project error', () => {
       this.submitting = false;
     })
+<<<<<<< HEAD
+=======
+    toast.error('create project error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     console.log(error);
   }
 };
@@ -263,6 +388,10 @@ class ProjectStore {
       this.submitting = false;
       this.target = '';
     })
+<<<<<<< HEAD
+=======
+    toast.error('delete project SOR error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     console.log(error);
   }
 }
@@ -283,6 +412,10 @@ class ProjectStore {
     runInAction('edit project error', () => {
       this.submitting = false;
     })
+<<<<<<< HEAD
+=======
+    toast.error('edit project error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     console.log(error);
   }
 };
@@ -302,6 +435,10 @@ class ProjectStore {
   // this.loadingInitial = true;
   try {
     const tasktechnicians = await agent.TaskAssignments.list(projectId);
+<<<<<<< HEAD
+=======
+    this.tasktechnicianRegistry.clear();
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     runInAction('loading tasks', () => {
       tasktechnicians.forEach(tasktechnician => {
         this.tasktechnicianRegistry.set(tasktechnician.category, tasktechnician);
@@ -313,13 +450,25 @@ class ProjectStore {
     runInAction('load tasks error', () => {
       // this.loadingInitial = false;
     })
+<<<<<<< HEAD
   }
 }
 
+=======
+    toast.error('load tasks error');
+  }
+}
+
+
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 @action loadTechnicians = async () => {
   this.loadingInitial = true;
   try {
     const technicians = await agent.Technicians.list();
+<<<<<<< HEAD
+=======
+    this.technicianRegistry.clear();
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     runInAction('loading technicians', () => {
       technicians.forEach(technician => {
         this.technicianRegistry.set(technician.name, technician);
@@ -331,6 +480,7 @@ class ProjectStore {
     runInAction('load Technician List error', () => {
       this.loadingInitial = false;
     })
+<<<<<<< HEAD
   }
 };
 
@@ -346,6 +496,57 @@ class ProjectStore {
   try {
     // project.updatedAt = new Date().toJSON();
      await agent.TaskAssignments.update(projectId, category, email);
+=======
+    toast.error('load Technician List error');
+  }
+};
+
+// @action assignTechnician = async (event: SyntheticEvent<HTMLElement>, projectId: string, category: string, type: string) => {
+//   let email = '@'; 
+//   if (type === 'update') {
+//   const name = event.currentTarget.textContent;
+//   const selectEmail = this.technicianRegistry.get(name);
+//   email = selectEmail.email;}
+
+//   this.submitting = true;
+//   try {
+//     // project.updatedAt = new Date().toJSON();
+//      await agent.TaskAssignments.update(projectId, category, email);
+//      runInAction('assigning technician', () => {
+//     //   this.tasktechnicianRegistry.set(category, tasktechnician);
+//       //  this.projecttask = projecttask;
+//        this.editMode = false;
+//        this.submitting = false;
+//      })
+ 
+//    } catch (error) {
+//      runInAction('edit project error', () => {
+//        this.submitting = false;
+//      })
+//      console.log(error);
+//    }
+// };
+
+@action getTechnicianInfo = async (event: SyntheticEvent<HTMLElement>, tasktechnician : ITaskTechnician) => {
+  const name = event.currentTarget.textContent;
+  if (name) 
+  {
+  const selectInfo = this.technicianRegistry.get(name);
+  tasktechnician.techName = name;
+  tasktechnician.techEmail = selectInfo.email;
+  tasktechnician.techType = selectInfo.type;
+  this.tasktechnicianRegistry.set(tasktechnician.category, tasktechnician);
+  }
+  
+}
+
+@action assignTechnician = async (tt : ITaskTechnician) => {
+
+  this.submitting = true;
+  try {
+    // project.updatedAt = new Date().toJSON();
+     await agent.TaskAssignments.update(tt);
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
      runInAction('assigning technician', () => {
     //   this.tasktechnicianRegistry.set(category, tasktechnician);
       //  this.projecttask = projecttask;
@@ -357,14 +558,54 @@ class ProjectStore {
      runInAction('edit project error', () => {
        this.submitting = false;
      })
+<<<<<<< HEAD
+=======
+     toast.error('edit project error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
      console.log(error);
    }
 };
 
+<<<<<<< HEAD
+=======
+@action updateMember = async (event: SyntheticEvent<HTMLElement>, tasktechnician : ITaskTechnician, name: keyof ITaskTechnician, value: string | number | undefined) => {
+  let value1 = value!;  
+  let value2 : string = value1.toString()
+  tasktechnician[name] = value2;
+    this.tasktechnicianRegistry.set(tasktechnician.category, tasktechnician);
+};
+
+@action warehouseOut = (
+  event: SyntheticEvent<HTMLElement>, projectstock : IProjectStock, name : string, value: string 
+) => {
+  if (name==='assignedTo')
+  {
+    value = event.currentTarget.textContent!;
+    const selectEmail = this.technicianRegistry.get(value);
+    const email = selectEmail.email;
+   projectstock.assignedTo = email;
+   
+  } else
+  if (name==='quantity')
+  {
+   projectstock.quantity = value;
+  } else
+  if (name==='remark')
+  {
+   projectstock.remark = value;
+  };
+  this.projectstockRegistry.set(projectstock.partNo, projectstock);
+};
+
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 @action loadProjectLogs = async (projectId: string) => {
   // this.loadingInitial = true;
   try {
     const projectlogs = await agent.ProjectLogs.list(projectId);
+<<<<<<< HEAD
+=======
+    this.projectlogRegistry.clear();
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     runInAction('loading tasks', () => {
       projectlogs.forEach(projectlog => {
         this.projectlogRegistry.set(projectlog.id, projectlog);
@@ -376,8 +617,14 @@ class ProjectStore {
     runInAction('load tasks error', () => {
       // this.loadingInitial = false;
     })
+<<<<<<< HEAD
   }
 }
+=======
+    toast.error('load tasks error');
+  }
+};
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 
 @action createProjectLog = async (projectlog: IProjectLog) => {
   this.submitting = true;
@@ -396,14 +643,42 @@ class ProjectStore {
     runInAction('create project log error', () => {
       this.submitting = false;
     })
+<<<<<<< HEAD
+=======
+    toast.error('create project log error');
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     console.log(error);
   }
 };
 
+<<<<<<< HEAD
+=======
+@action deleteProjectLog = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  this.target = event.currentTarget.name;
+  try {
+    await agent.ProjectLogs.delete(id);
+    runInAction('deleting project', () => {
+      this.projectlogRegistry.delete(id);
+      this.target = '';
+    })
+  } catch (error) {
+    runInAction('delete project error', () => {
+      this.target = '';
+    })
+    toast.error('delete project error');
+    console.log(error);
+  }
+}
+
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 @action loadSORLists = async () => {
   this.loadingInitial = true;
   try {
     const sorlists = await agent.SORLists.list();
+<<<<<<< HEAD
+=======
+    this.sorlistRegistry.clear();
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     runInAction('loading sorlists', () => {
       sorlists.forEach(sorlist => {
         this.sorlistRegistry.set(sorlist.name, sorlist);
@@ -415,6 +690,227 @@ class ProjectStore {
     runInAction('load SOR List error', () => {
       this.loadingInitial = false;
     })
+<<<<<<< HEAD
+=======
+    toast.error('load SOR List error');
+  }
+};
+
+@action loadWarehouseLogs = async (projectId: string) => {
+  // this.loadingInitial = true;
+  try {
+    const warehouselogs = await agent.WarehouseLogs.list(projectId);
+    this.warehouselogRegistry.clear();
+    runInAction('loading tasks', () => {
+      warehouselogs.forEach(warehouselog => {
+        // if (warehouselog.pickedBy)
+        // {
+        //   const selectEmail = this.technicianRegistry.get(warehouselog.pickedBy);
+        //   warehouselog.pickedBy = selectEmail.email; 
+        // };
+        // if (warehouselog.assignedTo)
+        // {
+        //   const selectEmail = this.technicianRegistry.get(warehouselog.assignedTo);
+        //   warehouselog.assignedTo = selectEmail.email; 
+        // };
+        this.warehouselogRegistry.set(warehouselog.id, warehouselog);
+      });
+      // this.loadingInitial = false;
+    })
+
+  } catch (error) {
+    runInAction('load tasks error', () => {
+      // this.loadingInitial = false;
+    })
+    toast.error('load tasks error');
+  }
+};
+
+@action createWarehouseLog = async (warehouselog: IWarehouseLog) => {
+  this.submitting = true;
+  try {
+   // project.createdAt = new Date().toISOString();
+   // project.updatedAt = new Date().toISOString();
+   warehouselog.createdAt = new Date().toJSON();
+   warehouselog.updatedAt = new Date().toJSON();
+
+    await agent.WarehouseLogs.create(warehouselog);
+    runInAction('create warehouse log', () => {
+   //    this.projecttaskRegistry.set(projecttask.id, projecttask);
+      this.submitting = false;
+    })
+  } catch (error) {
+    runInAction('create warehouse log error', () => {
+      this.submitting = false;
+    })
+    toast.error('create warehouse log error');
+    console.log(error);
+  }
+};
+
+@action deleteWarehouseLog = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  this.target = event.currentTarget.name;
+  try {
+    await agent.WarehouseLogs.delete(id);
+    runInAction('deleting warehouse log', () => {
+      this.warehouselogRegistry.delete(id);
+      this.target = '';
+    })
+  } catch (error) {
+    runInAction('delete warehouse log error', () => {
+      this.target = '';
+    })
+    toast.error('delete warehouse log error');
+    console.log(error);
+  }
+}
+
+@action loadProjectStocks = async (projectId: string) => {
+  // this.loadingInitial = true;
+  try {
+    const projectstocks = await agent.ProjectStocks.list(projectId);
+    this.projectstockRegistry.clear();
+    runInAction('loading stocks', () => {
+      projectstocks.forEach(projectstock => {
+        projectstock.assignedTo = '';
+        projectstock.quantity = '0';
+        projectstock.remark = '';
+        this.projectstockRegistry.set(projectstock.partNo, projectstock);
+      });
+      // this.loadingInitial = false;
+    })
+
+  } catch (error) {
+    runInAction('load stocks error', () => {
+      // this.loadingInitial = false;
+    })
+    toast.error('load stocks error');
+  }
+};
+
+@action loadWarehouses = async () => {
+  this.loadingInitial = true;
+  try {
+    const warehouses = await agent.Warehouses.list();
+    runInAction('loading warehouses', () => {
+      warehouses.forEach(warehouse => {
+        this.warehouseRegistry.set(warehouse.id, warehouse);
+      });
+      this.loadingInitial = false;
+    })
+
+  } catch (error) {
+    runInAction('load Warehouse List error', () => {
+      this.loadingInitial = false;
+    })
+    toast.error('load Warehouse List error');
+  }
+};
+
+@action loadProjectVendors = async (projectId: string) => {
+  // this.loadingInitial = true;
+  // this.reload = false;
+  try {
+    const projectvendors = await agent.ProjectVendors.list(projectId);
+    this.projectvendorRegistry.clear();
+    runInAction('loading vendors', () => {
+      projectvendors.forEach(projectvendor => {
+        this.projectvendorRegistry.set(projectvendor.id, projectvendor);
+      });
+      // this.loadingInitial = false;
+      // this.reload = true;
+    })
+
+  } catch (error) {
+    runInAction('load vendors error', () => {
+      // this.loadingInitial = false;
+    })
+  }
+}
+
+@action createProjectVendor = async (projectvendor: IProjectVendor) => {
+  this.submitting = true;
+  try {
+   // project.createdAt = new Date().toISOString();
+   // project.updatedAt = new Date().toISOString();
+   projectvendor.createdAt = new Date().toJSON();
+   projectvendor.updatedAt = new Date().toJSON();
+
+    await agent.ProjectVendors.create(projectvendor);
+    runInAction('create project vendor', () => {
+      this.submitting = false;
+    })
+  } catch (error) {
+    runInAction('create project vendor error', () => {
+      this.submitting = false;
+    })
+    console.log(error);
+  }
+};
+
+@action deleteProjectVendor = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  this.submitting = true;
+  this.reload = false;
+  this.target = event.currentTarget.name;
+  try {
+    await agent.ProjectVendors.delete(id);
+    runInAction('deleting project vendor', () => {
+      this.projectvendorRegistry.delete(id);
+      this.tasktechnicianRegistry.clear();
+      this.submitting = false;
+      this.reload = true;
+      this.target = '';
+    })
+  } catch (error) {
+    runInAction('delete project vendor error', () => {
+      this.submitting = false;
+      this.target = '';
+    })
+    console.log(error);
+  }
+}
+
+@action editProjectVendor = async (projectvendor: IProjectVendor) => {
+  this.submitting = true;
+  try {
+    await agent.ProjectVendors.update(projectvendor);
+    runInAction('editing project vendor', () => {
+      this.projectvendorRegistry.set(projectvendor.id, projectvendor);
+      this.projectvendor = projectvendor;
+      this.editMode = false;
+      this.submitting = false;
+    })
+
+  } catch (error) {
+    runInAction('edit project error', () => {
+      this.submitting = false;
+    })
+    console.log(error);
+  }
+};
+
+@action selectProjectVendor = (id: string) => {
+  this.selectedProjectVendor = this.projectvendorRegistry.get(id);
+  this.editMode = true;
+};
+
+@action loadThirdParties = async () => {
+  this.loadingInitial = true;
+  try {
+    const thirdparties = await agent.ThirdParties.list();
+    this.thirdRegistry.clear();
+    runInAction('loading ThirdParties', () => {
+      thirdparties.forEach(thirdparty => {
+        this.thirdRegistry.set(thirdparty.companyName, thirdparty);
+      });
+      this.loadingInitial = false;
+    })
+
+  } catch (error) {
+    runInAction('load ThirdParties List error', () => {
+      this.loadingInitial = false;
+    })
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 };
 

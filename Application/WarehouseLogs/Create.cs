@@ -38,11 +38,15 @@ namespace Application.WarehouseLogs
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+<<<<<<< HEAD
                 Boolean success;
+=======
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                 var projectstock = await _context.ProjectStocks.FindAsync(request.ProjectId, request.PartNo);
 
                 if (projectstock == null)
                 {
+<<<<<<< HEAD
                     projectstock.ProjectId = request.ProjectId;
                     projectstock.CreatedAt = DateTime.Now;
                     projectstock.UpdatedAt = DateTime.Now;
@@ -52,6 +56,38 @@ namespace Application.WarehouseLogs
                     _context.ProjectStocks.Add(projectstock);
                     success = await _context.SaveChangesAsync() > 0;
                     if (!success) throw new Exception("Problem saving changes");
+=======
+                    projectstock = new ProjectStock
+                    {
+                        //        Id = request.Id,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        ProjectId = request.ProjectId,
+                        PartNo = request.PartNo,
+                        Stock = 0,
+                    };
+
+                    if (request.Status == "inbound")
+                    {
+                        projectstock.Stock += request.Quantity;
+                    }
+                    else if (request.Status == "outbound")
+                    {
+                        projectstock.Stock -= request.Quantity;
+                    };
+
+                    _context.ProjectStocks.Add(projectstock);
+                }
+                else {
+                    if (request.Status == "inbound")
+                    {
+                        projectstock.Stock += request.Quantity;
+                    }
+                    else if (request.Status == "outbound")
+                    {
+                        projectstock.Stock -= request.Quantity;
+                    };
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                 };
 
                 var warehouselog = new WarehouseLog
@@ -64,7 +100,11 @@ namespace Application.WarehouseLogs
                     PartNo = request.PartNo,
                     UOM = request.UOM,
                     Quantity = request.Quantity,
+<<<<<<< HEAD
                     Stock = request.Stock,
+=======
+                    Stock = projectstock.Stock,
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                     Status = request.Status,
                     PickedBy = request.PickedBy,
                     AssignedTo = request.AssignedTo,
@@ -73,7 +113,11 @@ namespace Application.WarehouseLogs
                 };
 
                 _context.WarehouseLogs.Add(warehouselog);
+<<<<<<< HEAD
                 success = await _context.SaveChangesAsync() > 0;
+=======
+                var success = await _context.SaveChangesAsync() > 0;
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 
                 if (success) return Unit.Value;
 

@@ -1,5 +1,9 @@
 import React, { useContext, useState, FormEvent } from 'react';
+<<<<<<< HEAD
 import { Tab, Grid, Header, Button, Table, Label, Form, Input, Segment, Item } from 'semantic-ui-react';
+=======
+import { Tab, Grid, Header, Button, Table, Label, Form, Input, Segment, Item, Dimmer } from 'semantic-ui-react';
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import ProjectStore from '../../../app/stores/projectStore';
 import ProjectSOREditForm from './ProjectSOREditForm';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
@@ -22,6 +26,10 @@ const ProjectLogTab = () => {
     selectProjectTask,
     loadProjectLogs,
     createProjectLog,
+<<<<<<< HEAD
+=======
+    deleteProjectLog,
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     projectlogsByDate,
     submitting,
     editMode,
@@ -41,6 +49,14 @@ const ProjectLogTab = () => {
 
   const [addMode, setAddMode] = useState(false);
 
+<<<<<<< HEAD
+=======
+  const [active, setDimmer] = useState({
+    rowid: '',
+    status: false
+  });
+
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   const handleInputChange = (
     event: FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -90,9 +106,33 @@ const ProjectLogTab = () => {
           {projectlogsByDate.map(projectlog => (
 
             <Table.Row key={projectlog.id}>
+<<<<<<< HEAD
               <Table.Cell>
                 <Label>{projectlog.createdAt.substr(0,19)}</Label>
               </Table.Cell>
+=======
+              <Dimmer.Dimmable
+                dimmed
+                onMouseEnter={() => setDimmer({['rowid']: projectlog.id, ['status']: true })}
+                onMouseLeave={() => setDimmer({['rowid']: projectlog.id, ['status']: false })}
+              >
+                <Table.Cell>
+                  <Label>{projectlog.createdAt.substr(0, 19)}</Label>
+                </Table.Cell>
+                <Dimmer
+                  active={(active.rowid === projectlog.id) && active.status}
+                >
+                  <Button
+                  name={projectlog.id}
+                  size='mini'
+                  // loading={target === projectlog.id && submitting}
+                  onClick={(e) => deleteProjectLog(e, projectlog.id)}
+                  content='Delete'
+                  color='red'
+                />
+                </Dimmer>
+              </Dimmer.Dimmable>
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
               <Table.Cell>{projectlog.notes}</Table.Cell>
             </Table.Row>
           ))}

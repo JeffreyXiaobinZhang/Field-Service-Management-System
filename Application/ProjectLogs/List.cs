@@ -33,6 +33,10 @@ namespace Application.ProjectLogs
             {
                 //    var project = await _context.Activities.ToListAsync();
                 var projectlog = await _context.ProjectLogs.Where(x => x.ProjectId == request.Id).ToListAsync();
+<<<<<<< HEAD
+=======
+                
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                 return projectlog;
             }
         }

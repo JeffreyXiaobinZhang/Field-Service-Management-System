@@ -20,12 +20,22 @@ const NavHRmanagement: React.FC = () => {
         <Dropdown.Menu>
         <Dropdown.Item as={NavLink} to='/hrmanagement/technician' text='Query Technician' icon='edit'/>
          <Dropdown.Item as={NavLink} to='/hrmanagement/technician-create' text='Add Technician' icon='write'/>
+<<<<<<< HEAD
          <Dropdown.Item as={NavLink} to='/hrmanagement/technicianrate' text='Technician Rate' icon='edit'/>
+=======
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         </Dropdown.Menu>
         </Dropdown>
         <Dropdown item text='Certificate'>
         <Dropdown.Menu>
+<<<<<<< HEAD
          <Dropdown.Item  text='Search Certificate' icon='write'/>
+=======
+        <Dropdown.Item as={NavLink} to='/hrmanagement/certificate' text='Query Certificate' icon='edit'/>
+         <Dropdown.Item as={NavLink} to='/hrmanagement/certificate-create' text='Add Certificate' icon='write'/>
+         <Dropdown.Item as={NavLink} to='/hrmanagement/techniciancertificate' text='Query Technician Certificate' icon='edit'/>
+         <Dropdown.Item as={NavLink} to='/hrmanagement/techniciancertificate-create' text='Add Technician Certificate' icon='write'/>
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         </Dropdown.Menu>
         </Dropdown>
       </Container>

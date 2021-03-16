@@ -64,9 +64,20 @@ const ProjectEditForm: React.FC<RouteComponentProps<DetailParams>> = ({
   };
 
   const status = [
+<<<<<<< HEAD
     { key: 'started', text: 'Started', value: 'started' },
     { key: 'on-going', text: 'On-going', value: 'on-going' },
     { key: 'completed', text: 'Completed', value: 'completed' }
+=======
+    { key: 'Started', text: 'Started', value: 'Started' },
+    { key: 'In-Progress', text: 'In-Progress', value: 'In-Progress' },
+    { key: 'Completed', text: 'Completed', value: 'Completed' },
+    { key: 'Claim Submitted', text: 'Claim Submitted', value: 'Claim Submitted' },
+    { key: 'Payment Received', text: 'Payment Received', value: 'Payment Received' },
+    { key: 'Closed', text: 'Closed', value: 'Closed' },
+    { key: 'Onhold', text: 'Onhold', value: 'Onhold' },
+    { key: 'Cancel', text: 'Cancel', value: 'Cancel' }
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   ];
   
   return (

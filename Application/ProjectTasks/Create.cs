@@ -65,7 +65,13 @@ namespace Application.ProjectTasks
                     ItemName = request.ItemName,
                     ItemDescription = sorlist.Description,
                     ItemCategory = sorlist.Category,
+<<<<<<< HEAD
                     TechnicianEmail = ""
+=======
+                    TechnicianEmail = "",
+                    TeamMember = "",
+                    Remark = ""
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                 };
 
                 _context.ProjectTasks.Add(projecttask);

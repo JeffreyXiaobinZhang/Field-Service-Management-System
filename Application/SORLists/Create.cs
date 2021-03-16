@@ -51,7 +51,10 @@ namespace Application.SORLists
                 };
 
                 _context.SORLists.Add(sorlist);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;

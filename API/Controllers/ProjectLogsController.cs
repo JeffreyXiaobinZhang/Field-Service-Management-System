@@ -42,11 +42,19 @@ namespace API.Controllers
             command.Id = id;
             return await _mediator.Send(command);
         }
+<<<<<<< HEAD
 
+=======
+     */
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(int id)
         {
             return await _mediator.Send(new Delete.Command{Id = id});
+<<<<<<< HEAD
         }  */
+=======
+        }  
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     }
 }

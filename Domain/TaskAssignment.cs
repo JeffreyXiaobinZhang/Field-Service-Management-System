@@ -12,5 +12,10 @@ namespace Domain
         public string ItemDescription { get; set; }
         public string ItemCategory { get; set; }
         public string TechnicianEmail { get; set; }
+<<<<<<< HEAD
+=======
+        public string TeamMember { get; set; }
+        public string Remark { get; set; }
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     }
 }

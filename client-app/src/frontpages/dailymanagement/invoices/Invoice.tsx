@@ -67,7 +67,11 @@ const Invoice: React.FC = () => {
                                 <Modal.Actions>
                                     <Button size="tiny" onClick={() => setOpen(false)}>
                                     Cancel</Button>
+<<<<<<< HEAD
                                     <Button size="tiny" color='red' onClick={(e) => {deleteInvoice(e, invoice.id);setOpen(false)}}>
+=======
+                                    <Button size="tiny" color='red' onClick={(e) => deleteInvoice(e, invoice.id)}>
+>>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                                     Yes</Button>
                                 </Modal.Actions>
                             </Modal>
