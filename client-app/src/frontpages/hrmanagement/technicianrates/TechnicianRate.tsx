@@ -3,7 +3,6 @@ import { Item, Button, Label, Segment, Table, Menu, Icon, Tab, Confirm, Modal } 
 import { observer } from 'mobx-react-lite';
 import TechnicianRateStore from '../../../app/stores/technicianRateStore';
 import { Link } from 'react-router-dom';
-import technicianStore from '../../../app/stores/technicianStore';
 
 const TechnicianRate: React.FC = () => {
     
@@ -15,7 +14,6 @@ const TechnicianRate: React.FC = () => {
             <Table celled>
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell>Email</Table.HeaderCell>
                     <Table.HeaderCell>Job Type</Table.HeaderCell>
                     <Table.HeaderCell>Item Name</Table.HeaderCell>
                     <Table.HeaderCell>Category</Table.HeaderCell>
@@ -28,14 +26,11 @@ const TechnicianRate: React.FC = () => {
                 <Table.Body>
                 {technicianRatesByName.map(rate => (
                     <Table.Row key={rate.id}>
-                        <Table.Cell>{rate.email}</Table.Cell>
                         <Table.Cell>{rate.jobType}</Table.Cell>
                         <Table.Cell>{rate.itemName}</Table.Cell>
                         <Table.Cell>{rate.category}</Table.Cell>
                         <Table.Cell>{rate.unitRate}</Table.Cell>
                         <Table.Cell>{rate.uom}</Table.Cell>
-                        
-
                         <Table.Cell>
                         <Button.Group vertical size="mini">
                             <Button
@@ -54,8 +49,6 @@ const TechnicianRate: React.FC = () => {
                                 trigger={<Button
                                     name={rate.id}
                                     loading={target === rate.id && submitting}
-                                    //onClick={() => dispatch({type: "open", size: "mini"})}
-                                    // onClick={(e) => deleteInvoice(e, invoice.id)}
                                     content="Delete"
                                     color = "red"
                                 />}

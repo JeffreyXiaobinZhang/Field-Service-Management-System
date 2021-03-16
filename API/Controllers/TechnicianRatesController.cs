@@ -25,10 +25,16 @@ namespace API.Controllers
             return await _mediator.Send(new List.Query());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TechnicianRate>> Details(int id)
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<TechnicianRate>> Details(int id)
+        //{
+            //return await _mediator.Send(new Details.Query {Id = id});
+        //}
+
+        [HttpGet("{email}")]
+        public async Task<ActionResult<List<TechnicianRate>>> Search(string email)
         {
-            return await _mediator.Send(new Details.Query {Id = id});
+            return await _mediator.Send(new Search.Query { Email = email });
         }
 
         [HttpPost]
@@ -49,5 +55,7 @@ namespace API.Controllers
         {
             return await _mediator.Send(new Delete.Command {Id = id});
         }
+
+        
     }
 }

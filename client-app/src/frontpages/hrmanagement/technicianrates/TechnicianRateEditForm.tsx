@@ -70,7 +70,7 @@ const TechnicianRateEditForm: React.FC<RouteComponentProps<DetailParams>> = ({
               label='Technician Email'
               required
               onChange={handleInputChange}
-              name='technicianEmail'
+              name='email'
               placeholder='Technician Email'
               value={technicianRate.email}
             />
@@ -111,6 +111,7 @@ const TechnicianRateEditForm: React.FC<RouteComponentProps<DetailParams>> = ({
               name='unitRate'
               rows={2}
               placeholder='Unit Rate'
+              type='number'
               value={technicianRate.unitRate}
             />
             <Form.Input
@@ -127,6 +128,7 @@ const TechnicianRateEditForm: React.FC<RouteComponentProps<DetailParams>> = ({
               name='remark'
               placeholder='Remark'
               value={technicianRate.remark}
+              
             />
 
             <Button

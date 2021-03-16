@@ -83,6 +83,7 @@ class ProjectStore {
          project.estimatedCompletionDate = project.estimatedCompletionDate.substr(0,10);
           this.projectRegistry.set(project.id, project);
         });
+        console.log(this.projectRegistry);
         this.loadingInitial = false;
       })
 
@@ -97,6 +98,7 @@ class ProjectStore {
     let project = this.getProject(id);
     if (project) {
       this.project = project;
+      console.log(project);
     } else {
       this.loadingInitial = true;
       try {
@@ -337,7 +339,8 @@ class ProjectStore {
   if (type === 'update') {
   const name = event.currentTarget.textContent;
   const selectEmail = this.technicianRegistry.get(name);
-  email = selectEmail.email;}
+  email = selectEmail.email;
+}
 
   this.submitting = true;
   try {

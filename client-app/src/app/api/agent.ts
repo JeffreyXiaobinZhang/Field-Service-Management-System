@@ -91,7 +91,8 @@ const Invoices = {
 
 const TechnicianRates = {
     list: (): Promise<ITechnicianRate[]> => requests.get('/technicianrates'),
-    details: (id: string) => requests.get(`/technicianrates/${id}`),
+    search: (email: string | undefined) : Promise<ITechnicianRate[]> => requests.get(`/technicianrates/${email}`),
+    //details: (id: string) => requests.get(`/technicianrates/${id}`),
     create: (technicianrate: ITechnicianRate) => requests.post('/technicianrates', technicianrate),
     update: (technicianrate: ITechnicianRate) => requests.put(`/technicianrates/${technicianrate.id}`, technicianrate),
     delete: (id: string) => requests.del(`/technicianrates/${id}`)

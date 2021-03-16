@@ -36,7 +36,6 @@ const TechnicianRateDetails: React.FC<RouteComponentProps<DetailParams>> = ({
         ui={false}
       /> */}
       <Card.Content>
-        <Card.Header>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Item ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {technicianRate!.id}</Card.Header>
         <Table definition>
     <Table.Body>
       <Table.Row>
