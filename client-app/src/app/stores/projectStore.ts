@@ -166,7 +166,7 @@ class ProjectStore {
   }
 
   getProject = (id: string) => {
-    return this.projectRegistry.get(id);
+    return this.projectRegistry.get(Number(id));
   }
 
   @action loadProjectsStatus = async (event: SyntheticEvent<HTMLButtonElement>, status: string) => {

@@ -24,7 +24,14 @@ export default class UserStore {
       });
       this.rootStore.commonStore.setToken(user.token);
       this.rootStore.modalStore.closeModal();
-      history.push('/home');
+      if (user.role === 'Member')
+      {
+        history.push('/employeeportal');
+      }
+      else
+      {
+        history.push('/home');
+      }
     } catch (error) {
       throw error;
     }

@@ -27,12 +27,14 @@ namespace Application.User
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _userManager.FindByNameAsync(_userAccessor.GetCurrentUsername());
+                var role = await _userManager.GetRolesAsync(user);
 
                 return new User
                 {
                     DisplayName = user.DisplayName,
                     Username = user.UserName,
                     Token = _jwtGenerator.CreateToken(user),
+                    Role = role[0],
                     Image = null
                 };
             }

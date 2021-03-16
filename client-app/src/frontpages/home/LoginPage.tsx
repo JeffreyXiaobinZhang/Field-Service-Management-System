@@ -26,9 +26,17 @@ const LoginPage = () => {
         {isLoggedIn && user ? (
           <Fragment>
             <Header as='h2' inverted content={`Welcome back ${user.displayName}`} />
-            <Button as={Link} to='/home' size='huge' inverted>
+            {(user.role === 'Member') ? (
+            <Button as={Link} to='/employeeportal' size='huge' inverted>
               Go to Field Management System!
             </Button>
+            ) : (
+              <Button as={Link} to='/home' size='huge' inverted>
+              Go to Field Management System!
+            </Button>
+            )
+            
+          }
           </Fragment>
         ) : (
           <Fragment>

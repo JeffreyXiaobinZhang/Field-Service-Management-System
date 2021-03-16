@@ -3,10 +3,11 @@ import { Container } from 'semantic-ui-react';
 import NavBarDaily from '../../frontpages/dailymanagement/NavBarDaily';
 import NavBarProject from '../../frontpages/projectmanagement/NavBarProject';
 import NavBarHRmanagement from '../../frontpages/hrmanagement/NavBarHRmanagement';
+import NavBarEmployee from '../../frontpages/technicianportal/NavBarEmployee';
 import SORListDashboard from '../../frontpages/dailymanagement/sorlists/SORListDashboard';
 import ProjectDashboard from '../../frontpages/projectmanagement/bdod/ProjectDashboard';
 import NotFound from './NotFound';
-import {ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import ModalContainer from '../common/modals/ModalContainer';
 import { observer } from 'mobx-react-lite';
 import { Route, withRouter, RouteComponentProps } from 'react-router-dom';
@@ -49,8 +50,8 @@ import LoadingComponent from './LoadingComponent';
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
-  const {setAppLoaded, token, appLoaded} = rootStore.commonStore;
-  const {getUser} = rootStore.userStore;
+  const { setAppLoaded, token, appLoaded } = rootStore.commonStore;
+  const { getUser, user } = rootStore.userStore;
 
   useEffect(() => {
     if (token) {
@@ -60,7 +61,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
     }
   }, [getUser, setAppLoaded, token])
 
-  if (!appLoaded)  return <LoadingComponent content='Loading app...' />
+  if (!appLoaded) return <LoadingComponent content='Loading app...' />
 
   return (
     <Fragment>
@@ -68,11 +69,11 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
       <ToastContainer position='bottom-right' />
       <Route exact path='/' component={LoginPage} />
       <Route path='/login' component={LoginForm} />
-      <Route exact path='/home' component={HomePage} />
+      {  (user) && (user.role === 'Admin')  && <Route exact path='/home' component={HomePage} />}
       <Route
         // path={'/(.+)'}
         path={'/dailymanagement'}
-        render={() => (
+        render={() => (user) && (user.role === 'Admin') && (
           <Fragment>
             <NavBarDaily />
             <Container style={{ marginTop: '7em' }}>
@@ -97,13 +98,13 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route path='/dailymanagement/thirdAdd/' component={Thirdadd} />
             </Container>
           </Fragment>
-        )}        
+        )}
       />
 
-       <Route
+      <Route
         // path={'/(.+)'}
         path={'/hrmanagement'}
-        render={() => (
+        render={() => (user) && (user.role === 'Admin') && (
           <Fragment>
             <NavBarHRmanagement />
             <Container style={{ marginTop: '7em' }}>
@@ -123,13 +124,13 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route path='/hrmanagement/techniciancertificate-edit/:id/:technicianId/:certificateId/:expiryDate/:remark/' component={TechnicianCertificateEditForm} />
             </Container>
           </Fragment>
-        )}        
+        )}
       />
 
       <Route
         // path={'/(.+)'}
         path={'/projectmanagement'}
-        render={() => (
+        render={() => (user) && (user.role === 'Admin') && (
           <Fragment>
             <NavBarProject />
             <Container style={{ marginTop: '7em' }}>
@@ -139,7 +140,23 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route path='/projectmanagement/project-edit/:id' component={ProjectEditForm} />
             </Container>
           </Fragment>
-        )}        
+        )}
+      />
+
+      <Route
+        // path={'/(.+)'}
+        path={'/employeeportal'}
+        render={() => (
+          <Fragment>
+            <NavBarEmployee />
+            {/* <Container style={{ marginTop: '7em' }}>
+              <Route exact path='/projectmanagement/project' component={ProjectDashboard} />
+              <Route path='/projectmanagement/project/:id' component={ProjectDetails} />
+              <Route path='/projectmanagement/project-create' component={ProjectCreateForm} />
+              <Route path='/projectmanagement/project-edit/:id' component={ProjectEditForm} />
+            </Container> */}
+          </Fragment>
+        )}
       />
     </Fragment>
   );

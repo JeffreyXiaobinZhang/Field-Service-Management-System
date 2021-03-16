@@ -2,6 +2,7 @@ export interface IUser {
     username: string;
     displayName: string;
     token: string;
+    role: string;
     image?: string;
 }
 

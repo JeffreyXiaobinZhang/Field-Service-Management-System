@@ -18,7 +18,7 @@ class HomePage extends React.Component {
                         <div className="card-body">
                         <FaUser size="2em" />
                         <a className = "href" href="#">
-                            <h3 classNameName="card-title">Employee Portal</h3>
+                            <h3 classNameName="card-title"> <Link to='/employeeportal'>Employee Portal</Link> </h3>
                         </a>
                         </div>
                     </div>
