@@ -22,10 +22,6 @@ const TechnicianDashboard: React.FC = () => {
       <Grid>
       <Grid.Column width={4}> 
     <Dropdown
-<<<<<<< HEAD
-    // width={5}
-=======
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
      placeholder='Select Technician Type'
      selection
       />
@@ -35,18 +31,7 @@ const TechnicianDashboard: React.FC = () => {
         />
         </Grid.Column>
     </Grid>
-<<<<<<< HEAD
-    <Grid>
-      <Grid.Column width={14}>
         <TechnicianList />
-      </Grid.Column>
-      <Grid.Column width={2}>
-        <h2></h2>
-      </Grid.Column>
-    </Grid>
-=======
-        <TechnicianList />
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     </Segment>
   );
 };

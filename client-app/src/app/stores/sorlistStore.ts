@@ -1,10 +1,7 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
 import { ISORList } from '../models/sorlist';
-<<<<<<< HEAD
-=======
 import { toast } from 'react-toastify';
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import agent from '../api/agent';
 
 configure({enforceActions: 'always'});
@@ -18,13 +15,8 @@ class SORListStore {
 
   @computed get sorlistsByName() {
     return Array.from(this.sorlistRegistry.values()).sort(
-<<<<<<< HEAD
-      (a, b) => Date.parse(a.name) - Date.parse(b.name)
-    );
-=======
       (a, b) => a.name.localeCompare(b.name))
     ;
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @action loadSORLists = async () => {
@@ -42,10 +34,7 @@ class SORListStore {
       runInAction('load SOR List error', () => {
         this.loadingInitial = false;
       })
-<<<<<<< HEAD
-=======
       toast.error('load SOR List error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     }
   };
 
@@ -65,10 +54,7 @@ class SORListStore {
         runInAction('get sorlist error', () => {
           this.loadingInitial = false;
         })
-<<<<<<< HEAD
-=======
         toast.error('get sorlist error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         console.log(error);
       }
     }
@@ -96,10 +82,7 @@ class SORListStore {
       runInAction('create SOR error', () => {
         this.submitting = false;
       })
-<<<<<<< HEAD
-=======
       toast.error('create SOR error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   };
@@ -117,10 +100,7 @@ class SORListStore {
       runInAction('edit sorlist error', () => {
         this.submitting = false;
       })
-<<<<<<< HEAD
-=======
       toast.error('edit sorlist error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   };
@@ -140,10 +120,7 @@ class SORListStore {
         this.submitting = false;
         this.target = '';
       })
-<<<<<<< HEAD
-=======
       toast.error('delete SOR error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   }

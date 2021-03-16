@@ -51,11 +51,8 @@ namespace Application.TaskAssignments
                         TechName = tech.Name,
                         TechEmail = tech.Email,
                         TechType = tech.Type,
-<<<<<<< HEAD
-=======
                         TeamMember = task.TeamMember,
                         Remark = task.Remark,
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                     }).Where(x => x.ProjectId == request.Id).Distinct().ToListAsync();
 
                 /*    var tasktechnician = await _context.TaskAssignments.GroupJoin(_context.Technicians,

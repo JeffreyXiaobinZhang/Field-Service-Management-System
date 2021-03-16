@@ -1,18 +1,11 @@
-<<<<<<< HEAD
-<Project Sdk="Microsoft.NET.Sdk">
-=======
 ﻿<Project Sdk="Microsoft.NET.Sdk">
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-=======
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 

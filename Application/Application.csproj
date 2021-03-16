@@ -4,10 +4,7 @@
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
   <PropertyGroup>

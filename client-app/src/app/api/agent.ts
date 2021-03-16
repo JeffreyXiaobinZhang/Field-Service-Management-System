@@ -1,10 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
-<<<<<<< HEAD
-=======
 import { toast } from 'react-toastify';
 import { IUser, IUserFormValues } from '../models/user';
 import { history } from '../..';
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import { IProject } from '../models/project';
 import { IProjectTask } from '../models/projecttask';
 import { ISORList } from '../models/sorlist';
@@ -13,13 +10,7 @@ import { ITaskTechnician } from '../models/tasktechnician';
 import { IProjectLog } from '../models/projectlog';
 import { IWarehouse } from '../models/warehouse';
 import { IInvoice } from '../models/invoice';
-<<<<<<< HEAD
 import {ITechnicianRate} from '../models/technicianrate';
-import { request } from 'http';
-
-axios.defaults.baseURL = 'http://localhost:5000/api';
-
-=======
 import { IWarehouseLog } from '../models/warehouselog';
 import { IProjectStock } from '../models/projectstock';
 import { ICertificate } from '../models/certificate';
@@ -66,7 +57,6 @@ axios.interceptors.response.use(undefined, error => {
     throw error.response;
   });
 
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 const responseBody = (response: AxiosResponse) => response.data;
 
 const sleep = (ms: number) => (response: AxiosResponse) => 
@@ -79,15 +69,12 @@ const requests = {
     del: (url: string) => axios.delete(url).then(sleep(100)).then(responseBody) 
 };
 
-<<<<<<< HEAD
-=======
 const User = {
     current: (): Promise<IUser> => requests.get('/user'),
     login: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/login`, user),
     register: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/register`, user),
 }
 
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 const Projects = {
     list: (): Promise<IProject[]> => requests.get('/projects'),
     listStatus: (status: string): Promise<IProject[]> => requests.get(`/projects/${status}`),
@@ -125,11 +112,7 @@ const TaskAssignments = {
     list: (projectId: string): Promise<ITaskTechnician[]> => requests.get(`/taskassignments/${projectId}`),
     // details: (id: string) => requests.get(`/technicians/${id}`),
     // create: (technician: ITechnician) => requests.post('/technicians', technician),
-<<<<<<< HEAD
-    update: (projectId: string, category: string, techEmail: string) => requests.put(`/taskassignments/${projectId}/${category}/${techEmail}`,{}),
-=======
     update: (tasktechnician: ITaskTechnician) => requests.put(`/taskassignments/${tasktechnician.projectId}`,tasktechnician),
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     // delete: (id: string) => requests.del(`/technicians/${id}`)
 }
 
@@ -138,11 +121,7 @@ const ProjectLogs = {
     // details: (id: string) => requests.get(`/projecttasks/${id}`),
     create: (projectlog: IProjectLog) => requests.post('/projectlogs', projectlog),
     // update: (projecttask: IProjectTask) => requests.put(`/projecttasks/${projecttask.id}`, projecttask),
-<<<<<<< HEAD
-    // delete: (id: string) => requests.del(`/projecttasks/${id}`)
-=======
     delete: (id: string) => requests.del(`/projectlogs/${id}`)
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 }
 
 const Warehouses = {
@@ -161,7 +140,6 @@ const Invoices = {
     delete: (id: string) => requests.del(`/invoices/${id}`)
 }
 
-<<<<<<< HEAD
 const TechnicianRates = {
     list: (): Promise<ITechnicianRate[]> => requests.get('/technicianrates'),
     search: (email: string | undefined) : Promise<ITechnicianRate[]> => requests.get(`/technicianrates/${email}`),
@@ -172,8 +150,6 @@ const TechnicianRates = {
 
 }
 
-export default {
-=======
 const WarehouseLogs = {
     list: (projectId: string): Promise<IWarehouseLog[]> => requests.get(`/warehouselogs/${projectId}`),
     // details: (id: string) => requests.get(`/projecttasks/${id}`),
@@ -227,7 +203,6 @@ const ProjectVendors = {
 
 export default {
     User,
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     Projects,
     SORLists,
     ProjectTasks,
@@ -236,14 +211,11 @@ export default {
     ProjectLogs,
     Warehouses,
     Invoices,
-<<<<<<< HEAD
-    TechnicianRates
-=======
+    TechnicianRates,
     WarehouseLogs,
     ProjectStocks,
     Certificates,
     TechnicianCertificates,
     ThirdParties,
     ProjectVendors
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 }

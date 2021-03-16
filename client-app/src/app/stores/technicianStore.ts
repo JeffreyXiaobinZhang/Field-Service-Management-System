@@ -1,10 +1,7 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
 import { ITechnician } from '../models/technician';
-<<<<<<< HEAD
-=======
 import { toast } from 'react-toastify';
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import agent from '../api/agent';
 
 configure({enforceActions: 'always'});
@@ -18,13 +15,8 @@ class TechnicianStore {
 
   @computed get techniciansByName() {
     return Array.from(this.technicianRegistry.values()).sort(
-<<<<<<< HEAD
-      (a, b) => Date.parse(a.name) - Date.parse(b.name)
-    );
-=======
       (a, b) => a.name.localeCompare(b.name))
     ;
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @action loadTechnicians = async () => {
@@ -42,10 +34,7 @@ class TechnicianStore {
       runInAction('load Technician List error', () => {
         this.loadingInitial = false;
       })
-<<<<<<< HEAD
-=======
       toast.error('load Technician List error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     }
   };
 
@@ -65,10 +54,7 @@ class TechnicianStore {
         runInAction('get technician error', () => {
           this.loadingInitial = false;
         })
-<<<<<<< HEAD
-=======
         toast.error('get technician error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         console.log(error);
       }
     }
@@ -89,20 +75,14 @@ class TechnicianStore {
       technician.updatedAt = new Date().toJSON();
       await agent.Technicians.create(technician);
       runInAction('create Techncian', () => {
-<<<<<<< HEAD
-=======
     //    this.technicianRegistry.set(technician.id, technician);
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         this.submitting = false;
       })
     } catch (error) {
       runInAction('create Technician error', () => {
         this.submitting = false;
       })
-<<<<<<< HEAD
-=======
       toast.error('create Technician error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   };
@@ -120,10 +100,7 @@ class TechnicianStore {
       runInAction('edit technician error', () => {
         this.submitting = false;
       })
-<<<<<<< HEAD
-=======
       toast.error('edit technician error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   };
@@ -143,10 +120,7 @@ class TechnicianStore {
         this.submitting = false;
         this.target = '';
       })
-<<<<<<< HEAD
-=======
       toast.error('delete Technician error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   }

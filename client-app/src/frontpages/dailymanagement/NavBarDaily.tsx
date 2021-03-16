@@ -1,26 +1,15 @@
 import React, { useContext } from 'react';
-<<<<<<< HEAD
-import { Menu, Container, Button, Dropdown } from 'semantic-ui-react';
-=======
 import { Menu, Container, Button, Dropdown, Image } from 'semantic-ui-react';
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import ProjectStore from '../../app/stores/projectStore';
 import SORStore from '../../app/stores/sorlistStore';
 import { observer } from 'mobx-react-lite';
 import SORListDashboard from '../../frontpages/dailymanagement/sorlists/SORListDashboard';
 import { Link, NavLink } from 'react-router-dom';
-<<<<<<< HEAD
-
-const NavBarDaily: React.FC = () => {
-  const projectStore = useContext(ProjectStore);
-  const sorStore = useContext(SORStore);
-=======
 import { RootStoreContext } from '../../app/stores/rootStore';
 
 const NavBarDaily: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
   const { user, logout } = rootStore.userStore;
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   return (
     <Menu fixed='top' inverted>
       <Container>
@@ -39,15 +28,7 @@ const NavBarDaily: React.FC = () => {
          <Dropdown.Item  text='Check Warehouse Items' icon='write'/>
         </Dropdown.Menu>
         </Dropdown>
-<<<<<<< HEAD
-        <Dropdown simple item text='Third Party'>
-        <Dropdown.Menu>
-         <Dropdown.Item  text='Check Warehouse Items' icon='write'/>
-        </Dropdown.Menu>
-        </Dropdown>
-=======
         <Menu.Item as={NavLink} to='/dailymanagement/third'>Third Party</Menu.Item>
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         <Dropdown item text='SOR'>
         <Dropdown.Menu>
          <Dropdown.Item as={NavLink} to='/dailymanagement/sorlist' text='Query SOR' icon='edit'/>
@@ -60,8 +41,6 @@ const NavBarDaily: React.FC = () => {
          <Dropdown.Item as={NavLink} to='/dailymanagement/invoice-create' text='Add Invoice' icon='write'/>
         </Dropdown.Menu>
         </Dropdown>
-<<<<<<< HEAD
-=======
         {user && (
           <Menu.Item position='right'>
             <Image avatar spaced='right' src={user.image || '/assets/user.png'} />
@@ -78,7 +57,6 @@ const NavBarDaily: React.FC = () => {
             </Dropdown>
           </Menu.Item>
         )}
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       </Container>
     </Menu>
   );

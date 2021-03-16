@@ -1,23 +1,14 @@
-<<<<<<< HEAD
-import React, { Fragment } from 'react';
-=======
 import React, { Fragment, useContext, useEffect } from 'react';
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import { Container } from 'semantic-ui-react';
 import NavBarDaily from '../../frontpages/dailymanagement/NavBarDaily';
 import NavBarProject from '../../frontpages/projectmanagement/NavBarProject';
 import NavBarHRmanagement from '../../frontpages/hrmanagement/NavBarHRmanagement';
-<<<<<<< HEAD
-import SORListDashboard from '../../frontpages/dailymanagement/sorlists/SORListDashboard';
-import ProjectDashboard from '../../frontpages/projectmanagement/bdod/ProjectDashboard';
-=======
 import NavBarEmployee from '../../frontpages/technicianportal/NavBarEmployee';
 import SORListDashboard from '../../frontpages/dailymanagement/sorlists/SORListDashboard';
 import ProjectDashboard from '../../frontpages/projectmanagement/bdod/ProjectDashboard';
 import NotFound from './NotFound';
 import { ToastContainer } from 'react-toastify';
 import ModalContainer from '../common/modals/ModalContainer';
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import { observer } from 'mobx-react-lite';
 import { Route, withRouter, RouteComponentProps } from 'react-router-dom';
 import HomePage from '../../frontpages/home/Home';
@@ -39,21 +30,6 @@ import InvoiceEditForm from '../../frontpages/dailymanagement/invoices/InvoiceEd
 import InvoiceDetails from '../../frontpages/dailymanagement/invoices/InvoiceDetails';
 import InvoiceCreateForm from '../../frontpages/dailymanagement/invoices/InvoiceCreateForm';
 import InvoiceDashboard from '../../frontpages/dailymanagement/invoices/InvoiceDashboard';
-<<<<<<< HEAD
-import TechnicianRateDashboard from '../../frontpages/hrmanagement/technicianrates/TechnicianRateDashboard';
-import TechnicianRateEditForm from '../../frontpages/hrmanagement/technicianrates/TechnicianRateEditForm';
-import TechnicianRateDetails from '../../frontpages/hrmanagement/technicianrates/TechnicianRateDetails';
-import TechnicianRateCreateForm from '../../frontpages/hrmanagement/technicianrates/TechnicianRateCreateForm';
-const App: React.FC<RouteComponentProps> = ({ location }) => {
-
-  return (
-    <Fragment>
-      <Route exact path='/' component={HomePage} />
-      <Route
-        // path={'/(.+)'}
-        path={'/dailymanagement'}
-        render={() => (
-=======
 import CertificateDashboard from '../../frontpages/hrmanagement/certificates/CertificateDashboard';
 import CertificateEditForm from '../../frontpages/hrmanagement/certificates/CertificateEditForm';
 import CertificateDetails from '../../frontpages/hrmanagement/certificates/CertificateDetails';
@@ -70,6 +46,10 @@ import LoginForm from '../../frontpages/user/LoginForm';
 import LoginPage from '../../frontpages/home/LoginPage';
 import { RootStoreContext } from '../stores/rootStore';
 import LoadingComponent from './LoadingComponent';
+import TechnicianRateDashboard from '../../frontpages/hrmanagement/technicianrates/TechnicianRateDashboard';
+import TechnicianRateEditForm from '../../frontpages/hrmanagement/technicianrates/TechnicianRateEditForm';
+import TechnicianRateDetails from '../../frontpages/hrmanagement/technicianrates/TechnicianRateDetails';
+import TechnicianRateCreateForm from '../../frontpages/hrmanagement/technicianrates/TechnicianRateCreateForm';
 
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
@@ -98,7 +78,6 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         // path={'/(.+)'}
         path={'/dailymanagement'}
         render={() => (user) && (user.role === 'Admin') && (
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
           <Fragment>
             <NavBarDaily />
             <Container style={{ marginTop: '7em' }}>
@@ -116,17 +95,6 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route path='/dailymanagement/invoice/:id' component={InvoiceDetails} />
               <Route path='/dailymanagement/invoice-create' component={InvoiceCreateForm} />
               <Route path='/dailymanagement/invoice-edit/:id' component={InvoiceEditForm} />
-<<<<<<< HEAD
-            </Container>
-          </Fragment>
-        )}        
-      />
-
-       <Route
-        // path={'/(.+)'}
-        path={'/hrmanagement'}
-        render={() => (
-=======
 
               <Route exact path='/dailymanagement/third' component={Thirdlist} />
               <Route path='/dailymanagement/third/:name' component={Thirddetail} />
@@ -141,7 +109,6 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         // path={'/(.+)'}
         path={'/hrmanagement'}
         render={() => (user) && (user.role === 'Admin') && (
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
           <Fragment>
             <NavBarHRmanagement />
             <Container style={{ marginTop: '7em' }}>
@@ -150,16 +117,6 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route path='/hrmanagement/technician-create' component={TechnicianCreateForm} />
               <Route path='/hrmanagement/technician-edit/:id' component={TechnicianEditForm} />
 
-<<<<<<< HEAD
-              <Route exact path='/hrmanagement/technicianrate' component={TechnicianRateDashboard} />
-              <Route path='/hrmanagement/technicianrate/:id' component={TechnicianRateDetails} />
-              <Route path='/hrmanagement/technicianrate-create' component={TechnicianRateCreateForm} />
-              <Route path='/hrmanagement/technicianrate-edit/:id' component={TechnicianRateEditForm} />
-
-            </Container>
-          </Fragment>
-        )}        
-=======
               <Route exact path='/hrmanagement/certificate' component={CertificateDashboard} />
               <Route path='/hrmanagement/certificate/:id' component={CertificateDetails} />
               <Route path='/hrmanagement/certificate-create' component={CertificateCreateForm} />
@@ -169,20 +126,20 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route path='/hrmanagement/techniciancertificate/:id' component={TechnicianCertificateDetails} />
               <Route path='/hrmanagement/techniciancertificate-create' component={TechnicianCertificateCreateForm} />
               <Route path='/hrmanagement/techniciancertificate-edit/:id/:technicianId/:certificateId/:expiryDate/:remark/' component={TechnicianCertificateEditForm} />
+              
+              <Route exact path='/hrmanagement/technicianrate' component={TechnicianRateDashboard} />
+              <Route path='/hrmanagement/technicianrate/:id' component={TechnicianRateDetails} />
+              <Route path='/hrmanagement/technicianrate-create' component={TechnicianRateCreateForm} />
+              <Route path='/hrmanagement/technicianrate-edit/:id' component={TechnicianRateEditForm} />
             </Container>
           </Fragment>
         )}
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       />
 
       <Route
         // path={'/(.+)'}
         path={'/projectmanagement'}
-<<<<<<< HEAD
-        render={() => (
-=======
         render={() => (user) && (user.role === 'Admin') && (
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
           <Fragment>
             <NavBarProject />
             <Container style={{ marginTop: '7em' }}>
@@ -192,9 +149,6 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route path='/projectmanagement/project-edit/:id' component={ProjectEditForm} />
             </Container>
           </Fragment>
-<<<<<<< HEAD
-        )}        
-=======
         )}
       />
 
@@ -212,7 +166,6 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             </Container> */}
           </Fragment>
         )}
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       />
     </Fragment>
   );

@@ -1,23 +1,13 @@
 import React, { useContext } from 'react';
-<<<<<<< HEAD
-import { Item, Button, Label, Segment, Table, Menu, Icon } from 'semantic-ui-react';
-import { observer } from 'mobx-react-lite';
-import TechnicianStore from '../../../app/stores/technicianStore';
-=======
 import { Item, Button, Label, Segment, Table, Menu, Icon, Container, Grid, Popup } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import TechnicianStore from '../../../app/stores/technicianStore';
 import { CSVLink } from "react-csv";
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 import { Link } from 'react-router-dom';
 
 const Technician: React.FC = () => {
   const technicianStore = useContext(TechnicianStore);
   const {techniciansByName: techniciansByName,  deleteTechnician: deleteTechnician, submitting, target} = technicianStore;
-<<<<<<< HEAD
-  return (
-    <Segment clearing>
-=======
 
   return (
     <Container>
@@ -28,7 +18,6 @@ const Technician: React.FC = () => {
       </CSVLink>
       </Grid.Column>
       </Grid>
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       <Table celled>
     <Table.Header>
       <Table.Row>
@@ -90,11 +79,7 @@ const Technician: React.FC = () => {
       </Table.Row>
     </Table.Footer>
   </Table>
-<<<<<<< HEAD
-    </Segment>
-=======
     </Container>
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   );
 };
 

@@ -17,13 +17,9 @@ const ProjectDetails: React.FC<RouteComponentProps<DetailParams>> = ({
 }) => {
   const projectStore = useContext(ProjectStore);
   const { project, loadProject, deleteProjectTask, 
-<<<<<<< HEAD
-    loadProjectTasks, loadTaskAssignments, loadTechnicians, loadProjectLogs, loadSORLists, loadingInitial, reload } = projectStore;
-=======
     loadProjectTasks, loadTaskAssignments, loadTechnicians, 
     loadProjectLogs, loadSORLists, loadWarehouseLogs, 
     loadProjectStocks, loadWarehouses, loadThirdParties, loadProjectVendors, loadingInitial, reload } = projectStore;
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 
   useEffect(() => {
     loadProject(match.params.id);
@@ -32,15 +28,6 @@ const ProjectDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     loadTechnicians();
     loadProjectLogs(match.params.id);
     loadSORLists();
-<<<<<<< HEAD
-  }, [match.params.id]);
-
-
-    // useEffect(() => {
-    //   loadProjectTasks(match.params.id);
-    //   }, []); 
-
-=======
     loadWarehouseLogs(match.params.id);
     loadProjectStocks(match.params.id);
     loadWarehouses();
@@ -49,18 +36,12 @@ const ProjectDetails: React.FC<RouteComponentProps<DetailParams>> = ({
   }, [match.params.id]);
 
 
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       useEffect(() => {
         loadTaskAssignments(match.params.id);
         }, [reload]); 
 
   if (loadingInitial || !project) return <LoadingComponent content='Loading Project ...' /> 
   
-<<<<<<< HEAD
-  //    if (projectStore.loadingInitial)
-  // return <LoadingComponent content='Loading Tasks' />;
-=======
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 
   return (
     <Segment>

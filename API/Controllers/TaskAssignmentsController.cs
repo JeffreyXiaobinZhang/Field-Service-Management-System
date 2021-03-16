@@ -30,22 +30,6 @@ namespace API.Controllers
             return await _mediator.Send(command);
         } */
 
-<<<<<<< HEAD
-        [HttpPut("{id}/{category}/{techEmail}")]
-        public async Task<ActionResult<Unit>> Edit(int id, string category, string techEmail, Edit.Command command)
-        {
-            command.ProjectId = id;
-            command.ItemCategory = category;
-            command.TechnicianEmail = techEmail;
-            return await _mediator.Send(command);
-        }
-
-   /*     [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(int id)
-        {
-            return await _mediator.Send(new Delete.Command{Id = id});
-        }   */
-=======
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> Edit(int id, Edit.Command command)
         {
@@ -58,6 +42,5 @@ namespace API.Controllers
              {
                  return await _mediator.Send(new Delete.Command{Id = id});
              }   */
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     }
 }

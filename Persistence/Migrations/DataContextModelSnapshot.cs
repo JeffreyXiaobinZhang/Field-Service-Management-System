@@ -14,13 +14,6 @@ namespace Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-<<<<<<< HEAD
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
-
-            modelBuilder.Entity("Domain.Project", b =>
-                {
-                    b.Property<Guid>("Id")
-=======
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
@@ -79,26 +72,10 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Certificate", b =>
                 {
                     b.Property<int>("Id")
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Category");
 
-<<<<<<< HEAD
-                    b.Property<string>("City");
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Title");
-
-                    b.Property<string>("Venue");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Activities");
-=======
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Description");
@@ -412,7 +389,6 @@ namespace Persistence.Migrations
                     b.HasKey("CompanyName");
 
                     b.ToTable("ThirdParties");
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                 });
 
             modelBuilder.Entity("Domain.Value", b =>
@@ -425,25 +401,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Values");
-<<<<<<< HEAD
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Value 101"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Value 102"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Value 103"
-                        });
-=======
                 });
 
             modelBuilder.Entity("Domain.Warehouse", b =>
@@ -520,7 +477,6 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .HasMaxLength(256);
-
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256);
 
@@ -660,7 +616,6 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
                 });
 #pragma warning restore 612, 618
         }

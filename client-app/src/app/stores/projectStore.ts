@@ -6,16 +6,12 @@ import { ITaskAssignment as ITaskAssignment } from '../models/taskassignment';
 import { ITaskTechnician as ITaskTechnician } from '../models/tasktechnician';
 import { ITechnician as ITechnician } from '../models/technician';
 import { IProjectLog as IProjectLog } from '../models/projectlog';
-<<<<<<< HEAD
-import { ISORList } from '../models/sorlist';
-=======
 import { IWarehouseLog as IWarehouseLog } from '../models/warehouselog';
 import { toast } from 'react-toastify';
 import { ISORList } from '../models/sorlist';
 import { IProjectStock as IProjectStock } from '../models/projectstock';
 import {IProjectVendor} from '../models/projectvendor';
 import { IThirdparty } from '../models/thirdparty';
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 
 import agent from '../api/agent';
 
@@ -36,10 +32,6 @@ class ProjectStore {
   @observable tasktechnician: ITaskTechnician | null = null;
   @observable projectlogRegistry = new Map();
   @observable projectlog: IProjectLog | null = null;
-<<<<<<< HEAD
-  @observable sorlistRegistry = new Map();
-  @observable sorlist: ISORList | null = null;
-=======
   @observable warehouselogRegistry = new Map();
   @observable warehouselog: IWarehouseLog | null = null;
   @observable sorlistRegistry = new Map();
@@ -52,7 +44,6 @@ class ProjectStore {
   @observable selectedProjectVendor: IProjectVendor | undefined;
   @observable thirdRegistry = new Map();
   @observable thirdparty: IThirdparty | null = null;
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   @observable loadingInitial = false;
   @observable submitting = false;
   @observable target = '';
@@ -68,35 +59,20 @@ class ProjectStore {
 
   @computed get projecttasksByName() {
     return Array.from(this.projecttaskRegistry.values()).sort(
-<<<<<<< HEAD
-      (a, b) => a.itemName - b.itemName
-    );
-=======
       (a, b) => a.itemName.localeCompare(b.itemName))
     ;
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @computed get tasktechniciansByCategory() {
     return Array.from(this.tasktechnicianRegistry.values()).sort(
-<<<<<<< HEAD
-      (a, b) => a.category - b.category
-    );
-=======
       (a, b) => a.category.localeCompare(b.category))
     ;
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @computed get techniciansByName() {
     return Array.from(this.technicianRegistry.values()).sort(
-<<<<<<< HEAD
-      (a, b) => Date.parse(a.name) - Date.parse(b.name)
-    );
-=======
       (a, b) => a.name.localeCompare(b.name))
     ;
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @computed get projectlogsByDate() {
@@ -105,11 +81,6 @@ class ProjectStore {
     );
   }
 
-<<<<<<< HEAD
-  @computed get sorlistsByName() {
-    return Array.from(this.sorlistRegistry.values()).sort(
-      (a, b) => Date.parse(a.name) - Date.parse(b.name)
-=======
   @computed get warehouselogsByDate() {
     return Array.from(this.warehouselogRegistry.values()).sort(
       (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
@@ -143,7 +114,6 @@ class ProjectStore {
   @computed get ThirdPartiesByName() {
     return Array.from(this.thirdRegistry.values()).sort(
       (a, b) => Date.parse(a.companyName) - Date.parse(b.companyName)
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     );
   }
 
@@ -158,10 +128,6 @@ class ProjectStore {
          project.estimatedCompletionDate = project.estimatedCompletionDate.substr(0,10);
           this.projectRegistry.set(project.id, project);
         });
-<<<<<<< HEAD
-        console.log(this.projectRegistry);
-=======
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         this.loadingInitial = false;
       })
 
@@ -169,10 +135,7 @@ class ProjectStore {
       runInAction('load projects error', () => {
         this.loadingInitial = false;
       })
-<<<<<<< HEAD
-=======
       toast.error('load projects error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     }
   };
 
@@ -180,10 +143,6 @@ class ProjectStore {
     let project = this.getProject(id);
     if (project) {
       this.project = project;
-<<<<<<< HEAD
-      console.log(project);
-=======
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     } else {
       this.loadingInitial = true;
       try {
@@ -196,10 +155,7 @@ class ProjectStore {
         runInAction('get project error', () => {
           this.loadingInitial = false;
         })
-<<<<<<< HEAD
-=======
         toast.error('get project error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
         console.log(error);
       }
     }
@@ -210,11 +166,7 @@ class ProjectStore {
   }
 
   getProject = (id: string) => {
-<<<<<<< HEAD
-    return this.projectRegistry.get(id);
-=======
     return this.projectRegistry.get(Number(id));
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 
   @action loadProjectsStatus = async (event: SyntheticEvent<HTMLButtonElement>, status: string) => {
@@ -236,10 +188,7 @@ class ProjectStore {
       runInAction('load projects error', () => {
         this.loadingInitial = false;
       })
-<<<<<<< HEAD
-=======
       toast.error('load projects error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     }
   };
 
@@ -260,10 +209,7 @@ class ProjectStore {
       runInAction('create project error', () => {
         this.submitting = false;
       })
-<<<<<<< HEAD
-=======
       toast.error('create project error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   };
@@ -283,10 +229,7 @@ class ProjectStore {
       runInAction('edit project error', () => {
         this.submitting = false;
       })
-<<<<<<< HEAD
-=======
       toast.error('edit project error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   };
@@ -306,10 +249,7 @@ class ProjectStore {
         this.submitting = false;
         this.target = '';
       })
-<<<<<<< HEAD
-=======
       toast.error('delete project error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
       console.log(error);
     }
   }
@@ -319,10 +259,7 @@ class ProjectStore {
   this.reload = false;
   try {
     const projecttasks = await agent.ProjectTasks.list(projectId);
-<<<<<<< HEAD
-=======
     this.projecttaskRegistry.clear();
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     runInAction('loading tasks', () => {
       projecttasks.forEach(projecttask => {
         this.projecttaskRegistry.set(projecttask.id, projecttask);
@@ -330,18 +267,11 @@ class ProjectStore {
       this.loadingInitial = false;
       this.reload = true;
     })
-<<<<<<< HEAD
-=======
-
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   } catch (error) {
     runInAction('load tasks error', () => {
       this.loadingInitial = false;
     })
-<<<<<<< HEAD
-=======
     toast.error('load tasks error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 }
 
@@ -362,10 +292,7 @@ class ProjectStore {
     runInAction('create project error', () => {
       this.submitting = false;
     })
-<<<<<<< HEAD
-=======
     toast.error('create project error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     console.log(error);
   }
 };
@@ -388,10 +315,7 @@ class ProjectStore {
       this.submitting = false;
       this.target = '';
     })
-<<<<<<< HEAD
-=======
     toast.error('delete project SOR error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     console.log(error);
   }
 }
@@ -412,10 +336,7 @@ class ProjectStore {
     runInAction('edit project error', () => {
       this.submitting = false;
     })
-<<<<<<< HEAD
-=======
     toast.error('edit project error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     console.log(error);
   }
 };
@@ -435,10 +356,7 @@ class ProjectStore {
   // this.loadingInitial = true;
   try {
     const tasktechnicians = await agent.TaskAssignments.list(projectId);
-<<<<<<< HEAD
-=======
     this.tasktechnicianRegistry.clear();
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     runInAction('loading tasks', () => {
       tasktechnicians.forEach(tasktechnician => {
         this.tasktechnicianRegistry.set(tasktechnician.category, tasktechnician);
@@ -450,25 +368,16 @@ class ProjectStore {
     runInAction('load tasks error', () => {
       // this.loadingInitial = false;
     })
-<<<<<<< HEAD
-  }
-}
-
-=======
     toast.error('load tasks error');
   }
 }
 
 
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 @action loadTechnicians = async () => {
   this.loadingInitial = true;
   try {
     const technicians = await agent.Technicians.list();
-<<<<<<< HEAD
-=======
     this.technicianRegistry.clear();
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     runInAction('loading technicians', () => {
       technicians.forEach(technician => {
         this.technicianRegistry.set(technician.name, technician);
@@ -480,23 +389,6 @@ class ProjectStore {
     runInAction('load Technician List error', () => {
       this.loadingInitial = false;
     })
-<<<<<<< HEAD
-  }
-};
-
-@action assignTechnician = async (event: SyntheticEvent<HTMLElement>, projectId: string, category: string, type: string) => {
-  let email = '@'; 
-  if (type === 'update') {
-  const name = event.currentTarget.textContent;
-  const selectEmail = this.technicianRegistry.get(name);
-  email = selectEmail.email;
-}
-
-  this.submitting = true;
-  try {
-    // project.updatedAt = new Date().toJSON();
-     await agent.TaskAssignments.update(projectId, category, email);
-=======
     toast.error('load Technician List error');
   }
 };
@@ -546,7 +438,6 @@ class ProjectStore {
   try {
     // project.updatedAt = new Date().toJSON();
      await agent.TaskAssignments.update(tt);
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
      runInAction('assigning technician', () => {
     //   this.tasktechnicianRegistry.set(category, tasktechnician);
       //  this.projecttask = projecttask;
@@ -558,16 +449,11 @@ class ProjectStore {
      runInAction('edit project error', () => {
        this.submitting = false;
      })
-<<<<<<< HEAD
-=======
      toast.error('edit project error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
      console.log(error);
    }
 };
 
-<<<<<<< HEAD
-=======
 @action updateMember = async (event: SyntheticEvent<HTMLElement>, tasktechnician : ITaskTechnician, name: keyof ITaskTechnician, value: string | number | undefined) => {
   let value1 = value!;  
   let value2 : string = value1.toString()
@@ -597,15 +483,11 @@ class ProjectStore {
   this.projectstockRegistry.set(projectstock.partNo, projectstock);
 };
 
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 @action loadProjectLogs = async (projectId: string) => {
   // this.loadingInitial = true;
   try {
     const projectlogs = await agent.ProjectLogs.list(projectId);
-<<<<<<< HEAD
-=======
     this.projectlogRegistry.clear();
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     runInAction('loading tasks', () => {
       projectlogs.forEach(projectlog => {
         this.projectlogRegistry.set(projectlog.id, projectlog);
@@ -617,14 +499,9 @@ class ProjectStore {
     runInAction('load tasks error', () => {
       // this.loadingInitial = false;
     })
-<<<<<<< HEAD
-  }
-}
-=======
     toast.error('load tasks error');
   }
 };
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 
 @action createProjectLog = async (projectlog: IProjectLog) => {
   this.submitting = true;
@@ -643,16 +520,11 @@ class ProjectStore {
     runInAction('create project log error', () => {
       this.submitting = false;
     })
-<<<<<<< HEAD
-=======
     toast.error('create project log error');
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     console.log(error);
   }
 };
 
-<<<<<<< HEAD
-=======
 @action deleteProjectLog = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
   this.target = event.currentTarget.name;
   try {
@@ -670,15 +542,11 @@ class ProjectStore {
   }
 }
 
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
 @action loadSORLists = async () => {
   this.loadingInitial = true;
   try {
     const sorlists = await agent.SORLists.list();
-<<<<<<< HEAD
-=======
     this.sorlistRegistry.clear();
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
     runInAction('loading sorlists', () => {
       sorlists.forEach(sorlist => {
         this.sorlistRegistry.set(sorlist.name, sorlist);
@@ -690,8 +558,6 @@ class ProjectStore {
     runInAction('load SOR List error', () => {
       this.loadingInitial = false;
     })
-<<<<<<< HEAD
-=======
     toast.error('load SOR List error');
   }
 };
@@ -910,7 +776,6 @@ class ProjectStore {
     runInAction('load ThirdParties List error', () => {
       this.loadingInitial = false;
     })
->>>>>>> 399497b842e31bfacfdff32494c9ab7a9dfd37b6
   }
 };
 
