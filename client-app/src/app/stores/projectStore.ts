@@ -1,5 +1,5 @@
 import { observable, action, computed, configure, runInAction, reaction } from 'mobx';
-import { createContext, SyntheticEvent } from 'react';
+import { createContext, SyntheticEvent,MouseEvent } from 'react';
 import { IProject as IProject } from '../models/project';
 import { IProjectTask as IProjectTask } from '../models/projecttask';
 import { ITaskAssignment as ITaskAssignment } from '../models/taskassignment';
@@ -145,21 +145,21 @@ class ProjectStore {
       this.project = project;
     } else {
       this.loadingInitial = true;
-      try {
-        project = await agent.Projects.details(id);
-        runInAction('getting project',() => {
-          this.project = project;
-          this.loadingInitial = false;
-        })
-      } catch (error) {
-        runInAction('get project error', () => {
-          this.loadingInitial = false;
-        })
-        toast.error('get project error');
-        console.log(error);
-      }
+      // try {
+      //   project = await agent.Projects.details(id);
+      //   runInAction('getting project',() => {
+      //     this.project = project;
+      //     this.loadingInitial = false;
+      //   })
+      // } catch (error) {
+      //   runInAction('get project error', () => {
+      //     this.loadingInitial = false;
+      //   })
+      //   toast.error('get project error');
+      //   console.log(error);
+      // }
     }
-  }
+  };
 
   @action clearProject = () => {
     this.project = null;
@@ -169,11 +169,10 @@ class ProjectStore {
     return this.projectRegistry.get(Number(id));
   }
 
-  @action loadProjectsStatus = async (event: SyntheticEvent<HTMLButtonElement>, status: string) => {
-    this.loadingInitial = true;
-   // const params  = new URLSearchParams({status: status});
+  //event: SyntheticEvent<HTMLButtonElement>, 
+  @action loadProjectsStatus = async (status: string) => {
+    //this.loadingInitial = true;
     try {
-    //  const activities = await agent.Projects.listStatus(params.toString());
      const projects = await agent.Projects.listStatus(status);
      this.projectRegistry.clear();
       runInAction('loading projects', () => {
@@ -181,7 +180,7 @@ class ProjectStore {
           project.jobStartDate = project.jobStartDate.split('.')[0];
           this.projectRegistry.set(project.id, project);
         });
-        this.loadingInitial = false;
+        //this.loadingInitial = false;
       })
 
     } catch (error) {
@@ -191,6 +190,7 @@ class ProjectStore {
       toast.error('load projects error');
     }
   };
+
 
   @action createProject = async (project: IProject) => {
     this.submitting = true;
@@ -234,7 +234,7 @@ class ProjectStore {
     }
   };
 
-  @action deleteProject = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  @action deleteProject = async (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     this.submitting = true;
     this.target = event.currentTarget.name;
     try {

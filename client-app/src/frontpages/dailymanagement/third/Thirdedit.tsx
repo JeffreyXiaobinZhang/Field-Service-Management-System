@@ -156,8 +156,6 @@ const Thirdedit: React.FC<RouteComponentProps<DetailParams>> = ({
           placeholder='Project'
           value={thirdparty.project}
         /> */}
-
-
         <Button
           loading={submitting}
           floated='right'

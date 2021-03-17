@@ -72,10 +72,9 @@ const TechnicianCertificateDashboard: React.FC = () => {
   return (
     <Segment>
       <Grid>
-        <Grid.Column width={16}>
+        <Grid.Column >
           <Form onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Select
+          <Form.Select
                 label='Name'
                 onChange={(e, { name, value }) => setSearch({ ...search, [name]: value })}
                 options={technicianOptions}
@@ -83,9 +82,12 @@ const TechnicianCertificateDashboard: React.FC = () => {
                 name='technicianid'
                 placeholder='Name'
                 value={search.technicianid}
+                width={3}
               />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Form.Group widths="equal">
+              
+            {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
             <Form.Select
                 label='Certificate'
                 onChange={(e, { name, value }) => setSearch({ ...search, [name]: value })}
@@ -143,13 +145,14 @@ const TechnicianCertificateDashboard: React.FC = () => {
               type='submit'
               content='Search'
             />
-
+          
           </Form>
           </Grid.Column>
+          
       </Grid>
-  
-
+      <Grid>
           <TechnicianCertificateList />
+          </Grid>
           </Segment>
           );
          

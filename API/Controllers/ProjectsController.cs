@@ -25,19 +25,19 @@ namespace API.Controllers
             return await _mediator.Send(new List.Query());
         }
 
-  /*      [HttpGet("{status}")]
+        [HttpGet("{status}")]
         public async Task<ActionResult<List<Project>>> ListStatus(string status)
         {
             return await _mediator.Send(new ListStatus.Query(status));
         }
-  */
+  
 
-        [HttpGet("{id}")]
-        [Authorize]
-        public async Task<ActionResult<Project>> Details(int id)
-        {
-            return await _mediator.Send(new Details.Query{Id = id});
-        }  
+        // [HttpGet("{id}")]
+        // [Authorize]
+        // public async Task<ActionResult<Project>> Details(int id)
+        // {
+        //     return await _mediator.Send(new Details.Query{Id = id});
+        // }  
 
         [HttpPost]
         public async Task<ActionResult<Unit>> Create(Create.Command command)

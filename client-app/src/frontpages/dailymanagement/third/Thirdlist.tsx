@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect } from 'react';
-import { Grid,Button, Segment, Dropdown, Search } from 'semantic-ui-react';
+import { Grid,Button, Segment, Dropdown, Search, Container } from 'semantic-ui-react';
 import Third0 from './Third0';
 import { observer } from 'mobx-react-lite';
 // import SORListStore from '../../../app/stores/sorlistStore';
@@ -23,12 +23,10 @@ const Thirdlist: React.FC = () => {
     return <LoadingComponent content='Loading Third Parties' />;
 
   return (
-    <Segment>
+    <Container>
       <Grid>
-
         <Grid.Column width={4}> 
           <Dropdown
-            // width={5}
             placeholder='Select a Third Party'
             selection
           />
@@ -41,7 +39,7 @@ const Thirdlist: React.FC = () => {
 
          <Grid.Column width={4}>
           <Button 
-            size = 'big' 
+            
             as={Link}
             to={`/dailymanagement/thirdAdd/`}
             color = 'green' 
@@ -74,7 +72,7 @@ const Thirdlist: React.FC = () => {
 
       </Grid>
 
-    </Segment>
+    </Container>
   );
 };
 

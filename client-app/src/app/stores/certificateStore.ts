@@ -1,5 +1,5 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
-import { createContext, SyntheticEvent } from 'react';
+import { createContext, MouseEvent } from 'react';
 import { ICertificate } from '../models/certificate';
 import { toast } from 'react-toastify';
 import agent from '../api/agent';
@@ -105,7 +105,7 @@ class CertificateStore {
     }
   };
 
-  @action deleteCertificate = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  @action deleteCertificate = async (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     this.submitting = true;
     this.target = event.currentTarget.name;
     try {

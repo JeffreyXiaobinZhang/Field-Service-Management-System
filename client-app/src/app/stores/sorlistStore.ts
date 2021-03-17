@@ -1,5 +1,5 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
-import { createContext, SyntheticEvent } from 'react';
+import { createContext,  MouseEvent } from 'react';
 import { ISORList } from '../models/sorlist';
 import { toast } from 'react-toastify';
 import agent from '../api/agent';
@@ -105,7 +105,7 @@ class SORListStore {
     }
   };
 
-  @action deleteSORList = async (event: SyntheticEvent<HTMLButtonElement>, name: string) => {
+  @action deleteSORList = async (event: MouseEvent<HTMLAnchorElement>, name: string) => {
     this.submitting = true;
     this.target = event.currentTarget.name;
     try {

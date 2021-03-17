@@ -1,5 +1,5 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
-import { createContext, SyntheticEvent } from 'react';
+import { createContext, MouseEvent } from 'react';
 //add new---------------------------------------------
 import { IThirdparty } from '../models/thirdparty';
 import agent from '../api/agent';
@@ -102,7 +102,7 @@ class ThirdStore {
     }
   };
 
-  @action deleteThirdParty = async (event: SyntheticEvent<HTMLButtonElement>, name: string) => {
+  @action deleteThirdParty = async (event: MouseEvent<HTMLAnchorElement>, name: string) => {
     this.submitting = true;
     this.target = event.currentTarget.name;
     try {
