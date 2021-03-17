@@ -113,7 +113,7 @@ class TechnicianCertificateStore {
   }
 
   getTechnicianCertificate = (id: string) => {
-    return this.techniciancertificateRegistry.get(id);
+    return this.techniciancertificateRegistry.get(Number(id));
   }
 
   // @action createTechnicianCertificate = async (techniciancertificate: ITechnicianCertificate) => {

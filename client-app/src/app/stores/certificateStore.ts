@@ -65,7 +65,7 @@ class CertificateStore {
   }
 
   getCertificate = (id: string) => {
-    return this.certificateRegistry.get(id);
+    return this.certificateRegistry.get(Number(id));
   }
 
   @action createCertificate = async (certificate: ICertificate) => {

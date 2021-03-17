@@ -71,7 +71,7 @@ class InvoiceStore {
     }
 
     getInvoice = (id: string) => {
-        return this.invoiceRegistry.get(id);
+        return this.invoiceRegistry.get(Number(id));
     }
 
     @action createInvoice = async (invoice: IInvoice) => {

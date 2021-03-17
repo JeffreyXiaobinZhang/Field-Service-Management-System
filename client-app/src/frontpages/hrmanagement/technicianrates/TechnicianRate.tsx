@@ -1,47 +1,41 @@
 import React, { useContext,useState } from 'react';
 import { Item, Button, Label, Segment, Table, Menu, Icon, Tab, Confirm, Modal } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
-import InvoiceStroe from '../../../app/stores/invoiceStore';
+import TechnicianRateStore from '../../../app/stores/technicianRateStore';
 import { Link } from 'react-router-dom';
 
-const Invoice: React.FC = () => {
+const TechnicianRate: React.FC = () => {
     
     const [open, setOpen] = useState(false);
-    const invoiceStroe = useContext(InvoiceStroe);
-    const {invoiceByDate: invoiceByDate, deleteInvoice: deleteInvoice, submitting, target} = invoiceStroe;
+    const technicianRateStore = useContext(TechnicianRateStore);
+    const {technicianRatesByName: technicianRatesByName, deleteTechnicianRate: deleteTechnicianRate, submitting, target} = technicianRateStore;
     return (
         <Segment clearing>
             <Table celled>
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell>Invoice Type</Table.HeaderCell>
-                    <Table.HeaderCell>Invoice No</Table.HeaderCell>
-                    <Table.HeaderCell>Issue Date</Table.HeaderCell>
-                    <Table.HeaderCell>Subtotal</Table.HeaderCell>
-                    <Table.HeaderCell>Location</Table.HeaderCell>
-                    <Table.HeaderCell>Customer</Table.HeaderCell>
-                    <Table.HeaderCell>Payment Staus</Table.HeaderCell>
+                    <Table.HeaderCell>Job Type</Table.HeaderCell>
+                    <Table.HeaderCell>Item Name</Table.HeaderCell>
+                    <Table.HeaderCell>Category</Table.HeaderCell>
+                    <Table.HeaderCell>Unit Rate</Table.HeaderCell>
+                    <Table.HeaderCell>UOM</Table.HeaderCell>
                     <Table.HeaderCell width={1}>Action</Table.HeaderCell>
                 </Table.Row>
             </Table.Header>
                 
                 <Table.Body>
-                {invoiceByDate.map(invoice => (
-                    <Table.Row key={invoice.id}>
-                        <Table.Cell>{invoice.invoiceType}</Table.Cell>
-                        <Table.Cell>{invoice.invoiceNo}</Table.Cell>
-                        <Table.Cell>{invoice.issueDate}</Table.Cell>
-                        <Table.Cell>{invoice.subtotal}</Table.Cell>
-                        <Table.Cell>{invoice.location}</Table.Cell>
-                        <Table.Cell>{invoice.customer}</Table.Cell>
-                        <Table.Cell>{invoice.paymentStatus}</Table.Cell>
-                        
-
+                {technicianRatesByName.map(rate => (
+                    <Table.Row key={rate.id}>
+                        <Table.Cell>{rate.jobType}</Table.Cell>
+                        <Table.Cell>{rate.itemName}</Table.Cell>
+                        <Table.Cell>{rate.category}</Table.Cell>
+                        <Table.Cell>{rate.unitRate}</Table.Cell>
+                        <Table.Cell>{rate.uom}</Table.Cell>
                         <Table.Cell>
                         <Button.Group vertical size="mini">
                             <Button
                                 as={Link}
-                                to={`/dailymanagement/invoice/${invoice.id}`}
+                                to={`/hrmanagement/technicianrate/${rate.id}`}
                                 size="mini"
                                 content="View"
                                 color="blue"
@@ -53,21 +47,19 @@ const Invoice: React.FC = () => {
                                 onClose={() => setOpen(false)}
                                 onOpen={() => setOpen(true)}
                                 trigger={<Button
-                                    name={invoice.id}
-                                    loading={target === invoice.id && submitting}
-                                    //onClick={() => dispatch({type: "open", size: "mini"})}
-                                    // onClick={(e) => deleteInvoice(e, invoice.id)}
+                                    name={rate.id}
+                                    loading={target === rate.id && submitting}
                                     content="Delete"
                                     color = "red"
                                 />}
                             >
                                 <Modal.Content>
-                                    <h6>Are you sure you want to delete this invoice ?</h6>
+                                    <h6>Are you sure you want to delete this rate ?</h6>
                                 </Modal.Content>
                                 <Modal.Actions>
                                     <Button size="tiny" onClick={() => setOpen(false)}>
                                     Cancel</Button>
-                                    <Button size="tiny" color='red' onClick={(e) => {deleteInvoice(e, invoice.id);setOpen(false)}}>
+                                    <Button size="tiny" color='red' onClick={(e) => {deleteTechnicianRate(e, rate.id); setOpen(false)}}>
                                     Yes</Button>
                                 </Modal.Actions>
                             </Modal>
@@ -99,4 +91,4 @@ const Invoice: React.FC = () => {
             
     )
 }
-export default observer(Invoice);
+export default observer(TechnicianRate);

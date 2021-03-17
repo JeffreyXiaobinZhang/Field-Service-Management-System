@@ -10,6 +10,7 @@ import { ITaskTechnician } from '../models/tasktechnician';
 import { IProjectLog } from '../models/projectlog';
 import { IWarehouse } from '../models/warehouse';
 import { IInvoice } from '../models/invoice';
+import {ITechnicianRate} from '../models/technicianrate';
 import { IWarehouseLog } from '../models/warehouselog';
 import { IProjectStock } from '../models/projectstock';
 import { ICertificate } from '../models/certificate';
@@ -139,6 +140,16 @@ const Invoices = {
     delete: (id: string) => requests.del(`/invoices/${id}`)
 }
 
+const TechnicianRates = {
+    list: (): Promise<ITechnicianRate[]> => requests.get('/technicianrates'),
+    search: (email: string | undefined) : Promise<ITechnicianRate[]> => requests.get(`/technicianrates/${email}`),
+    //details: (id: string) => requests.get(`/technicianrates/${id}`),
+    create: (technicianrate: ITechnicianRate) => requests.post('/technicianrates', technicianrate),
+    update: (technicianrate: ITechnicianRate) => requests.put(`/technicianrates/${technicianrate.id}`, technicianrate),
+    delete: (id: string) => requests.del(`/technicianrates/${id}`)
+
+}
+
 const WarehouseLogs = {
     list: (projectId: string): Promise<IWarehouseLog[]> => requests.get(`/warehouselogs/${projectId}`),
     // details: (id: string) => requests.get(`/projecttasks/${id}`),
@@ -200,6 +211,7 @@ export default {
     ProjectLogs,
     Warehouses,
     Invoices,
+    TechnicianRates,
     WarehouseLogs,
     ProjectStocks,
     Certificates,

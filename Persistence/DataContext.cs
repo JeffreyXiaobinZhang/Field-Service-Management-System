@@ -25,6 +25,7 @@ namespace Persistence
         public DbSet<TechnicianCertificate> TechnicianCertificates { get; set; }
         public DbSet<ThirdParty> ThirdParties { get; set; }
         public DbSet<ProjectVendor> ProjectVendors { get; set; }
+        public DbSet<TechnicianRate> TechnicianRates{get; set;}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

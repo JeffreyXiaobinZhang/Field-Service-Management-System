@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using Application.Projects;
 using Domain;
 using FluentValidation.AspNetCore;
@@ -18,6 +18,8 @@ using Microsoft.IdentityModel.Tokens;
 // using FluentValidation.AspNetCore;
 using Persistence;
 using System.Text;
+
+
 
 namespace API
 {

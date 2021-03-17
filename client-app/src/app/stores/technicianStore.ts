@@ -65,7 +65,7 @@ class TechnicianStore {
   }
 
   getTechnician = (id: string) => {
-    return this.technicianRegistry.get(id);
+    return this.technicianRegistry.get(Number(id));
   }
 
   @action createTechnician = async (technician: ITechnician) => {

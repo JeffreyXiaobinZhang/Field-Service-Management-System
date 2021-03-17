@@ -46,6 +46,10 @@ import LoginForm from '../../frontpages/user/LoginForm';
 import LoginPage from '../../frontpages/home/LoginPage';
 import { RootStoreContext } from '../stores/rootStore';
 import LoadingComponent from './LoadingComponent';
+import TechnicianRateDashboard from '../../frontpages/hrmanagement/technicianrates/TechnicianRateDashboard';
+import TechnicianRateEditForm from '../../frontpages/hrmanagement/technicianrates/TechnicianRateEditForm';
+import TechnicianRateDetails from '../../frontpages/hrmanagement/technicianrates/TechnicianRateDetails';
+import TechnicianRateCreateForm from '../../frontpages/hrmanagement/technicianrates/TechnicianRateCreateForm';
 
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
@@ -122,6 +126,11 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route path='/hrmanagement/techniciancertificate/:id' component={TechnicianCertificateDetails} />
               <Route path='/hrmanagement/techniciancertificate-create' component={TechnicianCertificateCreateForm} />
               <Route path='/hrmanagement/techniciancertificate-edit/:id/:technicianId/:certificateId/:expiryDate/:remark/' component={TechnicianCertificateEditForm} />
+              
+              <Route exact path='/hrmanagement/technicianrate' component={TechnicianRateDashboard} />
+              <Route path='/hrmanagement/technicianrate/:id' component={TechnicianRateDetails} />
+              <Route path='/hrmanagement/technicianrate-create' component={TechnicianRateCreateForm} />
+              <Route path='/hrmanagement/technicianrate-edit/:id' component={TechnicianRateEditForm} />
             </Container>
           </Fragment>
         )}
