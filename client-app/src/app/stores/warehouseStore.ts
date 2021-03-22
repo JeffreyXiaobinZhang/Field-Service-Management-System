@@ -65,7 +65,7 @@ class WarehouseStore {
   }
 
   getWarehouse = (id: string) => {
-    return this.warehouseRegistry.get(id);
+    return this.warehouseRegistry.get(Number(id));
   }
 
   @action createWarehouse = async (warehouse: IWarehouse) => {

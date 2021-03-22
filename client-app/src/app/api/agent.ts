@@ -10,12 +10,14 @@ import { ITaskTechnician } from '../models/tasktechnician';
 import { IProjectLog } from '../models/projectlog';
 import { IWarehouse } from '../models/warehouse';
 import { IInvoice } from '../models/invoice';
+import {ITechnicianRate} from '../models/technicianrate';
 import { IWarehouseLog } from '../models/warehouselog';
 import { IProjectStock } from '../models/projectstock';
 import { ICertificate } from '../models/certificate';
 import { ITechnicianCertificate } from '../models/techniciancertificate';
 import {IThirdparty} from '../models/thirdparty';
 import {IProjectVendor} from '../models/projectvendor';
+import {IFile} from '../models/file';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -65,7 +67,18 @@ const requests = {
     get: (url: string) => axios.get(url).then(sleep(100)).then(responseBody),
     post: (url: string, body: {}) => axios.post(url, body).then(sleep(100)).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(sleep(100)).then(responseBody),
-    del: (url: string) => axios.delete(url).then(sleep(100)).then(responseBody) 
+    del: (url: string) => axios.delete(url).then(sleep(100)).then(responseBody), 
+    postForm: (url: string, file: File[]) => {
+      let formData = new FormData();
+      for (let i = 0; i < file.length; i++) {
+      formData.append('File', file[i]);
+      }
+      return axios
+        .post(url, formData, {
+          headers: { 'Content-type': 'multipart/form-data' }
+        })
+        .then(responseBody);
+    }
 };
 
 const User = {
@@ -139,6 +152,16 @@ const Invoices = {
     delete: (id: string) => requests.del(`/invoices/${id}`)
 }
 
+const TechnicianRates = {
+    list: (): Promise<ITechnicianRate[]> => requests.get('/technicianrates'),
+    search: (email: string | undefined) : Promise<ITechnicianRate[]> => requests.get(`/technicianrates/${email}`),
+    //details: (id: string) => requests.get(`/technicianrates/${id}`),
+    create: (technicianrate: ITechnicianRate) => requests.post('/technicianrates', technicianrate),
+    update: (technicianrate: ITechnicianRate) => requests.put(`/technicianrates/${technicianrate.id}`, technicianrate),
+    delete: (id: string) => requests.del(`/technicianrates/${id}`)
+
+}
+
 const WarehouseLogs = {
     list: (projectId: string): Promise<IWarehouseLog[]> => requests.get(`/warehouselogs/${projectId}`),
     // details: (id: string) => requests.get(`/projecttasks/${id}`),
@@ -190,6 +213,11 @@ const ProjectVendors = {
     delete: (id: string) => requests.del(`/projectvendors/${id}`)
 }
 
+const Uploads = {
+  uploadFile: (file: File[]): Promise<IFile> =>
+    requests.postForm(`/files`, file),
+};
+
 export default {
     User,
     Projects,
@@ -200,10 +228,12 @@ export default {
     ProjectLogs,
     Warehouses,
     Invoices,
+    TechnicianRates,
     WarehouseLogs,
     ProjectStocks,
     Certificates,
     TechnicianCertificates,
     ThirdParties,
-    ProjectVendors
+    ProjectVendors,
+    Uploads
 }

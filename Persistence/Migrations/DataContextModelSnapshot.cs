@@ -477,7 +477,6 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .HasMaxLength(256);
-
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256);
 

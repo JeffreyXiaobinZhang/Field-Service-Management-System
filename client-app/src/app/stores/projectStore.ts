@@ -267,7 +267,6 @@ class ProjectStore {
       this.loadingInitial = false;
       this.reload = true;
     })
-
   } catch (error) {
     runInAction('load tasks error', () => {
       this.loadingInitial = false;
