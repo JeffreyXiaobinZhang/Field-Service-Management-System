@@ -1,5 +1,5 @@
 import { observable, action, computed, configure, runInAction } from "mobx";
-import { createContext, SyntheticEvent } from "react";
+import { createContext, MouseEvent } from "react";
 import { ITechnicianRate } from "../models/technicianrate";
 import { ITechnician as ITechnician } from "../models/technician";
 import agent from "../api/agent";
@@ -54,18 +54,6 @@ class TechnicianRateStore {
       this.technicianRate = technicianRate;
     } else {
       this.loadingInitial = true;
-      // try {
-      //     technicianRate = await agent.TechnicianRates.details(id);
-      //     runInAction("getting technician rate", () => {
-      //         this.technicianRate = technicianRate;
-      //         this.loadingInitial = false;
-      //     })
-      // } catch(error){
-      //     runInAction("get technician error", () => {
-      //         this.loadingInitial = false;
-      //     })
-      //     console.log(error);
-      //     }
     }
   };
 
@@ -153,7 +141,7 @@ class TechnicianRateStore {
   };
 
   @action deleteTechnicianRate = async (
-    event: SyntheticEvent<HTMLButtonElement>,
+    event: MouseEvent<HTMLAnchorElement>,
     id: string
   ) => {
     this.submitting = true;

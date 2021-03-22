@@ -1,5 +1,5 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
-import { createContext, SyntheticEvent } from 'react';
+import { createContext, MouseEvent } from 'react';
 import { IInvoice } from '../models/invoice';
 import { toast } from 'react-toastify';
 import agent from '../api/agent';
@@ -110,7 +110,7 @@ class InvoiceStore {
         }
     };
 
-    @action deleteInvoice = async(event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+    @action deleteInvoice = async(event: MouseEvent<HTMLAnchorElement>, id: string) => {
         this.submitting = true;
         this.target = event.currentTarget.name;
         try {

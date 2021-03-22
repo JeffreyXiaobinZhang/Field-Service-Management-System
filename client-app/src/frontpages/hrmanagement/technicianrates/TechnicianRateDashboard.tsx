@@ -27,11 +27,6 @@ const TechnicianRateDashboard: React.FC = () => {
   }, [technicianRateStore]);
   useEffect(() => {loadTechnicians();}, []);
 
-  // function handleChange(event: React.SyntheticEvent<HTMLElement>){
-  //   const email =  event.target.value;
-  //   //loadTechnicianRatesByEmail(event, email);
-  //   console.log(email);
-  // }
 
   if (technicianRateStore.loadingInitial)
     return <LoadingComponent content="Loading Technicians" />;
@@ -51,10 +46,10 @@ const TechnicianRateDashboard: React.FC = () => {
         <Grid.Column width={4}>
           <Search />
         </Grid.Column>
-        <Grid.Column width={3}>
+        <Grid.Column width={5}>
           <h2></h2>
         </Grid.Column>
-        <Grid.Column width={2}>
+        <Grid.Column textAlign="center" width={3}>
           <Button
             color="green"
             as={Link}
@@ -65,11 +60,8 @@ const TechnicianRateDashboard: React.FC = () => {
         </Grid.Column>
       </Grid>
       <Grid>
-        <Grid.Column width={14}>
+        <Grid.Column>
           <TechnicianRate />
-        </Grid.Column>
-        <Grid.Column width={2}>
-          <h2></h2>
         </Grid.Column>
       </Grid>
     </Segment>

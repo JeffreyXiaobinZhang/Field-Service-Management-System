@@ -32,11 +32,8 @@ const CertificateDashboard: React.FC = () => {
         </Grid.Column>
     </Grid>
     <Grid>
-      <Grid.Column width={14}>
+      <Grid.Column>
         <CertificateList />
-      </Grid.Column>
-      <Grid.Column width={2}>
-        <h2></h2>
       </Grid.Column>
     </Grid>
     </Segment>

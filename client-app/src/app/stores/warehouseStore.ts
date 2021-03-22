@@ -1,5 +1,5 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
-import { createContext, SyntheticEvent } from 'react';
+import { createContext, MouseEvent } from 'react';
 import { toast } from 'react-toastify';
 import { IWarehouse } from '../models/warehouse';
 import agent from '../api/agent';
@@ -105,7 +105,7 @@ class WarehouseStore {
     }
   };
 
-  @action deleteWarehouse = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  @action deleteWarehouse = async (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     this.submitting = true;
     this.target = event.currentTarget.name;
     try {

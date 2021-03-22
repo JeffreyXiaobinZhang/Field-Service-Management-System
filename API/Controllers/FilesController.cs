@@ -9,6 +9,8 @@ namespace API.Controllers
     public class FilesController : BaseController
     {
         [HttpPost]
+       // [RequestSizeLimit(100_000_000)]
+        [DisableRequestSizeLimit]
         public async Task<ActionResult<FileReturn>> Add([FromForm]Add.Command command)
         {
             return await Mediator.Send(command);

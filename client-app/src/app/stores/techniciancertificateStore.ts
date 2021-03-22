@@ -1,5 +1,5 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
-import { createContext, SyntheticEvent } from 'react';
+import { createContext, MouseEvent } from 'react';
 import { ITechnicianCertificate } from '../models/techniciancertificate';
 import { ITechnicianCertificateName } from '../models/techniciancertificatename';
 import { ITechnician } from '../models/technician';
@@ -173,7 +173,7 @@ class TechnicianCertificateStore {
     }
   };
 
-  @action deleteTechnicianCertificate = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  @action deleteTechnicianCertificate = async (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     this.submitting = true;
     this.target = event.currentTarget.name;
     try {

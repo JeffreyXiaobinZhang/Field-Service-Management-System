@@ -1,0 +1,5 @@
+Connection Type: VDSL
+Protocol: PPPoE
+
+Username: 00001444886396@wba.matenbn.com.au
+Password: 55905981

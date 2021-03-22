@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Item, Button, Label, Segment, Table, Menu, Icon } from 'semantic-ui-react';
+import React, { useContext, useState } from 'react';
+import { Item, Button, Label, Segment, Table, Menu, Icon, Confirm, Container } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import CertificateStore from '../../../app/stores/certificateStore';
 import { Link } from 'react-router-dom';
@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
 const Certificate: React.FC = () => {
   const certificateStore = useContext(CertificateStore);
   const {certificatesByName: certificatesByName,  deleteCertificate: deleteCertificate, submitting, target} = certificateStore;
+  const [open, setOpen] = useState(false);
   return (
-    <Segment clearing>
+    <Container>
       <Table celled>
     <Table.Header>
       <Table.Row>
@@ -31,22 +32,42 @@ const Certificate: React.FC = () => {
         <Table.Cell>{certificate.level}</Table.Cell>
         <Table.Cell>{certificate.description}</Table.Cell>
         <Table.Cell>
-        <Button.Group vertical size='mini'>
+        <Button.Group size='mini'>
                 <Button
                   as={Link}
                   to={`/hrmanagement/certificate/${certificate.id}`}
                   size='mini'
-                  content='View'
-                  color='blue'
+                  icon="zoom in"
+                    color="blue"
+                    title="View"
                 />
                 <Button
                   name={certificate.id}
                   size='mini'
                   loading={target === certificate.id && submitting}
-                  onClick={(e) => deleteCertificate(e, certificate.id)}
-                  content='Delete'
-                  color='red'
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                  icon="delete"
+                  color="red"
+                  title="Delete"
                 />
+                <Confirm
+                    open={open}
+                    onCancel={() => setOpen(false)}
+                    onConfirm={(e) => {
+                      deleteCertificate(e, certificate.id);
+                        setOpen(false);
+                    }}
+                    content="Are you sure you want to delete ?"
+                    confirmButton="Yes"
+                    size="mini"
+                    style={{
+                      position: "relative",
+                      maxHeight: "150px",
+                      height: "auto",
+                    }}
+                  />
           </Button.Group>
         </Table.Cell>
       </Table.Row>
@@ -72,7 +93,7 @@ const Certificate: React.FC = () => {
       </Table.Row>
     </Table.Footer>
   </Table>
-    </Segment>
+    </Container>
   );
 };
 

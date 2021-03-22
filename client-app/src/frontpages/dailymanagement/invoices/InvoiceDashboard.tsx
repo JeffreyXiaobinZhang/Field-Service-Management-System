@@ -21,7 +21,6 @@ const InvoiceDashboard: React.FC = () => {
       <Grid>
       <Grid.Column width={4}> 
     <Dropdown
-    // width={5}
      placeholder='Select Invoice Type'
      selection
       />
@@ -32,11 +31,8 @@ const InvoiceDashboard: React.FC = () => {
         </Grid.Column>
     </Grid>
     <Grid>
-      <Grid.Column width={14}>
+      <Grid.Column>
         <Invoice />
-      </Grid.Column>
-      <Grid.Column width={2}>
-        <h2></h2>
       </Grid.Column>
     </Grid>
     </Segment>

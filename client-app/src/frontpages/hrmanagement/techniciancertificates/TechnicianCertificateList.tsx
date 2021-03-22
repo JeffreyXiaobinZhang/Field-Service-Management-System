@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
-import { Item, Button, Label, Segment, Table, Menu, Icon } from 'semantic-ui-react';
+import React, { useContext, useState } from 'react';
+import { Item, Button, Label, Segment, Table, Menu, Icon, Confirm, Container } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import TechnicianCertificateStore from '../../../app/stores/techniciancertificateStore';
 import { Link } from 'react-router-dom';
 
 const TechnicianCertificate: React.FC = () => {
+  const [open, setOpen] = useState(false);
   const techniciancertificateStore = useContext(TechnicianCertificateStore);
   const {techniciancertificatenamesByEmail: techniciancertificatenamesByEmail,  deleteTechnicianCertificate: deleteTechnicianCertificate, submitting, target} = techniciancertificateStore;
   return (
-
+    <Container>
       <Table celled>
     <Table.Header>
       <Table.Row>
@@ -41,17 +42,37 @@ const TechnicianCertificate: React.FC = () => {
                   as={Link}
                   to={`/hrmanagement/techniciancertificate-edit/${techniciancertificate.id}/${techniciancertificate.technicianId}/${techniciancertificate.certificateId}/${techniciancertificate.expiryDate}/${techniciancertificate.remark || ' '}/`}
                   size='mini'
-                  content='Edit'
-                  color='blue'
+                  icon="zoom in"
+                    color="blue"
+                    title="View"
                 />
                 <Button
                   name={techniciancertificate.id}
                   size='mini'
                   loading={target === techniciancertificate.id && submitting}
-                  onClick={(e) => deleteTechnicianCertificate(e, techniciancertificate.id)}
-                  content='Delete'
-                  color='red'
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                  icon="delete"
+                  color="red"
+                  title="Delete"
                 />
+                <Confirm
+                    open={open}
+                    onCancel={() => setOpen(false)}
+                    onConfirm={(e) => {
+                      deleteTechnicianCertificate(e, techniciancertificate.id);
+                        setOpen(false);
+                    }}
+                    content="Are you sure you want to delete ?"
+                    confirmButton="Yes"
+                    size="mini"
+                    style={{
+                      position: "relative",
+                      maxHeight: "150px",
+                      height: "auto",
+                    }}
+                  />
           </Button.Group>
         </Table.Cell>
       
@@ -78,7 +99,7 @@ const TechnicianCertificate: React.FC = () => {
       </Table.Row>
     </Table.Footer>
   </Table>
-
+</Container>
   );
 };
 
