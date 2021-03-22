@@ -11,18 +11,20 @@ const NavBarProject: React.FC = () => {
             <img src="/assets/brighten.jpg" alt="logo" style={{marginRight: 10}}/>
             FSMS
          </Menu.Item>
-         <Dropdown item text='BDOD'>
+         <Menu.Item as={NavLink} to='/projectmanagement/project'>BDOD</Menu.Item>
+         {/* <Dropdown item text='BDOD'>
          <Dropdown.Menu> 
           <Dropdown.Item as={NavLink} to='/projectmanagement/project' text='Query Project' icon='edit'/> 
           <Dropdown.Item as={NavLink} to='/projectmanagement/project-create' text='Create Project' icon='write'/> 
          </Dropdown.Menu> 
-         </Dropdown> 
-         <Dropdown item text='FTTB'>
+         </Dropdown>  */}
+         <Menu.Item as={NavLink} to='/projectmanagement/project'>FTTB</Menu.Item>
+         {/* <Dropdown item text='FTTB'>
          <Dropdown.Menu> 
           <Dropdown.Item as={NavLink} to='/projectmanagement/project' text='Query Project' icon='edit'/> 
           <Dropdown.Item as={NavLink} to='/projectmanagement/project-create' text='Create Project' icon='write'/> 
          </Dropdown.Menu> 
-         </Dropdown> 
+         </Dropdown>  */}
       </Container>
     </Menu>
   );

@@ -17,30 +17,33 @@ const NavBarDaily: React.FC = () => {
             <img src="/assets/brighten.jpg" alt="logo" style={{marginRight: 10}}/>
             FSMS
          </Menu.Item>
-        <Dropdown item text='Warehouse'>
+         <Menu.Item as={NavLink} to='/dailymanagement/warehouse'>Warehouse</Menu.Item>
+        {/* <Dropdown item text='Warehouse'>
         <Dropdown.Menu>
         <Dropdown.Item as={NavLink} to='/dailymanagement/warehouse' text='Check Warehouse' icon='edit'/>
          <Dropdown.Item as={NavLink} to='/dailymanagement/warehouse-create' text='Add Warehouse Item' icon='write'/>
         </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown> */}
         <Dropdown simple item text='Tools'>
         <Dropdown.Menu>
          <Dropdown.Item  text='Check Warehouse Items' icon='write'/>
         </Dropdown.Menu>
         </Dropdown>
         <Menu.Item as={NavLink} to='/dailymanagement/third'>Third Party</Menu.Item>
-        <Dropdown item text='SOR'>
+        <Menu.Item as={NavLink} to='/dailymanagement/sorlist'>SOR</Menu.Item>
+        {/* <Dropdown item text='SOR'>
         <Dropdown.Menu>
          <Dropdown.Item as={NavLink} to='/dailymanagement/sorlist' text='Query SOR' icon='edit'/>
          <Dropdown.Item as={NavLink} to='/dailymanagement/sorlist-create' text='Add SOR' icon='write'/>
         </Dropdown.Menu>
-        </Dropdown>
-        <Dropdown simple item text='Invoice'>
+        </Dropdown> */}
+        {/* <Dropdown simple item text='Invoice'>
         <Dropdown.Menu>
         <Dropdown.Item as={NavLink} to='/dailymanagement/invoice' text='Query Invoice' icon='edit'/>
          <Dropdown.Item as={NavLink} to='/dailymanagement/invoice-create' text='Add Invoice' icon='write'/>
         </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown> */}
+        <Menu.Item as={NavLink} to='/dailymanagement/invoice'>Invoice</Menu.Item>
         {user && (
           <Menu.Item position='right'>
             <Image avatar spaced='right' src={user.image || '/assets/user.png'} />

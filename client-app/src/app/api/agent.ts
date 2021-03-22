@@ -17,6 +17,7 @@ import { ICertificate } from '../models/certificate';
 import { ITechnicianCertificate } from '../models/techniciancertificate';
 import {IThirdparty} from '../models/thirdparty';
 import {IProjectVendor} from '../models/projectvendor';
+import {IFile} from '../models/file';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -66,7 +67,18 @@ const requests = {
     get: (url: string) => axios.get(url).then(sleep(100)).then(responseBody),
     post: (url: string, body: {}) => axios.post(url, body).then(sleep(100)).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(sleep(100)).then(responseBody),
-    del: (url: string) => axios.delete(url).then(sleep(100)).then(responseBody) 
+    del: (url: string) => axios.delete(url).then(sleep(100)).then(responseBody), 
+    postForm: (url: string, file: File[]) => {
+      let formData = new FormData();
+      for (let i = 0; i < file.length; i++) {
+      formData.append('File', file[i]);
+      }
+      return axios
+        .post(url, formData, {
+          headers: { 'Content-type': 'multipart/form-data' }
+        })
+        .then(responseBody);
+    }
 };
 
 const User = {
@@ -201,6 +213,11 @@ const ProjectVendors = {
     delete: (id: string) => requests.del(`/projectvendors/${id}`)
 }
 
+const Uploads = {
+  uploadFile: (file: File[]): Promise<IFile> =>
+    requests.postForm(`/files`, file),
+};
+
 export default {
     User,
     Projects,
@@ -217,5 +234,6 @@ export default {
     Certificates,
     TechnicianCertificates,
     ThirdParties,
-    ProjectVendors
+    ProjectVendors,
+    Uploads
 }

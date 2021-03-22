@@ -81,6 +81,7 @@ const InvoiceCreateForm: React.FC<RouteComponentProps> = ({
               name='issueDate'
               placeholder='Issue Date'
               value={invoice.issueDate}
+              type="date"
             />
             <Form.Input
               label='Subtotal'

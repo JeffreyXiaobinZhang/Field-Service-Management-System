@@ -4,6 +4,7 @@ import ProjectList from "./ProjectList";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import ProjectStore from "../../../app/stores/projectStore";
+import { Link } from "react-router-dom";
 
 const ProjectDashboard: React.FC = () => {
   const projectStore = useContext(ProjectStore);
@@ -30,7 +31,7 @@ const ProjectDashboard: React.FC = () => {
   return (
     <Segment>
       <Grid>
-        <Grid.Column width={4}>
+        <Grid.Column textAlign="center" width={4}>
           <Dropdown
             placeholder="Select Project Status"
             onChange={(e, { value }) => setStatus(value)}
@@ -48,6 +49,16 @@ const ProjectDashboard: React.FC = () => {
             color="green"
           />
         </Grid.Column>
+        <Grid.Column width={5}></Grid.Column>
+      <Grid.Column textAlign="center" width={3}>
+        <Button
+          as={Link}
+          to={`/projectmanagement/project-create`}
+          color="linkedin"
+          icon="add"
+          content="Create New"
+        />
+      </Grid.Column>
       </Grid>
       <Grid>
         <Grid.Column>

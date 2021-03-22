@@ -23,10 +23,11 @@ const TechnicianRateDashboard: React.FC = () => {
   const [techEmail, setEmail]: any = useState("@");
 
   useEffect(() => {
-      technicianRateStore.loadTechnicianRates();
+    technicianRateStore.loadTechnicianRates();
   }, [technicianRateStore]);
-  useEffect(() => {loadTechnicians();}, []);
-
+  useEffect(() => {
+    loadTechnicians();
+  }, []);
 
   if (technicianRateStore.loadingInitial)
     return <LoadingComponent content="Loading Technicians" />;
@@ -34,15 +35,17 @@ const TechnicianRateDashboard: React.FC = () => {
   return (
     <Segment>
       <Grid>
-        <Grid.Column width={4} >
+        <Grid.Column width={4}>
           <Dropdown
-            onChange = {(event,{value}) => {loadTechnicianRatesByEmail(String(value));}}
+            onChange={(event, { value }) => {
+              loadTechnicianRatesByEmail(String(value));
+            }}
             options={technicianOptions}
             selection
             placeholder="Select Technicians"
           />
         </Grid.Column>
-        
+
         <Grid.Column width={4}>
           <Search />
         </Grid.Column>
@@ -51,11 +54,11 @@ const TechnicianRateDashboard: React.FC = () => {
         </Grid.Column>
         <Grid.Column textAlign="center" width={3}>
           <Button
-            color="green"
+            color="linkedin"
             as={Link}
             to={`/hrmanagement/technicianrate-create`}
-            content="Add"
-            icon='edit'
+            icon="add"
+            content="Create New"
           />
         </Grid.Column>
       </Grid>

@@ -1,9 +1,10 @@
 import React, { Fragment, useContext, useEffect } from 'react';
-import { Grid, Segment, Dropdown, Search } from 'semantic-ui-react';
+import { Grid, Segment, Dropdown, Search, Button } from 'semantic-ui-react';
 import CertificateList from './CertificateList';
 import { observer } from 'mobx-react-lite';
 import CertificateStore from '../../../app/stores/certificateStore';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
+import { Link } from 'react-router-dom';
 
 const CertificateDashboard: React.FC = () => {
 
@@ -19,7 +20,7 @@ const CertificateDashboard: React.FC = () => {
   return (
     <Segment>
       <Grid>
-      <Grid.Column width={4}> 
+      <Grid.Column textAlign="center" width={4}> 
     <Dropdown
     // width={5}
      placeholder='Select Certificate Type'
@@ -30,6 +31,16 @@ const CertificateDashboard: React.FC = () => {
       <Search
         />
         </Grid.Column>
+        <Grid.Column width={5}></Grid.Column>
+      <Grid.Column textAlign="center" width={3}>
+        <Button
+          as={Link}
+          to={`/hrmanagement/certificate-create`}
+          color="linkedin"
+          icon="add"
+          content="Create New"
+        />
+      </Grid.Column>
     </Grid>
     <Grid>
       <Grid.Column>

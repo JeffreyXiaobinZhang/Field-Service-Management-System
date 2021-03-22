@@ -96,6 +96,7 @@ const InvoiceForm: React.FC<RouteComponentProps<DetailParams>> = ({
             label='Issue Date'
             required
             onChange={handleInputChange}
+            type='date'
             name='issueDate'
             placeholder='Issue Date'
             value={invoice.issueDate}

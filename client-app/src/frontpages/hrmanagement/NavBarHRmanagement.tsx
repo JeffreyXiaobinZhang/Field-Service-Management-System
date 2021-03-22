@@ -18,17 +18,17 @@ const NavHRmanagement: React.FC = () => {
         </Dropdown>
         <Dropdown item text='Technician'>
         <Dropdown.Menu>
-        <Dropdown.Item as={NavLink} to='/hrmanagement/technician' text='Query Technician' icon='edit'/>
-         <Dropdown.Item as={NavLink} to='/hrmanagement/technician-create' text='Add Technician' icon='write'/>
-         <Dropdown.Item as={NavLink} to='/hrmanagement/technicianrate' text='Technician Rate' icon='edit'/>
+        <Dropdown.Item as={NavLink} to='/hrmanagement/technician' text='Technician'/>
+         {/* <Dropdown.Item as={NavLink} to='/hrmanagement/technician-create' text='Add Technician' icon='write'/> */}
+         <Dropdown.Item as={NavLink} to='/hrmanagement/technicianrate' text='Technician Rate'/>
         </Dropdown.Menu>
         </Dropdown>
         <Dropdown item text='Certificate'>
         <Dropdown.Menu>
-        <Dropdown.Item as={NavLink} to='/hrmanagement/certificate' text='Query Certificate' icon='edit'/>
-         <Dropdown.Item as={NavLink} to='/hrmanagement/certificate-create' text='Add Certificate' icon='write'/>
-         <Dropdown.Item as={NavLink} to='/hrmanagement/techniciancertificate' text='Query Technician Certificate' icon='edit'/>
-         <Dropdown.Item as={NavLink} to='/hrmanagement/techniciancertificate-create' text='Add Technician Certificate' icon='write'/>
+        <Dropdown.Item as={NavLink} to='/hrmanagement/certificate' text='Certificate'/>
+         {/* <Dropdown.Item as={NavLink} to='/hrmanagement/certificate-create' text='Add Certificate' icon='write'/> */}
+         <Dropdown.Item as={NavLink} to='/hrmanagement/techniciancertificate' text='Technician Certificate'/>
+         {/* <Dropdown.Item as={NavLink} to='/hrmanagement/techniciancertificate-create' text='Add Technician Certificate' icon='write'/> */}
         </Dropdown.Menu>
         </Dropdown>
       </Container>

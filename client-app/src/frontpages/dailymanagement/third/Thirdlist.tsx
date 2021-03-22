@@ -23,28 +23,30 @@ const Thirdlist: React.FC = () => {
     return <LoadingComponent content='Loading Third Parties' />;
 
   return (
-    <Container>
+    <Segment>
       <Grid>
-        <Grid.Column width={4}> 
+        <Grid.Column textAlign='center' width={4}> 
           <Dropdown
             placeholder='Select a Third Party'
             selection
           />
         </Grid.Column>
 
-        <Grid.Column width={4}> 
+        <Grid.Column textAlign='center' width={4}> 
           <Search
             />
         </Grid.Column>
+        <Grid.Column width={5}> 
+        </Grid.Column>
 
-         <Grid.Column width={4}>
+         <Grid.Column textAlign='center' width={3}>
           <Button 
-            
             as={Link}
             to={`/dailymanagement/thirdAdd/`}
-            color = 'green' 
+            color = 'linkedin' 
             icon = 'add' 
-            content = 'Add' 
+            content = 'Create New'
+  
           />
  
         {/* {ThirdPartiesByName.map(thirdlist => ( */}
@@ -60,19 +62,18 @@ const Thirdlist: React.FC = () => {
            color='green'
          /> */}
        </Grid.Column>
+      
 
         {/* ))} */}
 
       </Grid>
     
       <Grid>
-        <Grid.Column width={16}>
+        <Grid.Column>
           <Third0 />
         </Grid.Column>
-
       </Grid>
-
-    </Container>
+    </Segment>
   );
 };
 

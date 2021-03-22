@@ -53,7 +53,7 @@ const InvoiceDetails: React.FC<RouteComponentProps<DetailParams>> = ({
       </Table.Row>
       <Table.Row>
         <Table.Cell collapsing>Issue Date</Table.Cell>
-        <Table.Cell> {invoice!.issueDate} </Table.Cell>
+        <Table.Cell> {invoice!.issueDate.substring(0,10)} </Table.Cell>
       </Table.Row>
       <Table.Row>
         <Table.Cell collapsing>Subtotal</Table.Cell>

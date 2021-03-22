@@ -12,13 +12,6 @@ const Technician: React.FC = () => {
 
   return (
     <Container>
-      <Grid>
-        <Grid.Column>
-      <CSVLink data={techniciansByName}  filename={"technician.csv"}>
-      <Popup content='Download as CSV' trigger={<Button icon='download' floated='right' />} />
-      </CSVLink>
-      </Grid.Column>
-      </Grid>
       <Table celled>
     <Table.Header>
       <Table.Row>

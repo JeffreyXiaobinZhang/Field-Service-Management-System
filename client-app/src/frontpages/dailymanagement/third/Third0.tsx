@@ -8,6 +8,7 @@ import {
   Menu,
   Icon,
   Confirm,
+  Container,
 } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import ThirdStore from "../../../app/stores/ThirdStore";
@@ -25,7 +26,7 @@ const Third0: React.FC = () => {
 
 
   return (
-    <Segment clearing>
+    <Container>
       <Table celled>
         <Table.Header>
           <Table.Row>
@@ -127,7 +128,7 @@ const Third0: React.FC = () => {
           </Table.Row>
         </Table.Footer>
       </Table>
-    </Segment>
+    </Container>
   );
 };
 
