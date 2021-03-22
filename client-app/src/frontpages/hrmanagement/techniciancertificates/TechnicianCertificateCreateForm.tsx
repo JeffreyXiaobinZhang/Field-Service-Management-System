@@ -1,10 +1,11 @@
 import React, { useState, FormEvent, useContext, useEffect } from 'react';
-import { Segment, Form, Button, Grid, Input } from 'semantic-ui-react';
+import { Segment, Form, Button, Grid, Input, Table } from 'semantic-ui-react';
 import { ITechnicianCertificate } from '../../../app/models/techniciancertificate';
 import TechnicianCertificateStore from '../../../app/stores/techniciancertificateStore';
 import {RootStoreContext} from '../../../app/stores/rootStore';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps } from 'react-router';
+import FileDropzone from '../../../app/common/Dropzone/FileDropzone';
 
 
 const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
@@ -14,6 +15,7 @@ const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
   const techniciancertificateStore = useContext(TechnicianCertificateStore);
   const rootStore = useContext(RootStoreContext);
   const {openModal} = rootStore.modalStore;
+  const { deleteFile, fileRegistry, filesByName, uploadFile } = rootStore.fileStore;
   const {
     createTechnicianCertificate,
     editTechnicianCertificate,
@@ -30,6 +32,10 @@ const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
   useEffect(() => {
     loadTechnicians();
     loadCertificates();
+
+    return () => {
+      fileRegistry.clear();
+    };
   }, []);
 
   const [technician, setTechnician] = useState({
@@ -70,7 +76,7 @@ const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
       
     })
     if(techniciancert.length !== 0) 
-    createTechnicianCertificate(techniciancert).then(() => history.push(`/hrmanagement/techniciancertificate`));
+    createTechnicianCertificate(techniciancert).then(() => uploadFile()).then(() => history.push(`/hrmanagement/techniciancertificate`));
   };
 
 
@@ -255,6 +261,32 @@ const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
           value={technician.remark}
         />
         <Button
+          onClick={() => openModal(<FileDropzone />)}
+          floated='left'
+          color='blue'
+          type='button'
+          content='Upload Files'
+        />
+        <Table>
+        <Table.Body>
+        {filesByName.map(file => (
+          <Table.Row key={file.name}> 
+          <Table.Cell>{file.name}</Table.Cell>
+          <Table.Cell>{file.size} bytes</Table.Cell>
+          <Table.Cell>
+          <Button
+          onClick={() => deleteFile(file.name)}
+          size='mini'
+          type='button'
+          color='red'
+          content='Delete'
+        />
+          </Table.Cell>
+          </Table.Row> 
+        ))}
+        </Table.Body>
+        </Table>
+        <Button
           loading={submitting}
           floated='right'
           positive
@@ -267,6 +299,7 @@ const TechnicianCertificateCreateForm: React.FC<RouteComponentProps> = ({
           type='button'
           content='Cancel'
         />
+        
       </Form>
     </Segment>
   );
