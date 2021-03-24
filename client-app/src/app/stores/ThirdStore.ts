@@ -3,6 +3,7 @@ import { createContext, MouseEvent } from 'react';
 //add new---------------------------------------------
 import { IThirdparty } from '../models/thirdparty';
 import agent from '../api/agent';
+import { toast } from 'react-toastify';
 
 configure({enforceActions: 'always'});
 
@@ -41,22 +42,40 @@ class ThirdStore {
     let thirdparty = this.getthirdList(companyName);
     if (thirdparty) {
       this.thirdparty = thirdparty;
+      
     } else {
-      this.loadingInitial = true;
-      try {
-        thirdparty = await agent.ThirdParties.details(companyName);
-        runInAction('getting thirdparty',() => {
-          this.thirdparty = thirdparty;
-          this.loadingInitial = false;
-        })
-      } catch (error) {
-        runInAction('get thirdparty error', () => {
-          this.loadingInitial = false;
-        })
-        console.log(error);
-      }
+      // this.loadingInitial = true;
+      // try {
+      //   thirdparty = await agent.ThirdParties.details(companyName);
+      //   runInAction('getting thirdparty',() => {
+      //     this.thirdparty = thirdparty;
+      //     this.loadingInitial = false;
+      //   })
+      // } catch (error) {
+      //   runInAction('get thirdparty error', () => {
+      //     this.loadingInitial = false;
+      //   })
+      //   console.log(error);
+      // }
     }
   }
+
+  @action loadThirdPartyType = async(type: string) => {
+    try {
+      const thirdParties = await agent.ThirdParties.sort(type);
+      this.thirdRegistry.clear();
+      runInAction('loading third parties', () => {
+        thirdParties.forEach(thirdParty => {
+          this.thirdRegistry.set(thirdParty.companyName, thirdParty);
+        });
+      });
+    } catch (error) {
+      runInAction('loading third parties error', () => {
+        this.loadingInitial = false;
+      })
+      toast.error('load third parties error');
+    }
+  };
 
   @action clearThirdParty = () => {
     this.thirdparty = null;

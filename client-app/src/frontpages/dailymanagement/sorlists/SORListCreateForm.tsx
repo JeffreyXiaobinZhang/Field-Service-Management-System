@@ -34,6 +34,18 @@ const SORListCreateForm: React.FC<RouteComponentProps> = ({
     remark: ''
   });
 
+  const typeOptions = [
+    {key:'Fixed', text:'Fixed', value:'Fixed'},
+    {key:'Variable', text:'Variable', value:'Variable'}
+  ]
+  
+  const categoryOptions = [
+    {key:'Civils', text:'Civils', value:'Civils'},
+    {key:'Splicing', text:'Splicing', value:'Splicing'},
+    {key:'Other', text:'Other', value:'Other'},
+    {key:'External Hauling', text:'External Hauling', value:'External Hauling'},
+    {key:'Internal cabling', text:'Internal cabling', value:'Internal cabling'},
+  ]
 
   const handleSubmit = () => {
       createSORList(sorlist).then(() => history.push(`/dailymanagement/sorlist`));
@@ -66,9 +78,10 @@ const SORListCreateForm: React.FC<RouteComponentProps> = ({
           placeholder='Job Type'
           value={sorlist.jobType}
         />
-        <Form.Input
+        <Form.Select
           label='Category'
-          onChange={handleInputChange}
+          options={categoryOptions}
+          onChange={(e, {name, value}) => setSORList({...sorlist, [name]:value})}
           name='category'
           placeholder='Category'
           value={sorlist.category}
@@ -89,10 +102,11 @@ const SORListCreateForm: React.FC<RouteComponentProps> = ({
           placeholder='Unit Rate'
           value={sorlist.unitRate}
         />
-        <Form.Input
-        label='Type'
-          onChange={handleInputChange}
+        <Form.Select
+          label='Type'
+          onChange={(e, {name, value}) => setSORList({...sorlist, [name]: value})}
           name='type'
+          options={typeOptions}
           placeholder='Type'
           value={sorlist.type}
         />

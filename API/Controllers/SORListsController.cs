@@ -25,11 +25,17 @@ namespace API.Controllers
         }
 
 
-        [HttpGet("{name}")]
-        public async Task<ActionResult<SORList>> Details(string name)
+        // [HttpGet("{name}")]
+        // public async Task<ActionResult<SORList>> Details(string name)
+        // {
+        //     return await _mediator.Send(new Details.Query{Name = name});
+        // }  
+
+        [HttpGet("{category}")]
+        public async Task<ActionResult<List<SORList>>> Sort(string category)
         {
-            return await _mediator.Send(new Details.Query{Name = name});
-        }  
+            return await _mediator.Send(new Sort.Query(category));
+        }
 
         [HttpPost]
         public async Task<ActionResult<Unit>> Create(Create.Command command)

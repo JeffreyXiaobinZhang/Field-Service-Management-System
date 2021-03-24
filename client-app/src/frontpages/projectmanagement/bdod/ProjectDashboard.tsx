@@ -21,10 +21,6 @@ const ProjectDashboard: React.FC = () => {
     projectStore.loadProjects();
   }, [projectStore]);
 
-  // function handleSubmit(){
-  //   loadProjectStatus(currentStatus);
-  // }
-
   if (projectStore.loadingInitial)
     return <LoadingComponent content="Loading Projects" />;
 
@@ -44,7 +40,6 @@ const ProjectDashboard: React.FC = () => {
             onClick={() => {
               loadProjectStatus(currentStatus);
             }}
-            //onClick={(e) => loadProjectStatus(e, currentStatus)}
             content="Submit"
             color="green"
           />

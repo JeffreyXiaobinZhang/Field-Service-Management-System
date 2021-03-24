@@ -36,9 +36,21 @@ const SORListForm: React.FC<RouteComponentProps<DetailParams>> = ({
     uom: '',
     remark: ''
   });
+
+  const typeOptions = [
+    {key:'Fixed', text:'Fixed', value:'Fixed'},
+    {key:'Variable', text:'Variable', value:'Variable'}
+  ]
+  
+  const categoryOptions = [
+    {key:'Civils', text:'Civils', value:'Civils'},
+    {key:'Splicing', text:'Splicing', value:'Splicing'},
+    {key:'Other', text:'Other', value:'Other'},
+    {key:'External Hauling', text:'External Hauling', value:'External Hauling'},
+    {key:'Internal cabling', text:'Internal cabling', value:'Internal cabling'},
+  ]
   
 
-   
   useEffect(() => {
     loadSORList(match.params.id).then(
       () => initialFormState && setSORList(initialFormState)
@@ -72,9 +84,10 @@ const SORListForm: React.FC<RouteComponentProps<DetailParams>> = ({
           placeholder='Job Type'
           value={sorlist.jobType}
         />
-        <Form.Input
+        <Form.Select
           label='Category'
-          onChange={handleInputChange}
+          options={categoryOptions}
+          onChange={(e, {name, value}) => setSORList({...sorlist, [name]:value})}
           name='category'
           placeholder='Category'
           value={sorlist.category}
@@ -95,10 +108,11 @@ const SORListForm: React.FC<RouteComponentProps<DetailParams>> = ({
           placeholder='Unit Rate'
           value={sorlist.unitRate}
         />
-        <Form.Input
+        <Form.Select
           label='Type'
-          onChange={handleInputChange}
+          onChange={(e, {name, value}) => setSORList({...sorlist, [name]: value})}
           name='type'
+          options={typeOptions}
           placeholder='Type'
           value={sorlist.type}
         />

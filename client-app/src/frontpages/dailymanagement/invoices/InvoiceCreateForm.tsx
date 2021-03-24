@@ -37,6 +37,18 @@ const InvoiceCreateForm: React.FC<RouteComponentProps> = ({
         remark: ''
     });
 
+    const statusOptions = [
+      {key:'Sent', text:'Sent', value:'Sent'},
+      {key:'Paid', text:'Paid', value:'Paid'}
+    ]
+    const customerOptions = [
+      {key:'333 Industries Pty Ltd', text:'333 Industries Pty Ltd', value:'333 Industries Pty Ltd'},
+      {key:'SERVICE STREAM COMMUNICATIONS', text:'SERVICE STREAM COMMUNICATIONS', value:'SERVICE STREAM COMMUNICATIONS'},
+      {key:'Engytech Engineering Services', text:'Engytech Engineering Services', value:'Engytech Engineering Services'}
+    ]
+
+
+
     const handleSubmit = () => {
         createInvoice(invoice).then(() => history.push(`/dailymanagement/invoice`));
     };
@@ -106,20 +118,22 @@ const InvoiceCreateForm: React.FC<RouteComponentProps> = ({
               placeholder='Contract No'
               value={invoice.contractNo}
             />
-            <Form.Input
+            <Form.Select
             label='customer'
-              onChange={handleInputChange}
+              onChange={(e, {name, value}) => setInvoice({...invoice, [name]: value})}
               name='customer'
               placeholder='customer'
               value={invoice.customer}
+              options={customerOptions}
             />
-            <Form.Input
-            label='Payment Status'
-              onChange={handleInputChange}
-              name='paymentStatus'
-              placeholder='Payment Status'
-              value={invoice.paymentStatus}
-            />
+            <Form.Select
+        label='Payment Status'
+            onChange={(e, {name, value}) => setInvoice({...invoice, [name]: value})}
+            name='paymentStatus'
+            placeholder='Payment Status'
+            value={invoice.paymentStatus}
+            options={statusOptions}
+        />
             <Form.Input
             label='Reference No'
               onChange={handleInputChange}

@@ -25,18 +25,17 @@ namespace API.Controllers
             return await _mediator.Send(new List.Query());
         }
 
-  /*      [HttpGet("{status}")]
-        public async Task<ActionResult<List<controller>>> ListStatus(string status)
+        [HttpGet("{type}")]
+        public async Task<ActionResult<List<ThirdParty>>> Sort(string type)
         {
-            return await _mediator.Send(new ListStatus.Query(status));
+            return await _mediator.Send(new Sort.Query(type));
         }
-  */
 
-        [HttpGet("{name}")]
-        public async Task<ActionResult<ThirdParty>> Details(string name)
-        {
-            return await _mediator.Send(new Details.Query{CompanyName = name});
-        }  
+        // [HttpGet("{name}")]
+        // public async Task<ActionResult<ThirdParty>> Details(string name)
+        // {
+        //     return await _mediator.Send(new Details.Query{CompanyName = name});
+        // }  
 
         [HttpPost]
         public async Task<ActionResult<Unit>> Create(Create.Command command)

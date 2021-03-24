@@ -3,10 +3,6 @@ import { Segment, Form, Button } from 'semantic-ui-react';
 import { v4 as uuid } from 'uuid';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps } from 'react-router';
-
-// import { ISORList } from '../../../app/models/sorlist';
-// import SORListStore from '../../../app/stores/sorlistStore';
-
 import {IThirdparty} from '../../../app/models/thirdparty';
 import ThirdStore from '../../../app/stores/ThirdStore';
 
@@ -48,12 +44,9 @@ const Thirdedit: React.FC<RouteComponentProps<DetailParams>> = ({
 
     return () => {
       clearThirdParty()
-    }
-  // }, [loadThirdParty, clearThirdParty, match.params.name, initialFormState]);
-  }, []);
+    }}, []);
 
   const handleSubmit = () => { 
-  /**   editSORList(sorlist).then(() => history.push(`/dailymanagement/sorlist/${sorlist.name}`));   */
   editThirdParty(thirdparty).then(() => history.push(`/dailymanagement/third`));
   };
 
@@ -73,51 +66,14 @@ const Thirdedit: React.FC<RouteComponentProps<DetailParams>> = ({
   return (
     <Segment clearing>
       <Form onSubmit={handleSubmit}>
-        {/* <Form.Input
-          label='ID'
-          onChange={handleInputChange}
-          name='id'
-          placeholder='Thirdparty ID'
-          value={thirdparty.id}
-        />
-        <Form.Input
-          label='Created At'
-          onChange={handleInputChange}
-          name='createdAt'
-          placeholder='createdAt'
-          value={thirdparty.createdAt}
-        />
-        <Form.Input
-          label='Updated At'
-          required
-          onChange={handleInputChange}
-          name='updatedAt'
-          placeholder='Updated At'
-          value={thirdparty.updatedAt}
-        /> */}
         <Form.Input
           label='Company Name'
           // onChange={handleInputChange}
-          // name='companyName'
+          name='companyName'
           placeholder={thirdparty.companyName}
           readOnly
           // value={thirdparty.companyName}
         />
-          {/* <Form.Input
-            label='Status'
-            onChange={handleInputChange}
-            name='status'
-            placeholder='Status'
-            value={thirdparty.status}
-          /> */}
-        {/* <Form.Input
-          label='Type'
-          onChange={handleInputChange}
-          name='type'
-          placeholder='Type'
-          value={thirdparty.type}
-          /> */}
-
         <Form.Select
           fluid
           label='Type'
@@ -149,13 +105,6 @@ const Thirdedit: React.FC<RouteComponentProps<DetailParams>> = ({
           placeholder='Email'
           value={thirdparty.email}
         />
-        {/* <Form.Input
-          label='Project'
-          onChange={handleInputChange}
-          name='project'
-          placeholder='Project'
-          value={thirdparty.project}
-        /> */}
         <Button
           loading={submitting}
           floated='right'

@@ -24,12 +24,16 @@ namespace API.Controllers
             return await _mediator.Send(new List.Query());
         }
 
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Certificate>> Details(int id)
+        [HttpGet("{category}")]
+        public async Task<ActionResult<List<Certificate>>> Sort(string category)
         {
-            return await _mediator.Send(new Details.Query{Id = id});
-        }  
+            return await _mediator.Send(new Sort.Query(category));
+        }
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<Certificate>> Details(int id)
+        // {
+        //     return await _mediator.Send(new Details.Query{Id = id});
+        // }  
 
         [HttpPost]
         public async Task<ActionResult<Unit>> Create(Create.Command command)

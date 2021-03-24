@@ -106,7 +106,8 @@ const ProjectTasks = {
 
 const SORLists = {
     list: (): Promise<ISORList[]> => requests.get('/sorlists'),
-    details: (name: string) => requests.get(`/sorlists/${name}`),
+    //details: (name: string) => requests.get(`/sorlists/${name}`),
+    sort: (category: string): Promise<ISORList[]> => requests.get(`/sorlists/${category}`),
     create: (sorlist: ISORList) => requests.post('/sorlists', sorlist),
     update: (sorlist: ISORList) => requests.put(`/sorlists/${sorlist.name}`, sorlist),
     delete: (name: string) => requests.del(`/sorlists/${name}`)
@@ -180,7 +181,8 @@ const ProjectStocks = {
 
 const Certificates = {
     list: (): Promise<ICertificate[]> => requests.get('/certificates'),
-    details: (id: string) => requests.get(`/certificates/${id}`),
+    //details: (id: string) => requests.get(`/certificates/${id}`),
+    sort: (category: string): Promise<ICertificate[]> => requests.get(`/certificates/${category}`),
     create: (certificate: ICertificate) => requests.post('/certificates', certificate),
     update: (certificate: ICertificate) => requests.put(`/certificates/${certificate.id}`, certificate),
     delete: (id: string) => requests.del(`/certificates/${id}`)
@@ -199,7 +201,8 @@ const TechnicianCertificates = {
 
 const ThirdParties = {
     list: (): Promise<IThirdparty[]> => requests.get('/ThirdParties'),
-    details: (name: string) => requests.get(`/ThirdParties/${name}}`),
+    sort: (type: string): Promise<IThirdparty[]> => requests.get(`/ThirdParties/${type}`),
+    //details: (name: string) => requests.get(`/ThirdParties/${name}}`),
     create: (thirdparty: IThirdparty) => requests.post('/ThirdParties', thirdparty),
     update: (thirdparty: IThirdparty) => requests.put(`/ThirdParties/${thirdparty.companyName}`, thirdparty),
     delete: (name: string) => requests.del(`/ThirdParties/${name}`)

@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { Grid,Button, Segment, Dropdown, Search, Container } from 'semantic-ui-react';
 import Third0 from './Third0';
 import { observer } from 'mobx-react-lite';
@@ -12,6 +12,14 @@ import { Link } from 'react-router-dom';
 const Thirdlist: React.FC = () => {
 
   const thirdStore0 = useContext(ThirdStore);
+  const typeOpt = [
+    {key:'EWP',text:'EWP',value:'EWP'},
+    {key:'Security',text:'Security',value:'Security'},
+    {key:'Building management',text:'Building management',value:'Building management'},
+    {key:'customer',text:'customer',value:'customer'},
+  ]
+  const {loadThirdPartyType: loadThirdPartyType} = thirdStore0;
+  const [type, setType]: any = useState("all");
 
   // const {ThirdPartiesByName: ThirdPartiesByName,  deleteThirdParty: deleteThirdParty, submitting, target} = thirdStore0;
 
@@ -29,6 +37,17 @@ const Thirdlist: React.FC = () => {
           <Dropdown
             placeholder='Select a Third Party'
             selection
+            onChange={(e, {value}) => setType(value)}
+            options={typeOpt}
+          />
+        </Grid.Column>
+        <Grid.Column width={3}>
+          <Button
+            onClick={() => {
+              loadThirdPartyType(type);
+            }}
+            content="Submit"
+            color="green"
           />
         </Grid.Column>
 
@@ -36,7 +55,7 @@ const Thirdlist: React.FC = () => {
           <Search
             />
         </Grid.Column>
-        <Grid.Column width={5}> 
+        <Grid.Column width={2}> 
         </Grid.Column>
 
          <Grid.Column textAlign='center' width={3}>
@@ -48,23 +67,8 @@ const Thirdlist: React.FC = () => {
             content = 'Create New'
   
           />
- 
-        {/* {ThirdPartiesByName.map(thirdlist => ( */}
-         
-           
-         {/* <button
-           name={thirdlist.name}
-           size='mini'
-           loading={target === thirdlist.id && submitting}
-           onClick={(e) => deleteThirdParty(e, thirdlist.name)}
-           // content='Delete'
-           icon = 'add'
-           color='green'
-         /> */}
-       </Grid.Column>
-      
 
-        {/* ))} */}
+       </Grid.Column>
 
       </Grid>
     

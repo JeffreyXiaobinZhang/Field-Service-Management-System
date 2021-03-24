@@ -42,23 +42,42 @@ class SORListStore {
     let sorlist = this.getSORList(name);
     if (sorlist) {
       this.sorlist = sorlist;
-    } else {
-      this.loadingInitial = true;
-      try {
-        sorlist = await agent.SORLists.details(name);
-        runInAction('getting sorlist',() => {
-          this.sorlist = sorlist;
-          this.loadingInitial = false;
-        })
-      } catch (error) {
-        runInAction('get sorlist error', () => {
-          this.loadingInitial = false;
-        })
-        toast.error('get sorlist error');
-        console.log(error);
-      }
+      console.log(sorlist);
     }
+    // } else {
+    //   this.loadingInitial = true;
+    //   try {
+    //     sorlist = await agent.SORLists.details(name);
+    //     runInAction('getting sorlist',() => {
+    //       this.sorlist = sorlist;
+    //       this.loadingInitial = false;
+    //     })
+    //   } catch (error) {
+    //     runInAction('get sorlist error', () => {
+    //       this.loadingInitial = false;
+    //     })
+    //     toast.error('get sorlist error');
+    //     console.log(error);
+    //   }
+    // }
   }
+
+  @action loadSORListCategory = async(category:string) => {
+    try{
+      const sorlists = await agent.SORLists.sort(category);
+      this.sorlistRegistry.clear();
+      runInAction('loading SORLists', () => {
+        sorlists.forEach(sorlist => {
+          this.sorlistRegistry.set(sorlist.name, sorlist);
+        });
+      });
+    } catch(error) {
+      runInAction('loading SORLists error', () => {
+        this.loadingInitial = false;
+      })
+      toast.error('load SORLists error');
+    }
+  };
 
   @action clearSORList = () => {
     this.sorlist = null;

@@ -42,23 +42,41 @@ class CertificateStore {
     let certificate = this.getCertificate(id);
     if (certificate) {
       this.certificate = certificate;
-    } else {
-      this.loadingInitial = true;
-      try {
-        certificate = await agent.Certificates.details(id);
-        runInAction('getting certificate',() => {
-          this.certificate = certificate;
-          this.loadingInitial = false;
-        })
-      } catch (error) {
-        runInAction('get certificate error', () => {
-          this.loadingInitial = false;
-        })
-        toast.error('get certificate error');
-        console.log(error);
-      }
     }
+    // } else {
+    //   this.loadingInitial = true;
+    //   try {
+    //     certificate = await agent.Certificates.details(id);
+    //     runInAction('getting certificate',() => {
+    //       this.certificate = certificate;
+    //       this.loadingInitial = false;
+    //     })
+    //   } catch (error) {
+    //     runInAction('get certificate error', () => {
+    //       this.loadingInitial = false;
+    //     })
+    //     toast.error('get certificate error');
+    //     console.log(error);
+    //   }
+    // }
   }
+
+  @action loadCertificateCategory = async(category:string) => {
+    try{
+      const certificates = await agent.Certificates.sort(category);
+      this.certificateRegistry.clear();
+      runInAction('loading Certificates', () => {
+        certificates.forEach(certificate=> {
+          this.certificateRegistry.set(certificate.id, certificate);
+        });
+      });
+    } catch(error) {
+      runInAction('loading Certificates error', () => {
+        this.loadingInitial = false;
+      })
+      toast.error('load Certificates error');
+    }
+  };
 
   @action clearCertificate = () => {
     this.certificate = null;
