@@ -19,7 +19,7 @@ const ProjectDetails: React.FC<RouteComponentProps<DetailParams>> = ({
   const { project, loadProject, deleteProjectTask, 
     loadProjectTasks, loadTaskAssignments, loadTechnicians, 
     loadProjectLogs, loadSORLists, loadWarehouseLogs, 
-    loadProjectStocks, loadWarehouses, loadThirdParties, loadProjectVendors, loadingInitial, reload } = projectStore;
+    loadProjectStocks, loadWarehouses, loadThirdParties, loadProjectVendors, loadProjectPhotos, loadPhotoRequests, loadingInitial, reload } = projectStore;
 
   useEffect(() => {
     loadProject(match.params.id);
@@ -33,6 +33,8 @@ const ProjectDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     loadWarehouses();
     loadThirdParties();
     loadProjectVendors(match.params.id);
+    loadPhotoRequests();
+    loadProjectPhotos(match.params.id);
   }, [match.params.id]);
 
 

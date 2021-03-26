@@ -26,6 +26,10 @@ import WarehouseEditForm from '../../frontpages/dailymanagement/warehouses/Wareh
 import WarehouseDetails from '../../frontpages/dailymanagement/warehouses/WarehouseDetails';
 import WarehouseCreateForm from '../../frontpages/dailymanagement/warehouses/WarehouseCreateForm';
 import WarehouseDashboard from '../../frontpages/dailymanagement/warehouses/WarehouseDashboard';
+import PhotoRequestEditForm from '../../frontpages/dailymanagement/photorequests/PhotoRequestEditForm';
+import PhotoRequestDetails from '../../frontpages/dailymanagement/photorequests/PhotoRequestDetails';
+import PhotoRequestCreateForm from '../../frontpages/dailymanagement/photorequests/PhotoRequestCreateForm';
+import PhotoRequestDashboard from '../../frontpages/dailymanagement/photorequests/PhotoRequestDashboard';
 import InvoiceEditForm from '../../frontpages/dailymanagement/invoices/InvoiceEditForm';
 import InvoiceDetails from '../../frontpages/dailymanagement/invoices/InvoiceDetails';
 import InvoiceCreateForm from '../../frontpages/dailymanagement/invoices/InvoiceCreateForm';
@@ -100,6 +104,11 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route path='/dailymanagement/third/:name' component={Thirddetail} />
               <Route path='/dailymanagement/third-edit/:name' component={Thirdedit} />
               <Route path='/dailymanagement/thirdAdd/' component={Thirdadd} />
+
+              <Route exact path='/dailymanagement/photorequest' component={PhotoRequestDashboard} />
+              <Route path='/dailymanagement/photorequest/:id' component={PhotoRequestDetails} />
+              <Route path='/dailymanagement/photorequest-create' component={PhotoRequestCreateForm} />
+              <Route path='/dailymanagement/photorequest-edit/:id' component={PhotoRequestEditForm} />
             </Container>
           </Fragment>
         )}

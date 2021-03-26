@@ -6,6 +6,7 @@ import ProjectLogTab from './ProjectLogTab';
 import WarehouseTab from './WarehouseTab';
 import ProjectStore from '../../../app/stores/projectStore';
 import VendorTab from './VendorTab';
+import ProjectPhotoTab from './ProjectPhotoTab';
 
 
 
@@ -19,6 +20,7 @@ const panes = [
    { menuItem: 'Assignment', render: () => <AssignmentTab/> },
    { menuItem: 'Material', render: () => <WarehouseTab/> },
    { menuItem: 'Third Party', render: () => <VendorTab /> },
+   { menuItem: 'Photo Request', render: () => <ProjectPhotoTab /> },
    { menuItem: 'Log', render: () => <ProjectLogTab/> }
 ];
 

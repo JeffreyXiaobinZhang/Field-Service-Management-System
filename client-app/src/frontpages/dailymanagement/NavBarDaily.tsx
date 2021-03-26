@@ -13,7 +13,7 @@ const NavBarDaily: React.FC = () => {
   return (
     <Menu fixed='top' inverted>
       <Container>
-        <Menu.Item header as={NavLink} exact to='/'>
+        <Menu.Item header as={NavLink} exact to='/home'>
             <img src="/assets/brighten.jpg" alt="logo" style={{marginRight: 10}}/>
             FSMS
          </Menu.Item>
@@ -31,6 +31,7 @@ const NavBarDaily: React.FC = () => {
         </Dropdown>
         <Menu.Item as={NavLink} to='/dailymanagement/third'>Third Party</Menu.Item>
         <Menu.Item as={NavLink} to='/dailymanagement/sorlist'>SOR</Menu.Item>
+        <Menu.Item as={NavLink} to='/dailymanagement/photorequest'>Photo Request</Menu.Item>
         {/* <Dropdown item text='SOR'>
         <Dropdown.Menu>
          <Dropdown.Item as={NavLink} to='/dailymanagement/sorlist' text='Query SOR' icon='edit'/>

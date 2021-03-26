@@ -42,4 +42,10 @@ body {
 
 /*end home page styles*/
 
+.ui.dimmer
+{
+  /* background: transparent !important; */
+  background: rgba(105, 105, 105, 0.50) !important
+}
+
 

@@ -85,6 +85,7 @@ const Invoice: React.FC = () => {
                       position: "relative",
                       maxHeight: "150px",
                       height: "auto",
+                      background: "transparent",
                     }}
                   />
                 </Button.Group>

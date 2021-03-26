@@ -12,8 +12,9 @@ import { ISORList } from '../models/sorlist';
 import { IProjectStock as IProjectStock } from '../models/projectstock';
 import {IProjectVendor} from '../models/projectvendor';
 import { IThirdparty } from '../models/thirdparty';
-
+import { IPhotoRequest } from '../models/photorequest';
 import agent from '../api/agent';
+import { IProjectPhoto } from '../models/projectphoto';
 
 configure({enforceActions: 'always'});
 
@@ -29,6 +30,7 @@ class ProjectStore {
   @observable tasktechnicianRegistry = new Map();
   @observable technician: ITechnician | null = null;
   @observable technicianRegistry = new Map();
+  @observable technicianName = new Map();
   @observable tasktechnician: ITaskTechnician | null = null;
   @observable projectlogRegistry = new Map();
   @observable projectlog: IProjectLog | null = null;
@@ -44,6 +46,13 @@ class ProjectStore {
   @observable selectedProjectVendor: IProjectVendor | undefined;
   @observable thirdRegistry = new Map();
   @observable thirdparty: IThirdparty | null = null;
+  @observable projectphotoRegistry = new Map();
+  @observable projectphoto: IProjectPhoto | null = null;
+  @observable photorequestRegistry = new Map();
+  @observable photorequestItem = new Map();
+  @observable photorequestType = new Map();
+  @observable photorequestActivity = new Map();
+  @observable photorequest: IPhotoRequest | null = null;
   @observable loadingInitial = false;
   @observable submitting = false;
   @observable target = '';
@@ -115,6 +124,18 @@ class ProjectStore {
     return Array.from(this.thirdRegistry.values()).sort(
       (a, b) => Date.parse(a.companyName) - Date.parse(b.companyName)
     );
+  }
+
+  @computed get projectphotosByName() {
+    return Array.from(this.projectphotoRegistry.values()).sort(
+      (a, b) => a.technicianId.localeCompare(b.technicianId))
+    ;
+  }
+
+  @computed get photorequestsByItem() {
+    return Array.from(this.photorequestRegistry.values()).sort(
+      (a, b) => a.item.localeCompare(b.item))
+    ;
   }
 
   @action loadProjects = async () => {
@@ -381,6 +402,7 @@ class ProjectStore {
     runInAction('loading technicians', () => {
       technicians.forEach(technician => {
         this.technicianRegistry.set(technician.name, technician);
+        this.technicianName.set(technician.id, technician.name);
       });
       this.loadingInitial = false;
     })
@@ -776,6 +798,82 @@ class ProjectStore {
     runInAction('load ThirdParties List error', () => {
       this.loadingInitial = false;
     })
+  }
+};
+
+@action loadProjectPhotos = async (projectId: string) => {
+  // this.loadingInitial = true;
+  try {
+    const projectphotos = await agent.ProjectPhotos.list(projectId);
+    this.projectphotoRegistry.clear();
+    runInAction('loading project photo', () => {
+      projectphotos.forEach(projectphoto => {
+        this.projectphotoRegistry.set(projectphoto.id, projectphoto);
+      });
+      // this.loadingInitial = false;
+    })
+
+  } catch (error) {
+    runInAction('load project photo error', () => {
+      // this.loadingInitial = false;
+    })
+    toast.error('load project photo error');
+  }
+};
+
+@action createProjectPhoto = async (projectphoto: IProjectPhoto) => {
+  this.submitting = true;
+  try {
+    await agent.ProjectPhotos.create(projectphoto);
+    runInAction('create project photo', () => {
+   //    this.projecttaskRegistry.set(projecttask.id, projecttask);
+      this.submitting = false;
+    })
+  } catch (error) {
+    runInAction('create project photo error', () => {
+      this.submitting = false;
+    })
+    toast.error('create project photo error');
+    console.log(error);
+  }
+};
+
+@action deleteProjectPhoto = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  this.target = event.currentTarget.name;
+  try {
+    await agent.ProjectPhotos.delete(id);
+    runInAction('deleting project photo', () => {
+      this.projectphotoRegistry.delete(id);
+      this.target = '';
+    })
+  } catch (error) {
+    runInAction('delete project photo error', () => {
+      this.target = '';
+    })
+    toast.error('delete project photo error');
+    console.log(error);
+  }
+}
+
+@action loadPhotoRequests = async () => {
+  this.loadingInitial = true;
+  try {
+    const photorequests = await agent.PhotoRequests.list();
+    runInAction('loading photorequests', () => {
+      photorequests.forEach(photorequest => {
+        this.photorequestRegistry.set(photorequest.item+photorequest.activity, photorequest);
+        this.photorequestItem.set(photorequest.id, photorequest.item);
+        this.photorequestType.set(photorequest.id, photorequest.type);
+        this.photorequestActivity.set(photorequest.id, photorequest.activity);
+      });
+      this.loadingInitial = false;
+    })
+
+  } catch (error) {
+    runInAction('load PhotoRequest List error', () => {
+      this.loadingInitial = false;
+    })
+    toast.error('load PhotoRequest List error');
   }
 };
 

@@ -18,6 +18,8 @@ import { ITechnicianCertificate } from '../models/techniciancertificate';
 import {IThirdparty} from '../models/thirdparty';
 import {IProjectVendor} from '../models/projectvendor';
 import {IFile} from '../models/file';
+import {IPhotoRequest} from '../models/photorequest';
+import {IProjectPhoto} from '../models/projectphoto';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -219,7 +221,23 @@ const ProjectVendors = {
 const Uploads = {
   uploadFile: (file: File[]): Promise<IFile> =>
     requests.postForm(`/files`, file),
-};
+}
+
+const PhotoRequests = {
+  list: (): Promise<IPhotoRequest[]> => requests.get('/photorequests'),
+  details: (id: string) => requests.get(`/photorequests/${id}`),
+  create: (photorequest: IPhotoRequest) => requests.post('/photorequests', photorequest),
+  update: (photorequest: IPhotoRequest) => requests.put(`/photorequests/${photorequest.id}`, photorequest),
+  delete: (id: string) => requests.del(`/photorequests/${id}`)
+}
+
+const ProjectPhotos = {
+  list: (projectId: string): Promise<IProjectPhoto[]> => requests.get(`/projectphotos/${projectId}`),
+  // details: (id: string) => requests.get(`/projecttasks/${id}`),
+  create: (projectphoto: IProjectPhoto) => requests.post('/projectphotos', projectphoto),
+  // update: (projecttask: IProjectTask) => requests.put(`/projecttasks/${projecttask.id}`, projecttask),
+  delete: (id: string) => requests.del(`/projectphotos/${id}`)
+}
 
 export default {
     User,
@@ -238,5 +256,7 @@ export default {
     TechnicianCertificates,
     ThirdParties,
     ProjectVendors,
-    Uploads
+    Uploads,
+    PhotoRequests,
+    ProjectPhotos
 }

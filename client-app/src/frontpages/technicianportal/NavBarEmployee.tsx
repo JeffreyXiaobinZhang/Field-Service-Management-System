@@ -13,7 +13,7 @@ const NavBarDaily: React.FC = () => {
   return (
     <Menu fixed='top' inverted>
       <Container>
-        <Menu.Item header as={NavLink} exact to='/'>
+        <Menu.Item header as={NavLink} exact to='/home'>
             <img src="/assets/brighten.jpg" alt="logo" style={{marginRight: 10}}/>
             FSMS
          </Menu.Item>
