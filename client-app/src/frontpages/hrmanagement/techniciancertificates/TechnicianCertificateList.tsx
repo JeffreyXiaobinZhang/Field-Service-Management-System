@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 const TechnicianCertificate: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [technicianCertificateId, setTechnicianCertificateId] = useState("");
   const techniciancertificateStore = useContext(TechnicianCertificateStore);
   const {techniciancertificatenamesByEmail: techniciancertificatenamesByEmail,  deleteTechnicianCertificate: deleteTechnicianCertificate, submitting, target} = techniciancertificateStore;
   return (
@@ -52,6 +53,7 @@ const TechnicianCertificate: React.FC = () => {
                   loading={target === techniciancertificate.id && submitting}
                   onClick={() => {
                     setOpen(true);
+                    setTechnicianCertificateId(techniciancertificate.id);
                   }}
                   icon="delete"
                   color="red"
@@ -61,7 +63,7 @@ const TechnicianCertificate: React.FC = () => {
                     open={open}
                     onCancel={() => setOpen(false)}
                     onConfirm={(e) => {
-                      deleteTechnicianCertificate(e, techniciancertificate.id);
+                      deleteTechnicianCertificate(technicianCertificateId);
                         setOpen(false);
                     }}
                     content="Are you sure you want to delete ?"

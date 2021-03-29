@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 const PhotoRequest: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [requestId, setRequestId] = useState("");
   const photorequestStore = useContext(PhotoRequestStore);
   const {photorequestsByItem: photorequestsByItem,  deletePhotoRequest: deletePhotoRequest, submitting, target} = photorequestStore;
   
@@ -49,6 +50,7 @@ const PhotoRequest: React.FC = () => {
                   //onClick={(e) => deletePhotoRequest(e, photorequest.id)}
                   onClick={() => {
                     setOpen(true);
+                    setRequestId(photorequest.id);
                   }}
                   icon="delete"
                   color="red"
@@ -58,7 +60,7 @@ const PhotoRequest: React.FC = () => {
                     open={open}
                     onCancel={() => setOpen(false)}
                     onConfirm={(e) => {
-                      deletePhotoRequest(e, photorequest.id);
+                      deletePhotoRequest(requestId);
                         setOpen(false);
                     }}
                     content="Are you sure you want to delete ?"

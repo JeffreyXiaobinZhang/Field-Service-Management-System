@@ -105,9 +105,9 @@ class TechnicianStore {
     }
   };
 
-  @action deleteTechnician = async (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+  @action deleteTechnician = async (id: string) => {
     this.submitting = true;
-    this.target = event.currentTarget.name;
+    this.target = id;
     try {
       await agent.Technicians.delete(id);
       runInAction('deleting Technician', () => {

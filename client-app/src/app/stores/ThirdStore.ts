@@ -121,12 +121,13 @@ class ThirdStore {
     }
   };
 
-  @action deleteThirdParty = async (event: MouseEvent<HTMLAnchorElement>, name: string) => {
+  @action deleteThirdParty = async (name: string) => {
     this.submitting = true;
-    this.target = event.currentTarget.name;
+    this.target = name;
     try {
       await agent.ThirdParties.delete(name);
       runInAction('deleting Third Party', () => {
+        console.log(name);
         this.thirdRegistry.delete(name);
         this.submitting = false;
         this.target = '';

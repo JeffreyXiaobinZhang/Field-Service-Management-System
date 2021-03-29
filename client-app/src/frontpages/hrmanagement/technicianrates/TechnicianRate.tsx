@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 
 const TechnicianRate: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const[rateId, setRateId] = useState("");
   const technicianRateStore = useContext(TechnicianRateStore);
   const {
     technicianRatesByName: technicianRatesByName,
@@ -63,6 +64,7 @@ const TechnicianRate: React.FC = () => {
                     loading={target === rate.id && submitting}
                     onClick={() => {
                       setOpen(true);
+                      setRateId(rate.id);
                     }}
                     icon="delete"
                     color="red"
@@ -72,7 +74,7 @@ const TechnicianRate: React.FC = () => {
                     open={open}
                     onCancel={() => setOpen(false)}
                     onConfirm={(e) => {
-                      deleteTechnicianRate(e, rate.id);
+                      deleteTechnicianRate(rateId);
                       setOpen(false);
                     }}
                     content="Are you sure you want to delete ?"

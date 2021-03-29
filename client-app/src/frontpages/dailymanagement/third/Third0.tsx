@@ -23,7 +23,7 @@ const Third0: React.FC = () => {
     target,
   } = thirdStore0;
   const [open, setOpen] = useState(false);
-
+  const [companyName, setCompanyName] = useState("");
 
   return (
     <Container>
@@ -47,16 +47,11 @@ const Third0: React.FC = () => {
         <Table.Body>
           {ThirdPartiesByName.map((thirdlist) => (
             <Table.Row key={thirdlist.companyName}>
-              {/* <Table.Cell>{thirdlist.Id}</Table.Cell>
-        <Table.Cell>{thirdlist.createdAt}</Table.Cell>
-        <Table.Cell> {thirdlist.updatedAt}</Table.Cell> */}
               <Table.Cell>{thirdlist.companyName}</Table.Cell>
               <Table.Cell>{thirdlist.type}</Table.Cell>
               <Table.Cell>{thirdlist.contactPerson}</Table.Cell>
               <Table.Cell>{thirdlist.phone}</Table.Cell>
               <Table.Cell>{thirdlist.email}</Table.Cell>
-              {/* <Table.Cell>{thirdlist.status}</Table.Cell> */}
-              {/* <Table.Cell>{thirdlist.project}</Table.Cell> */}
               <Table.Cell>
                 <Button.Group size="mini">
                   {/* link to detail and edit */}
@@ -85,25 +80,31 @@ const Third0: React.FC = () => {
                     loading={target === thirdlist.companyName && submitting}
                     onClick={() => {
                       setOpen(true);
+                      setCompanyName(thirdlist.companyName);
                     }}
                     icon="delete"
                     color="red"
                     title="Delete"
                   />
-                   <Confirm
+                  <Confirm
                     open={open}
-                    onCancel={() => setOpen(false)}
-                    onConfirm={(e) => {
-                      deleteThirdParty(e, thirdlist.companyName);
+                    onCancel={() => {
+                      setOpen(false);
+                    }}
+                    onConfirm={() => {
+                      deleteThirdParty(companyName);
                       setOpen(false);
                     }}
                     content="Are you sure you want to delete ?"
                     confirmButton="Yes"
                     size="mini"
-                    style={{ position: "relative", maxHeight: "150px", height:"auto" }}
+                    style={{
+                      position: "relative",
+                      maxHeight: "150px",
+                      height: "auto",
+                    }}
                   />
                 </Button.Group>
-               
               </Table.Cell>
             </Table.Row>
           ))}

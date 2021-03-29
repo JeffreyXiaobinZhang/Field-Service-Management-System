@@ -141,11 +141,10 @@ class TechnicianRateStore {
   };
 
   @action deleteTechnicianRate = async (
-    event: MouseEvent<HTMLAnchorElement>,
     id: string
   ) => {
     this.submitting = true;
-    this.target = event.currentTarget.name;
+    this.target = id;
     try {
       await agent.TechnicianRates.delete(id);
       runInAction("deleting invoice", () => {

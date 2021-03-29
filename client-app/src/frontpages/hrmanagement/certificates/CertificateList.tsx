@@ -8,6 +8,7 @@ const Certificate: React.FC = () => {
   const certificateStore = useContext(CertificateStore);
   const {certificatesByName: certificatesByName,  deleteCertificate: deleteCertificate, submitting, target} = certificateStore;
   const [open, setOpen] = useState(false);
+  const [certificateId, setCertificateId] = useState("");
   return (
     <Container>
       <Table celled>
@@ -47,6 +48,7 @@ const Certificate: React.FC = () => {
                   loading={target === certificate.id && submitting}
                   onClick={() => {
                     setOpen(true);
+                    setCertificateId(certificate.id);
                   }}
                   icon="delete"
                   color="red"
@@ -56,7 +58,7 @@ const Certificate: React.FC = () => {
                     open={open}
                     onCancel={() => setOpen(false)}
                     onConfirm={(e) => {
-                      deleteCertificate(e, certificate.id);
+                      deleteCertificate(certificateId);
                         setOpen(false);
                     }}
                     content="Are you sure you want to delete ?"

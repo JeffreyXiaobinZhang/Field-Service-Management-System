@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Warehouse: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [warehouseId, setWarehouseId] = useState("");
   const warehouseStore = useContext(WarehouseStore);
   const {warehousesByPartNo: warehousesByPartNo,  deleteWarehouse: deleteWarehouse, submitting, target} = warehouseStore;
   
@@ -51,6 +52,7 @@ const Warehouse: React.FC = () => {
                   //onClick={(e) => deleteWarehouse(e, warehouse.id)}
                   onClick={() => {
                     setOpen(true);
+                    setWarehouseId(warehouse.id);
                   }}
                   icon="delete"
                   color="red"
@@ -59,8 +61,8 @@ const Warehouse: React.FC = () => {
                 <Confirm
                     open={open}
                     onCancel={() => setOpen(false)}
-                    onConfirm={(e) => {
-                      deleteWarehouse(e, warehouse.id);
+                    onConfirm={() => {
+                      deleteWarehouse(warehouseId);
                         setOpen(false);
                     }}
                     content="Are you sure you want to delete ?"

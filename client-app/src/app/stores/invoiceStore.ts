@@ -110,9 +110,9 @@ class InvoiceStore {
         }
     };
 
-    @action deleteInvoice = async(event: MouseEvent<HTMLAnchorElement>, id: string) => {
+    @action deleteInvoice = async(id: string) => {
         this.submitting = true;
-        this.target = event.currentTarget.name;
+        this.target =id ;
         try {
             await agent.Invoices.delete(id);
             runInAction("deleting invoice", () => {

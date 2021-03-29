@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 
 const ProjectList: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [projectId, setProjectId] = useState("");
   const projectStore = useContext(ProjectStore);
   const {
     projectsByDate: projectsByDate,
@@ -65,6 +66,7 @@ const ProjectList: React.FC = () => {
                     //onClick={(e) => deleteProject(e, project.id)}
                     onClick={() => {
                       setOpen(true);
+                      setProjectId(project.id);
                     }}
                     icon="delete"
                     color="red"
@@ -74,7 +76,7 @@ const ProjectList: React.FC = () => {
                     open={open}
                     onCancel={() => setOpen(false)}
                     onConfirm={(e) => {
-                      deleteProject(e, project.id);
+                      deleteProject(projectId);
                         setOpen(false);
                     }}
                     content="Are you sure you want to delete ?"

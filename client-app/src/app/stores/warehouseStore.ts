@@ -105,9 +105,9 @@ class WarehouseStore {
     }
   };
 
-  @action deleteWarehouse = async (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+  @action deleteWarehouse = async (id: string) => {
     this.submitting = true;
-    this.target = event.currentTarget.name;
+    this.target = id;
     try {
       await agent.Warehouses.delete(id);
       runInAction('deleting Warehouse', () => {

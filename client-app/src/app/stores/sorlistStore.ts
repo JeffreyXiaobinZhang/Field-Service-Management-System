@@ -124,9 +124,9 @@ class SORListStore {
     }
   };
 
-  @action deleteSORList = async (event: MouseEvent<HTMLAnchorElement>, name: string) => {
+  @action deleteSORList = async (name: string) => {
     this.submitting = true;
-    this.target = event.currentTarget.name;
+    this.target = name;
     try {
       await agent.SORLists.delete(name);
       runInAction('deleting SOR', () => {

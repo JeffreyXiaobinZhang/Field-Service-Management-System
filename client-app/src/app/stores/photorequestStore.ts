@@ -103,9 +103,9 @@ class PhotoRequestStore {
     }
   };
 
-  @action deletePhotoRequest = async (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+  @action deletePhotoRequest = async (id: string) => {
     this.submitting = true;
-    this.target = event.currentTarget.name;
+    this.target = id;
     try {
       await agent.PhotoRequests.delete(id);
       runInAction('deleting PhotoRequest', () => {

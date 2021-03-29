@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Technician: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [technicianId, setTechnicianId] = useState("");
   const technicianStore = useContext(TechnicianStore);
   const {techniciansByName: techniciansByName,  deleteTechnician: deleteTechnician, submitting, target} = technicianStore;
 
@@ -47,6 +48,7 @@ const Technician: React.FC = () => {
                   loading={target === technician.id && submitting}
                   onClick={() => {
                     setOpen(true);
+                    setTechnicianId(technician.id);
                   }}
                   icon="delete"
                   color="red"
@@ -56,7 +58,7 @@ const Technician: React.FC = () => {
                     open={open}
                     onCancel={() => setOpen(false)}
                     onConfirm={(e) => {
-                      deleteTechnician(e, technician.id);
+                      deleteTechnician(technicianId);
                         setOpen(false);
                     }}
                     content="Are you sure you want to delete ?"

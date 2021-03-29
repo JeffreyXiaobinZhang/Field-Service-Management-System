@@ -173,9 +173,9 @@ class TechnicianCertificateStore {
     }
   };
 
-  @action deleteTechnicianCertificate = async (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+  @action deleteTechnicianCertificate = async (id: string) => {
     this.submitting = true;
-    this.target = event.currentTarget.name;
+    this.target = id;
     try {
       await agent.TechnicianCertificates.delete(id);
       runInAction('deleting TechnicianCertificate', () => {

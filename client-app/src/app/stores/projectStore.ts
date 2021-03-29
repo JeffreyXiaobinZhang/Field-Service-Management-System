@@ -255,9 +255,9 @@ class ProjectStore {
     }
   };
 
-  @action deleteProject = async (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+  @action deleteProject = async (id: string) => {
     this.submitting = true;
-    this.target = event.currentTarget.name;
+    this.target = id;
     try {
       await agent.Projects.delete(id);
       runInAction('deleting project', () => {

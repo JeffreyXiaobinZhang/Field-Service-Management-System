@@ -14,9 +14,11 @@ import {
 import { observer } from "mobx-react-lite";
 import InvoiceStroe from "../../../app/stores/invoiceStore";
 import { Link } from "react-router-dom";
+import { setIn } from "final-form";
 
 const Invoice: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [invoiceId, setInvoiceId] = useState("");
   const invoiceStroe = useContext(InvoiceStroe);
   const {
     invoiceByDate: invoiceByDate,
@@ -66,6 +68,7 @@ const Invoice: React.FC = () => {
                     loading={target === invoice.id && submitting}
                     onClick={() => {
                       setOpen(true);
+                      setInvoiceId(invoice.id);
                     }}
                     icon="delete"
                     color="red"
@@ -75,7 +78,7 @@ const Invoice: React.FC = () => {
                     open={open}
                     onCancel={() => setOpen(false)}
                     onConfirm={(e) => {
-                        deleteInvoice(e, invoice.id);
+                        deleteInvoice(invoiceId);
                         setOpen(false);
                     }}
                     content="Are you sure you want to delete ?"

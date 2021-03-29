@@ -123,9 +123,9 @@ class CertificateStore {
     }
   };
 
-  @action deleteCertificate = async (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+  @action deleteCertificate = async (id: string) => {
     this.submitting = true;
-    this.target = event.currentTarget.name;
+    this.target = id;
     try {
       await agent.Certificates.delete(id);
       runInAction('deleting Certificate', () => {
