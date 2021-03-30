@@ -33,7 +33,9 @@ const Thirdadd: React.FC<RouteComponentProps> = ({
     contactPerson: '',
     phone:'',
     email:'',
-    project:''
+    project:'',
+    address:'',
+    remark:''
   });
 
   const handleSubmit = () => {
@@ -124,13 +126,20 @@ const Thirdadd: React.FC<RouteComponentProps> = ({
           placeholder='Email'
           value={thirdparty.email}
         />
-        {/* <Form.Input
-        label='Project'
+        <Form.Input
+        label='Address'
           onChange={handleInputChange}
-          name='project'
-          placeholder='Project'
-          value={thirdparty.project}
-        /> */}
+          name='address'
+          placeholder='Address'
+          value={thirdparty.address}
+        />
+        <Form.Input
+        label='Remark'
+          onChange={handleInputChange}
+          name='remark'
+          placeholder='Remark'
+          value={thirdparty.remark}
+        />
         <Button
           loading={submitting}
           floated='right'

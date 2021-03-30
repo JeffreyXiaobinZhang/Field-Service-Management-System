@@ -16,5 +16,7 @@ namespace Domain
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Project { get; set; }
+        public string Address { get; set; }
+        public string Remark { get; set; }
     }
 }

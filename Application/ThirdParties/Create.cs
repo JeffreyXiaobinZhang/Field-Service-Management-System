@@ -21,6 +21,8 @@ namespace Application.ThirdParties
             public string Phone { get; set; }
             public string Email { get; set; }
             public string Project { get; set; }
+            public string Address { get; set; }
+            public string Remark { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -44,7 +46,9 @@ namespace Application.ThirdParties
                     ContactPerson =  request.ContactPerson,
                     Phone = request.Phone,
                     Email = request.Email,
-                    Project = request.Project
+                    Project = request.Project,
+                    Address = request.Address,
+                    Remark = request.Remark
                 };
 
                 _context.ThirdParties.Add(activity);

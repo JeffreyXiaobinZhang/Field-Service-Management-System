@@ -9,4 +9,6 @@ export interface IThirdparty {
     phone: string;
     email: string;
     project: string;
+    address: string;
+    remark: string;
 }

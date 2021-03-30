@@ -34,7 +34,9 @@ const Thirdedit: React.FC<RouteComponentProps<DetailParams>> = ({
     contactPerson: '',
     phone:'',
     email:'',
-    project:''
+    project:'',
+    address:'',
+    remark:''
   });
    
   useEffect(() => {
@@ -104,6 +106,20 @@ const Thirdedit: React.FC<RouteComponentProps<DetailParams>> = ({
           name='email'
           placeholder='Email'
           value={thirdparty.email}
+        />
+        <Form.Input
+          label='Address'
+          onChange={handleInputChange}
+          name='address'
+          placeholder='Address'
+          value={thirdparty.address}
+        />
+        <Form.Input
+          label='Remark'
+          onChange={handleInputChange}
+          name='remark'
+          placeholder='Remark'
+          value={thirdparty.remark}
         />
         <Button
           loading={submitting}

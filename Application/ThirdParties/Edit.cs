@@ -20,6 +20,8 @@ namespace Application.ThirdParties
             public string Phone { get; set; }
             public string Email { get; set; }
             public string Project { get; set; }
+            public string Address { get; set; }
+            public string Remark { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -45,6 +47,8 @@ namespace Application.ThirdParties
                 thirdparty.Phone = request.Phone ?? thirdparty.Phone;
                 thirdparty.Email = request.Email ?? thirdparty.Email;
                 thirdparty.Project = request.Project ?? thirdparty.Project;
+                thirdparty.Address = request.Address ?? thirdparty.Address;
+                thirdparty.Remark = request.Remark ?? thirdparty.Remark;
 
                 var success = await _context.SaveChangesAsync() > 0;
 

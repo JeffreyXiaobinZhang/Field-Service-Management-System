@@ -71,10 +71,14 @@ const Thirddetail: React.FC<RouteComponentProps<DetailParams>> = ({
         <Table.Cell collapsing>Email</Table.Cell>
         <Table.Cell> {thirdparty!.email} </Table.Cell>
       </Table.Row>
-      {/* <Table.Row>
-        <Table.Cell collapsing>Project</Table.Cell>
-        <Table.Cell> {thirdparty!.project} </Table.Cell>
-      </Table.Row> */}
+      <Table.Row>
+        <Table.Cell collapsing>Address</Table.Cell>
+        <Table.Cell> {thirdparty!.address} </Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell collapsing>Remark</Table.Cell>
+        <Table.Cell> {thirdparty!.remark} </Table.Cell>
+      </Table.Row>
 
       <Table.Row>
         <Table.Cell collapsing>Create Time</Table.Cell>

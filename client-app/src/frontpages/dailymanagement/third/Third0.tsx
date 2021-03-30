@@ -38,8 +38,8 @@ const Third0: React.FC = () => {
             <Table.HeaderCell>ContactPerson</Table.HeaderCell>
             <Table.HeaderCell>Phone</Table.HeaderCell>
             <Table.HeaderCell>Email</Table.HeaderCell>
-            {/* <Table.HeaderCell>Status</Table.HeaderCell> */}
-            {/* <Table.HeaderCell>Project</Table.HeaderCell> */}
+            <Table.HeaderCell>Address</Table.HeaderCell>
+            {/* <Table.HeaderCell>Remark</Table.HeaderCell> */}
             <Table.HeaderCell width={1}>Action</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -52,6 +52,8 @@ const Third0: React.FC = () => {
               <Table.Cell>{thirdlist.contactPerson}</Table.Cell>
               <Table.Cell>{thirdlist.phone}</Table.Cell>
               <Table.Cell>{thirdlist.email}</Table.Cell>
+              <Table.Cell>{thirdlist.address}</Table.Cell>
+              {/* <Table.Cell>{thirdlist.remark}</Table.Cell> */}
               <Table.Cell>
                 <Button.Group size="mini">
                   {/* link to detail and edit */}
